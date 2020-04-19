@@ -23,7 +23,7 @@ final class HomeViewController: UIViewController {
         let largeSnippetStoryCovers = StoryVideoCoverViewModel.storyVideoCovers.map { HorizontalContent.storySnippet($0) }
         storiesCollectionView?.setupDataSourceWith( largeSnippetStoryCovers)
         
-        feedCollectionView?.setupDataSourceWith(PostViewModel.homeFeedPosts )
+        feedCollectionView?.setupDataSourceWith(PostViewModel.homeFeedPosts.shuffled())
         updateTo(traitCollection)
     }
     

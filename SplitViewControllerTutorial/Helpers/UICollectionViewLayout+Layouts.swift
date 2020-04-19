@@ -86,22 +86,20 @@ extension UICollectionViewCompositionalLayout {
             (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
 
             let insets = NSDirectionalEdgeInsets.all(1.0)
-            let groupsFraction: CGFloat = 6.0 // needs to be equal of numbers of final grouped items
+            let groupsFraction: CGFloat = 5.0 // needs to be equal of numbers of final grouped items
             /// PART 1
             let firstGroup = NSCollectionLayoutGroup.mainContentTopLeadingWith(insets, fraction: groupsFraction)
             /// PART 2
             let secondGroup = NSCollectionLayoutGroup.mainContentTopTrailingWith(insets, fraction: groupsFraction)
             /// PART3
-            let thirdGroup = NSCollectionLayoutGroup.fullSquareGroupWith(insets, fraction: groupsFraction)
+            let thirdGroup = NSCollectionLayoutGroup.mainContentBottomLeadingWith(insets, fraction: groupsFraction)
+        
+            let fourdGroup = NSCollectionLayoutGroup.mainContentBottomTrailingWith(insets, fraction: groupsFraction)
             
-            let fourdGroup = NSCollectionLayoutGroup.mainContentBottomLeadingWith(insets, fraction: groupsFraction)
+            let fifthGroup = NSCollectionLayoutGroup.mainContentVerticalRectangle(insets, fraction: groupsFraction, rectanglePosition: .bottomLeading)
             
-            let fifthGroup = NSCollectionLayoutGroup.mainContentBottomTrailingWith(insets, fraction: groupsFraction)
-            
-            let sixthGroup = NSCollectionLayoutGroup.fullSquareGroupWith(insets, fraction: groupsFraction)
-
             /// FINAL GROUP
-            let nestedSubGroups = [firstGroup, secondGroup, thirdGroup, fourdGroup, fifthGroup, sixthGroup]
+            let nestedSubGroups = [firstGroup, secondGroup, thirdGroup, fourdGroup, fifthGroup]
             let nestedSubGroupsCount = CGFloat(nestedSubGroups.count)
             
             let finalNestedGroup = NSCollectionLayoutGroup.vertical(
@@ -113,6 +111,25 @@ extension UICollectionViewCompositionalLayout {
 
             return section
 
+        }
+        return layout
+    }
+    
+    static func verticalRectanglesPerGroup() -> UICollectionViewLayout {
+        
+        let layout = UICollectionViewCompositionalLayout {
+            (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
+            let insets = NSDirectionalEdgeInsets.all(1.0)
+            let groupsFraction = CGFloat(VerticalRectanglePosition.allCases.count)
+            let nestedGroups = VerticalRectanglePosition.allCases.map { NSCollectionLayoutGroup.mainContentVerticalRectangle(insets, fraction: groupsFraction, rectanglePosition: $0) }
+            let finalNestedGroup = NSCollectionLayoutGroup.vertical(
+                layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                   heightDimension: .fractionalWidth(CGFloat(nestedGroups.count))),
+                subitems: nestedGroups)
+            let section = NSCollectionLayoutSection(group: finalNestedGroup)
+            
+            return section
+            
         }
         return layout
     }
@@ -204,21 +221,20 @@ extension NSCollectionLayoutGroup {
         let mainContentLeadingItem = NSCollectionLayoutItem.mainItem
         mainContentLeadingItem.contentInsets = insets
     
-        // Vertical Group 2 items
-        let vertircalRegularItem = NSCollectionLayoutItem.vertircalRegularItem
+        // 2 vertical groups of 2 items each.
+        let vertircalRegularItem = NSCollectionLayoutItem.verticalRegularItem
         vertircalRegularItem.contentInsets = insets
         let topTrailingGroup = NSCollectionLayoutGroup.vertical2RegularItems(vertircalRegularItem)
         
         // Horizontal top group
         let nestedTopHorizontalGroup = NSCollectionLayoutGroup.nestedHorizontalGroup([mainContentLeadingItem, topTrailingGroup])
 
-        ////  bottom Section
+        ////  bottom group
         let bottomRegularItem = NSCollectionLayoutItem.horizontalRegularItem
         bottomRegularItem.contentInsets = insets
         
-        // Horizontal bottom group
+        // Horizontal bottom group a row of 3 items
         let horizontalBottomGroup = NSCollectionLayoutGroup.horizontal3RegularItems(bottomRegularItem)
-
         
         return NSCollectionLayoutGroup.vertical(
             layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
@@ -233,7 +249,7 @@ extension NSCollectionLayoutGroup {
         trailingBigItem.contentInsets = insets
         
         // Vertical Group 2 items
-        let vertircalRegularItem = NSCollectionLayoutItem.vertircalRegularItem
+        let vertircalRegularItem = NSCollectionLayoutItem.verticalRegularItem
         vertircalRegularItem.contentInsets = insets
         let topLeadingGroup = NSCollectionLayoutGroup.vertical2RegularItems(vertircalRegularItem)
         
@@ -264,7 +280,7 @@ extension NSCollectionLayoutGroup {
         trailingBigItem.contentInsets = insets
         
         // Vertical Group 2 items
-        let vertircalRegularItem = NSCollectionLayoutItem.vertircalRegularItem
+        let vertircalRegularItem = NSCollectionLayoutItem.verticalRegularItem
         vertircalRegularItem.contentInsets = insets
         let topLeadingVerticalGroup = NSCollectionLayoutGroup.vertical2RegularItems(vertircalRegularItem)
         
@@ -289,7 +305,7 @@ extension NSCollectionLayoutGroup {
         trailingBigItem.contentInsets = insets
         
         // Vertical Group 2 items
-        let vertircalRegularItem = NSCollectionLayoutItem.vertircalRegularItem
+        let vertircalRegularItem = NSCollectionLayoutItem.verticalRegularItem
         vertircalRegularItem.contentInsets = insets
         let topTrailingVerticalGroup = NSCollectionLayoutGroup.vertical2RegularItems(vertircalRegularItem)
         
@@ -301,6 +317,61 @@ extension NSCollectionLayoutGroup {
                                                heightDimension: .fractionalHeight(1/fraction)),
             subitems: [horizontalTopGroup, nestedBottomHorizontalGroup])
     }
+    
+    /// Vertical rectangular as main content
+    
+    static func mainContentVerticalRectangle(_ insets: NSDirectionalEdgeInsets, fraction: CGFloat, rectanglePosition: VerticalRectanglePosition) -> NSCollectionLayoutGroup {
+        
+        ////  top  group
+        let rectangularVerticalitem = NSCollectionLayoutItem.verticalRectangularItem
+        rectangularVerticalitem.contentInsets = insets
+        
+        // Vertical Group A items
+        let vertircalRegularItemA = NSCollectionLayoutItem.verticalRegularItem
+        vertircalRegularItemA.contentInsets = insets
+        let topVertircalRegularItemA = NSCollectionLayoutGroup.vertical2RegularItems(vertircalRegularItemA)
+        
+        // Vertical Group B items
+        let vertircalRegularItemB = NSCollectionLayoutItem.verticalRegularItem
+        vertircalRegularItemB.contentInsets = insets
+        let topVertircalRegularItemB = NSCollectionLayoutGroup.vertical2RegularItems(vertircalRegularItemB)
+        
+        // Horizontal group main content + vertical items position
+        var nestedMainGroupItems: [NSCollectionLayoutItem] = []
+        switch rectanglePosition {
+        case .bottomLeading, .topLeading:
+            nestedMainGroupItems.append(contentsOf: [rectangularVerticalitem, topVertircalRegularItemA, topVertircalRegularItemB])
+        case .bottomTrailing, .topTrailing:
+            nestedMainGroupItems.append(contentsOf: [topVertircalRegularItemA, topVertircalRegularItemB, rectangularVerticalitem])
+        }
+        let nestedMainContentGroup = NSCollectionLayoutGroup.nestedHorizontalGroup(nestedMainGroupItems)
+        
+        /// 3 horizontal items group
+        let horizontalRegularItem = NSCollectionLayoutItem.horizontalRegularItem
+        horizontalRegularItem.contentInsets = insets
+        let horizontalThreeItemsGroup = NSCollectionLayoutGroup.horizontal3RegularItems(horizontalRegularItem)
+        
+        /// Final Main group
+        var group: [NSCollectionLayoutItem] = []
+        switch rectanglePosition {
+        case .bottomLeading, .bottomTrailing:
+            group.append(contentsOf: [horizontalThreeItemsGroup, nestedMainContentGroup])
+        case .topLeading, .topTrailing:
+            group.append(contentsOf: [nestedMainContentGroup, horizontalThreeItemsGroup])
+        }
+        
+        return NSCollectionLayoutGroup.vertical(
+            layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                               heightDimension: .fractionalHeight(1/fraction)),
+            subitems: group)
+    }
+}
+
+enum VerticalRectanglePosition: CaseIterable {
+    case topLeading
+    case topTrailing
+    case bottomLeading
+    case bottomTrailing
 }
 
 extension NSCollectionLayoutItem {
@@ -311,7 +382,7 @@ extension NSCollectionLayoutItem {
                                            heightDimension: .fractionalHeight(1.0)))
     }
     
-    static var vertircalRegularItem: NSCollectionLayoutItem {
+    static var verticalRegularItem: NSCollectionLayoutItem {
          NSCollectionLayoutItem(
             layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                heightDimension: .fractionalHeight(0.5)))
@@ -321,6 +392,12 @@ extension NSCollectionLayoutItem {
         NSCollectionLayoutItem(
         layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3),
                                            heightDimension: .fractionalHeight(1.0)))
+    }
+    
+    static var verticalRectangularItem: NSCollectionLayoutItem {
+        NSCollectionLayoutItem(
+            layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1/3),
+                                               heightDimension: .fractionalHeight(1.0)))
     }
 }
 

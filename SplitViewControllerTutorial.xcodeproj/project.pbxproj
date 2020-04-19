@@ -251,6 +251,7 @@
 		1F590E76243104850019AD4E /* SplitViewControllerTutorial */ = {
 			isa = PBXGroup;
 			children = (
+				7B233747244CDAF200E2C57F /* Layouts */,
 				1FE515AB243C10BD0003F6DB /* Theme */,
 				1F3BC4D12439357800CFE119 /* Models */,
 				1F590EEE24317A390019AD4E /* ViewModels */,
@@ -442,6 +443,13 @@
 				1FE515AC243C10C60003F6DB /* Theme.swift */,
 			);
 			path = Theme;
+			sourceTree = "<group>";
+		};
+		7B233747244CDAF200E2C57F /* Layouts */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Layouts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
