@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Root View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="RootViewController" customModule="SplitViewControllerTutorial" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="300" y="148"/>
+        </scene>
+        <!--Search View Controller-->
+        <scene sceneID="Pym-n9-a3P">
+            <objects>
+                <viewController storyboardIdentifier="SearchViewController" id="q7M-iE-7Qh" customClass="SearchViewController" customModule="SplitViewControllerTutorial" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="XMc-yD-hNJ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="peq-OC-5Ea" customClass="GridCollectionView" customModule="SplitViewControllerTutorial" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="252" width="414" height="610"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ega-ef-070" customClass="HorizontalCollectionView" customModule="SplitViewControllerTutorial" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44" width="414" height="200"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="kFd-yp-8ff"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="peq-OC-5Ea" firstAttribute="bottom" secondItem="UkZ-mc-4F8" secondAttribute="bottom" id="7hY-Yc-zBZ"/>
+                            <constraint firstItem="ega-ef-070" firstAttribute="top" secondItem="UkZ-mc-4F8" secondAttribute="top" id="CSB-s8-V2l"/>
+                            <constraint firstItem="peq-OC-5Ea" firstAttribute="trailing" secondItem="UkZ-mc-4F8" secondAttribute="trailing" id="E6X-u7-baY"/>
+                            <constraint firstItem="UkZ-mc-4F8" firstAttribute="trailing" secondItem="ega-ef-070" secondAttribute="trailing" id="P35-mt-T1P"/>
+                            <constraint firstItem="peq-OC-5Ea" firstAttribute="leading" secondItem="UkZ-mc-4F8" secondAttribute="leading" id="VRb-og-Ash"/>
+                            <constraint firstItem="peq-OC-5Ea" firstAttribute="top" secondItem="ega-ef-070" secondAttribute="bottom" constant="8" id="dyH-Ru-gll"/>
+                            <constraint firstItem="ega-ef-070" firstAttribute="leading" secondItem="XMc-yD-hNJ" secondAttribute="leading" id="srB-BC-QGM"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="UkZ-mc-4F8"/>
+                    </view>
+                    <connections>
+                        <outlet property="searchFeedCollectionView" destination="peq-OC-5Ea" id="3bz-qA-Kl4"/>
+                        <outlet property="userStoryCoverCollectionView" destination="ega-ef-070" id="9lh-OP-uJt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xtz-m6-v86" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1071.0144927536232" y="817.63392857142856"/>
+        </scene>
+        <!--Notifications View Controller-->
+        <scene sceneID="he6-Lv-8J0">
+            <objects>
+                <viewController storyboardIdentifier="NotificationsViewController" id="TBC-XC-fAg" customClass="NotificationsViewController" customModule="SplitViewControllerTutorial" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="6my-aG-S4c">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ctv-xD-mmP">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Ctv-xD-mmP" firstAttribute="top" secondItem="6my-aG-S4c" secondAttribute="top" id="1mS-qu-sMa"/>
+                            <constraint firstAttribute="bottom" secondItem="Ctv-xD-mmP" secondAttribute="bottom" id="cdT-Vf-FxV"/>
+                            <constraint firstItem="Ctv-xD-mmP" firstAttribute="leading" secondItem="6my-aG-S4c" secondAttribute="leading" id="hiL-eS-3jb"/>
+                            <constraint firstAttribute="trailing" secondItem="Ctv-xD-mmP" secondAttribute="trailing" id="pwq-Ve-8o6"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="FEA-0l-MJ7"/>
+                    </view>
+                    <connections>
+                        <outlet property="usersTableView" destination="Ctv-xD-mmP" id="Bqe-IB-R26"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jer-hX-0Hl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1116" y="-516"/>
+        </scene>
+        <!--User Profile View Controller-->
+        <scene sceneID="uVk-zH-PpJ">
+            <objects>
+                <viewController storyboardIdentifier="UserProfileViewController" id="biT-kc-3V2" customClass="UserProfileViewController" customModule="SplitViewControllerTutorial" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="28g-4H-kDI">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Am4-Iq-0hy" customClass="ProfileInfoView" customModule="SplitViewControllerTutorial" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44" width="414" height="350"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="350" id="dcP-g6-E6K"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qts-Mm-5Wu" customClass="GridCollectionView" customModule="SplitViewControllerTutorial" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="394" width="414" height="502"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Am4-Iq-0hy" firstAttribute="leading" secondItem="ipO-b4-Neg" secondAttribute="leading" id="CIX-dz-2MB"/>
+                            <constraint firstItem="Am4-Iq-0hy" firstAttribute="trailing" secondItem="ipO-b4-Neg" secondAttribute="trailing" id="IgU-0y-ExT"/>
+                            <constraint firstItem="Qts-Mm-5Wu" firstAttribute="trailing" secondItem="28g-4H-kDI" secondAttribute="trailing" id="UOJ-8v-ZIB"/>
+                            <constraint firstItem="Qts-Mm-5Wu" firstAttribute="leading" secondItem="28g-4H-kDI" secondAttribute="leading" id="VN2-YV-8Pl"/>
+                            <constraint firstItem="Qts-Mm-5Wu" firstAttribute="top" secondItem="Am4-Iq-0hy" secondAttribute="bottom" id="rZn-5g-0CJ"/>
+                            <constraint firstAttribute="bottom" secondItem="Qts-Mm-5Wu" secondAttribute="bottom" id="ubY-tl-Wdo"/>
+                            <constraint firstItem="Am4-Iq-0hy" firstAttribute="top" secondItem="ipO-b4-Neg" secondAttribute="top" id="xi1-M4-3n9"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ipO-b4-Neg"/>
+                    </view>
+                    <connections>
+                        <outlet property="feedCollectionView" destination="Qts-Mm-5Wu" id="azs-ft-aZD"/>
+                        <outlet property="userProfileView" destination="Am4-Iq-0hy" id="hNt-9y-yAa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5rz-xD-L1D" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1092.753623188406" y="1473.8839285714284"/>
+        </scene>
+        <!--Home View Controller-->
+        <scene sceneID="nZJ-5J-VAq">
+            <objects>
+                <viewController storyboardIdentifier="HomeViewController" id="mK1-9F-OLt" customClass="HomeViewController" customModule="SplitViewControllerTutorial" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="QcF-vf-sjP">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FOO-Wg-Ski" customClass="HorizontalCollectionView" customModule="SplitViewControllerTutorial" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44" width="414" height="250"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="250" id="AvD-Hj-fgZ"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p4R-eQ-laj" customClass="GridCollectionView" customModule="SplitViewControllerTutorial" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="302" width="414" height="560"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="p4R-eQ-laj" firstAttribute="leading" secondItem="xYJ-0q-2BK" secondAttribute="leading" id="FS8-gj-2mL"/>
+                            <constraint firstItem="xYJ-0q-2BK" firstAttribute="bottom" secondItem="p4R-eQ-laj" secondAttribute="bottom" id="LS4-o0-6s5"/>
+                            <constraint firstItem="FOO-Wg-Ski" firstAttribute="leading" secondItem="xYJ-0q-2BK" secondAttribute="leading" id="Pke-eg-i2s"/>
+                            <constraint firstItem="FOO-Wg-Ski" firstAttribute="trailing" secondItem="xYJ-0q-2BK" secondAttribute="trailing" id="U8o-U3-I7g"/>
+                            <constraint firstItem="p4R-eQ-laj" firstAttribute="trailing" secondItem="xYJ-0q-2BK" secondAttribute="trailing" id="XLG-XB-GQ8"/>
+                            <constraint firstItem="FOO-Wg-Ski" firstAttribute="top" secondItem="xYJ-0q-2BK" secondAttribute="top" id="ZlA-55-6fJ"/>
+                            <constraint firstItem="p4R-eQ-laj" firstAttribute="top" secondItem="FOO-Wg-Ski" secondAttribute="bottom" constant="8" id="nPs-og-qu8"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="xYJ-0q-2BK"/>
+                    </view>
+                    <connections>
+                        <outlet property="feedCollectionView" destination="p4R-eQ-laj" id="dhu-tQ-H9Z"/>
+                        <outlet property="storiesCollectionView" destination="FOO-Wg-Ski" id="Ohy-K2-26V"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lg9-0x-lny" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1092.753623188406" y="147.99107142857142"/>
+        </scene>
+        <!--Content Detail Viewcontroller-->
+        <scene sceneID="iLl-0Y-0dr">
+            <objects>
+                <viewController storyboardIdentifier="ContentDetailViewcontroller" id="nP6-kQ-7EC" customClass="ContentDetailViewcontroller" customModule="SplitViewControllerTutorial" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="DIM-Zd-SWI">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aBn-2v-KN8" customClass="VerticalFeedTableView" customModule="SplitViewControllerTutorial" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="aBn-2v-KN8" secondAttribute="bottom" id="8lD-dG-na2"/>
+                            <constraint firstItem="aBn-2v-KN8" firstAttribute="trailing" secondItem="YCe-4q-Yfs" secondAttribute="trailing" id="D1h-3v-l1C"/>
+                            <constraint firstItem="aBn-2v-KN8" firstAttribute="top" secondItem="DIM-Zd-SWI" secondAttribute="top" id="Omb-u0-hDr"/>
+                            <constraint firstItem="aBn-2v-KN8" firstAttribute="leading" secondItem="YCe-4q-Yfs" secondAttribute="leading" id="yk3-Ax-OFu"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="YCe-4q-Yfs"/>
+                    </view>
+                    <connections>
+                        <outlet property="verticalFeedTableView" destination="aBn-2v-KN8" id="vEX-b3-QrW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bxT-Ld-ITv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1911.594202898551" y="147.99107142857142"/>
+        </scene>
+    </scenes>
+</document>

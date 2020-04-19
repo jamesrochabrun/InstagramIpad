@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CircularCoverWithTitleView" customModule="SplitViewControllerTutorial" customModuleProvider="target">
+            <connections>
+                <outlet property="borderContainer" destination="2zK-CE-WGY" id="BjP-gW-6Gg"/>
+                <outlet property="imageView" destination="4YU-kg-vj3" id="uCF-eu-CsL"/>
+                <outlet property="titleLabel" destination="c2z-II-SLj" id="HHy-vN-jWp"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="KaV-Ez-cOL">
+            <rect key="frame" x="0.0" y="0.0" width="126" height="175"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2zK-CE-WGY">
+                    <rect key="frame" x="0.0" y="0.0" width="126" height="126"/>
+                    <subviews>
+                        <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="4YU-kg-vj3" customClass="ImageView" customModule="SplitViewControllerTutorial" customModuleProvider="target">
+                            <rect key="frame" x="3" y="3" width="120" height="120"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="4YU-kg-vj3" firstAttribute="leading" secondItem="2zK-CE-WGY" secondAttribute="leading" constant="3" id="0aJ-Pc-i2A"/>
+                        <constraint firstAttribute="bottom" secondItem="4YU-kg-vj3" secondAttribute="bottom" constant="3" id="2Qk-iq-Cua"/>
+                        <constraint firstAttribute="trailing" secondItem="4YU-kg-vj3" secondAttribute="trailing" constant="3" id="F6f-zH-gRr"/>
+                        <constraint firstAttribute="width" secondItem="2zK-CE-WGY" secondAttribute="height" multiplier="1:1" id="k2b-Qo-HwS"/>
+                        <constraint firstItem="4YU-kg-vj3" firstAttribute="top" secondItem="2zK-CE-WGY" secondAttribute="top" constant="3" id="qAO-8r-FTS"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c2z-II-SLj">
+                    <rect key="frame" x="0.0" y="136" width="126" height="39"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="c2z-II-SLj" firstAttribute="bottom" secondItem="1Dx-YH-PST" secondAttribute="bottom" id="7qe-dY-u6I"/>
+                <constraint firstItem="2zK-CE-WGY" firstAttribute="top" secondItem="KaV-Ez-cOL" secondAttribute="top" id="83v-45-whH"/>
+                <constraint firstItem="c2z-II-SLj" firstAttribute="top" secondItem="2zK-CE-WGY" secondAttribute="bottom" priority="999" constant="10" id="Ur2-ab-9h5"/>
+                <constraint firstItem="c2z-II-SLj" firstAttribute="top" relation="lessThanOrEqual" secondItem="2zK-CE-WGY" secondAttribute="bottom" constant="28.5" id="WJg-QH-1x9"/>
+                <constraint firstItem="c2z-II-SLj" firstAttribute="trailing" secondItem="2zK-CE-WGY" secondAttribute="trailing" id="aDV-i9-F8x"/>
+                <constraint firstItem="c2z-II-SLj" firstAttribute="leading" secondItem="2zK-CE-WGY" secondAttribute="leading" id="aeA-Tr-HR4"/>
+                <constraint firstItem="2zK-CE-WGY" firstAttribute="leading" secondItem="1Dx-YH-PST" secondAttribute="leading" id="b8r-l7-hyu"/>
+                <constraint firstItem="2zK-CE-WGY" firstAttribute="trailing" secondItem="1Dx-YH-PST" secondAttribute="trailing" id="pzP-iG-1D5"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="1Dx-YH-PST"/>
+            <point key="canvasLocation" x="-59.420289855072468" y="373.32589285714283"/>
+        </view>
+    </objects>
+</document>

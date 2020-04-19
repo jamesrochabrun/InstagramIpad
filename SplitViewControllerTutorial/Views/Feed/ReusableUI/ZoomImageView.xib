@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ZoomImageView" customModule="SplitViewControllerTutorial" customModuleProvider="target">
+            <connections>
+                <outlet property="postImageView" destination="TCv-CI-lmY" id="hcf-5T-69W"/>
+                <outlet property="zoomScrollView" destination="Ue6-lR-dZO" id="D91-ns-Dg9"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="nlE-oV-1YC">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="414"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ue6-lR-dZO">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="414"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TCv-CI-lmY">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="414"/>
+                        </imageView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="TCv-CI-lmY" firstAttribute="leading" secondItem="Ue6-lR-dZO" secondAttribute="leading" id="BXN-07-Pwu"/>
+                        <constraint firstAttribute="trailing" secondItem="TCv-CI-lmY" secondAttribute="trailing" id="H11-LR-GOf"/>
+                        <constraint firstItem="TCv-CI-lmY" firstAttribute="height" secondItem="Ue6-lR-dZO" secondAttribute="height" id="Ndk-iu-S0S"/>
+                        <constraint firstAttribute="bottom" secondItem="TCv-CI-lmY" secondAttribute="bottom" id="jPo-em-cly"/>
+                        <constraint firstItem="TCv-CI-lmY" firstAttribute="width" secondItem="Ue6-lR-dZO" secondAttribute="width" id="jsE-0b-aHX"/>
+                        <constraint firstAttribute="top" secondItem="TCv-CI-lmY" secondAttribute="top" id="pKR-CB-2ao"/>
+                    </constraints>
+                    <viewLayoutGuide key="safeArea" id="ksb-gu-IE9"/>
+                    <viewLayoutGuide key="contentLayoutGuide" id="F93-as-4gn"/>
+                    <viewLayoutGuide key="frameLayoutGuide" id="GaN-o6-xID"/>
+                </scrollView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Ue6-lR-dZO" secondAttribute="trailing" id="bhg-sQ-JsC"/>
+                <constraint firstAttribute="bottom" secondItem="Ue6-lR-dZO" secondAttribute="bottom" id="hY3-qJ-iv4"/>
+                <constraint firstItem="Ue6-lR-dZO" firstAttribute="top" secondItem="nlE-oV-1YC" secondAttribute="top" id="vwh-lJ-AxE"/>
+                <constraint firstItem="Ue6-lR-dZO" firstAttribute="leading" secondItem="nlE-oV-1YC" secondAttribute="leading" id="xWS-if-pzB"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="137.68115942028987" y="145.98214285714286"/>
+        </view>
+    </objects>
+</document>

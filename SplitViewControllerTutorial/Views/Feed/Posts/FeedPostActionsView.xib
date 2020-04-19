@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FeedPostActionsView" customModule="SplitViewControllerTutorial" customModuleProvider="target">
+            <connections>
+                <outlet property="commentButton" destination="A2P-39-UIs" id="p92-Lg-PJU"/>
+                <outlet property="likeButton" destination="pO2-Cm-7Lj" id="RYV-N1-vIp"/>
+                <outlet property="saveButton" destination="ZeU-xt-M8I" id="mwE-lH-fUJ"/>
+                <outlet property="shareButton" destination="bYP-iQ-xWu" id="aSl-Go-wh7"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="wUp-3U-BFz">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="55"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="JUV-Ax-JaI">
+                    <rect key="frame" x="20" y="0.0" width="156" height="55"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pO2-Cm-7Lj">
+                            <rect key="frame" x="0.0" y="7.5" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="40" id="AHr-UW-hUv"/>
+                                <constraint firstAttribute="height" constant="40" id="JSE-Mu-iut"/>
+                            </constraints>
+                            <state key="normal" image="heart"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A2P-39-UIs">
+                            <rect key="frame" x="58" y="7.5" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="dge-zW-fyb"/>
+                                <constraint firstAttribute="width" constant="40" id="wCp-PK-gdY"/>
+                            </constraints>
+                            <state key="normal" image="bubble"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bYP-iQ-xWu">
+                            <rect key="frame" x="116" y="7.5" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="40" id="VXt-cM-WT9"/>
+                                <constraint firstAttribute="height" constant="40" id="g4f-j9-FuA"/>
+                            </constraints>
+                            <state key="normal" image="send"/>
+                        </button>
+                    </subviews>
+                </stackView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZeU-xt-M8I">
+                    <rect key="frame" x="354" y="7.5" width="40" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="P7e-7X-tjw"/>
+                        <constraint firstAttribute="width" constant="40" id="w2Z-2g-gXv"/>
+                    </constraints>
+                    <state key="normal" image="save"/>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="JUV-Ax-JaI" secondAttribute="bottom" priority="999" id="2sQ-lc-aya"/>
+                <constraint firstItem="WZj-aH-geY" firstAttribute="bottom" secondItem="ZeU-xt-M8I" secondAttribute="bottom" priority="999" id="FK1-ur-yZu"/>
+                <constraint firstItem="ZeU-xt-M8I" firstAttribute="centerY" secondItem="wUp-3U-BFz" secondAttribute="centerY" id="OFw-oh-Wzc"/>
+                <constraint firstItem="JUV-Ax-JaI" firstAttribute="leading" secondItem="wUp-3U-BFz" secondAttribute="leading" constant="20" id="VxJ-85-ANh"/>
+                <constraint firstAttribute="trailing" secondItem="ZeU-xt-M8I" secondAttribute="trailing" constant="20" id="YK1-xJ-wiD"/>
+                <constraint firstItem="JUV-Ax-JaI" firstAttribute="top" secondItem="wUp-3U-BFz" secondAttribute="top" priority="999" id="bAI-lm-YGk"/>
+                <constraint firstItem="JUV-Ax-JaI" firstAttribute="centerY" secondItem="wUp-3U-BFz" secondAttribute="centerY" id="cBF-LV-Om8"/>
+                <constraint firstItem="ZeU-xt-M8I" firstAttribute="top" secondItem="wUp-3U-BFz" secondAttribute="top" priority="999" id="nsU-A3-Ywf"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="WZj-aH-geY"/>
+            <point key="canvasLocation" x="50.724637681159422" y="428.23660714285711"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="bubble" width="50" height="50"/>
+        <image name="heart" width="50" height="50"/>
+        <image name="save" width="50" height="50"/>
+        <image name="send" width="50" height="50"/>
+    </resources>
+</document>
