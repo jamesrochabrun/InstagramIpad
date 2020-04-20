@@ -31,32 +31,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="peq-OC-5Ea" customClass="GridCollectionView" customModule="SplitViewControllerTutorial" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="252" width="414" height="610"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ega-ef-070" customClass="HorizontalCollectionView" customModule="SplitViewControllerTutorial" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44" width="414" height="200"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="kFd-yp-8ff"/>
-                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="peq-OC-5Ea" firstAttribute="top" secondItem="XMc-yD-hNJ" secondAttribute="top" id="7Di-GR-TPe"/>
                             <constraint firstItem="peq-OC-5Ea" firstAttribute="bottom" secondItem="UkZ-mc-4F8" secondAttribute="bottom" id="7hY-Yc-zBZ"/>
-                            <constraint firstItem="ega-ef-070" firstAttribute="top" secondItem="UkZ-mc-4F8" secondAttribute="top" id="CSB-s8-V2l"/>
                             <constraint firstItem="peq-OC-5Ea" firstAttribute="trailing" secondItem="UkZ-mc-4F8" secondAttribute="trailing" id="E6X-u7-baY"/>
-                            <constraint firstItem="UkZ-mc-4F8" firstAttribute="trailing" secondItem="ega-ef-070" secondAttribute="trailing" id="P35-mt-T1P"/>
                             <constraint firstItem="peq-OC-5Ea" firstAttribute="leading" secondItem="UkZ-mc-4F8" secondAttribute="leading" id="VRb-og-Ash"/>
-                            <constraint firstItem="peq-OC-5Ea" firstAttribute="top" secondItem="ega-ef-070" secondAttribute="bottom" constant="8" id="dyH-Ru-gll"/>
-                            <constraint firstItem="ega-ef-070" firstAttribute="leading" secondItem="XMc-yD-hNJ" secondAttribute="leading" id="srB-BC-QGM"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="UkZ-mc-4F8"/>
                     </view>
                     <connections>
                         <outlet property="searchFeedCollectionView" destination="peq-OC-5Ea" id="3bz-qA-Kl4"/>
-                        <outlet property="userStoryCoverCollectionView" destination="ega-ef-070" id="9lh-OP-uJt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xtz-m6-v86" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -142,15 +131,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FOO-Wg-Ski" customClass="HorizontalCollectionView" customModule="SplitViewControllerTutorial" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44" width="414" height="250"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="250" id="AvD-Hj-fgZ"/>
-                                </constraints>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p4R-eQ-laj" customClass="GridCollectionView" customModule="SplitViewControllerTutorial" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="302" width="414" height="560"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
@@ -158,17 +140,13 @@
                         <constraints>
                             <constraint firstItem="p4R-eQ-laj" firstAttribute="leading" secondItem="xYJ-0q-2BK" secondAttribute="leading" id="FS8-gj-2mL"/>
                             <constraint firstItem="xYJ-0q-2BK" firstAttribute="bottom" secondItem="p4R-eQ-laj" secondAttribute="bottom" id="LS4-o0-6s5"/>
-                            <constraint firstItem="FOO-Wg-Ski" firstAttribute="leading" secondItem="xYJ-0q-2BK" secondAttribute="leading" id="Pke-eg-i2s"/>
-                            <constraint firstItem="FOO-Wg-Ski" firstAttribute="trailing" secondItem="xYJ-0q-2BK" secondAttribute="trailing" id="U8o-U3-I7g"/>
                             <constraint firstItem="p4R-eQ-laj" firstAttribute="trailing" secondItem="xYJ-0q-2BK" secondAttribute="trailing" id="XLG-XB-GQ8"/>
-                            <constraint firstItem="FOO-Wg-Ski" firstAttribute="top" secondItem="xYJ-0q-2BK" secondAttribute="top" id="ZlA-55-6fJ"/>
-                            <constraint firstItem="p4R-eQ-laj" firstAttribute="top" secondItem="FOO-Wg-Ski" secondAttribute="bottom" constant="8" id="nPs-og-qu8"/>
+                            <constraint firstItem="p4R-eQ-laj" firstAttribute="top" secondItem="QcF-vf-sjP" secondAttribute="top" id="gLU-Mw-L8w"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="xYJ-0q-2BK"/>
                     </view>
                     <connections>
                         <outlet property="feedCollectionView" destination="p4R-eQ-laj" id="dhu-tQ-H9Z"/>
-                        <outlet property="storiesCollectionView" destination="FOO-Wg-Ski" id="Ohy-K2-26V"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lg9-0x-lny" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

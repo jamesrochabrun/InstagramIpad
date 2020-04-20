@@ -19,14 +19,11 @@ final class SearchViewController: UIViewController {
     }()
     
     @IBOutlet private var searchFeedCollectionView: GridCollectionView!
-    @IBOutlet private var userStoryCoverCollectionView: HorizontalCollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.searchController = searchController
         searchFeedCollectionView?.setupDataSourceWith(PostViewModel.searchFeedPlaceholderPosts)
-        let userStoryCovers = UserStoryCoverViewModel.userProfileStoryCovers.map { HorizontalContent.userStoryCircularCover($0) }
-        userStoryCoverCollectionView?.setupDataSourceWith(userStoryCovers)
         updateTo(traitCollection)
     }
     
@@ -38,7 +35,6 @@ final class SearchViewController: UIViewController {
     
     private func updateTo(_ traitCollection: UITraitCollection) {
         searchFeedCollectionView?.setupLayoutKind(.search(traitCollection))
-        userStoryCoverCollectionView?.setupLayoutKind(.storyUserCoverLayout(traitCollection))
         view.backgroundColor = Instagram.mainContainerBackgroundColor(traitCollection)
     }
 }

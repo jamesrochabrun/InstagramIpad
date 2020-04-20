@@ -10,7 +10,6 @@ import UIKit
 
 final class HomeViewController: UIViewController {
     
-    @IBOutlet private var storiesCollectionView: HorizontalCollectionView!
     @IBOutlet private var feedCollectionView: GridCollectionView! {
         didSet {
             feedCollectionView.delegate = self
@@ -19,17 +18,13 @@ final class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let largeSnippetStoryCovers = StoryVideoCoverViewModel.storyVideoCovers.map { HorizontalContent.storySnippet($0) }
-        storiesCollectionView?.setupDataSourceWith( largeSnippetStoryCovers)
-        
         feedCollectionView?.setupDataSourceWith(PostViewModel.homeFeedPosts.shuffled())
         updateTo(traitCollection)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        navigationController!.navigationBar.setBackgroundImage(UIImage(named: "instagramTextLogo")!, for: .default)
+        navigationController?.navigationBar.setBackgroundImage(UIImage(named: "instagramTextLogo")!, for: .default)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,7 +40,6 @@ final class HomeViewController: UIViewController {
     
     private func updateTo(_ traitCollection: UITraitCollection) {
         feedCollectionView?.setupLayoutKind(.home(traitCollection))
-        storiesCollectionView?.setupLayoutKind(.storySnippetLayout(traitCollection))
         view.backgroundColor = Instagram.mainContainerBackgroundColor(traitCollection)
     }
 }

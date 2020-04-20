@@ -20,7 +20,6 @@ final class UserProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateTo(traitCollection)
         let profileInfoViewModel = UserProfileViewModel(userAvatar: UIImage(named: "sashi"),
                                                         userDataStackViewModel: UserDataStackViewModel(photoDataInfo: UserDataViewModel(numberInfo: "100", sectionInfoTitle: "Photos"),
                                                                                                        followersDataInfo: UserDataViewModel(numberInfo: "250", sectionInfoTitle: "Followers"),
@@ -28,6 +27,8 @@ final class UserProfileViewController: UIViewController {
                                                         profileDescription: UserProfileDescription(userName: "Sasha", userPersonalDescription: "✈️🇲🇽🇨🇱🇯🇵🇪🇸🇻🇬"))
         userProfileView?.setupWith(profileInfoViewModel)
         feedCollectionView?.setupDataSourceWith(PostViewModel.userFeedPosts)
+        updateTo(traitCollection)
+
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

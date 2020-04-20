@@ -38,48 +38,74 @@ struct PostMockData {
 }
 
 /// MARK:- Post kinds
-enum FileContent {
+enum FileContent: Hashable {
+    
+    var id: UUID { UUID() }
+    
     case video(VideoPostViewModel)
     case photo(PhotoPostViewModel)
-}
-
-extension FileContent: Equatable {
+    
     static func == (lhs: FileContent, rhs: FileContent) -> Bool {
-        switch (lhs, rhs) {
-        case (let .photo(lhsPhoto), let .photo(rhsPhoto)):
-            return lhsPhoto == rhsPhoto
-        case (let .video(lhsVideo), let .video(rhsVideo)) :
-            return lhsVideo == rhsVideo
-        default:
-            return false
-        }
+        lhs.id == rhs.id
     }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
 }
+//
+//extension FileContent: Equatable {
+//    static func == (lhs: FileContent, rhs: FileContent) -> Bool {
+//        switch (lhs, rhs) {
+//        case (let .photo(lhsPhoto), let .photo(rhsPhoto)):
+//            return lhsPhoto == rhsPhoto
+//        case (let .video(lhsVideo), let .video(rhsVideo)) :
+//            return lhsVideo == rhsVideo
+//        default:
+//            return false
+//        }
+//    }
+//}
 
-extension FileContent: ContentCollection {}
 
 /// Post videp
-struct VideoPostViewModel: Equatable {
+struct VideoPostViewModel: Equatable, Hashable {
     
     let videoURL: String
+    var id: UUID { UUID() }
+
     static var videos: [VideoPostViewModel] {
         (0...50).mapRepeat(VideoPostViewModel(videoURL: ""))
+    }
+    static func == (lhs: VideoPostViewModel, rhs: VideoPostViewModel) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
 }
 
 
 /// James add posts here 
-struct PhotoPostViewModel {
+struct PhotoPostViewModel: Hashable, Equatable {
     let photoURL: String
     let image: UIImage? // for now
+    var id: UUID { UUID() }
+
     static var photos: [PhotoPostViewModel] {
         (0...50).mapRepeat(PhotoPostViewModel(photoURL: "", image: UIImage(named: "zizou")))
     }
+    static func == (lhs: PhotoPostViewModel, rhs: PhotoPostViewModel) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
 }
 
-extension PhotoPostViewModel: Equatable {
-    
-}
 
 /// MARK- Post feed full
 struct FullPostViewModel {
@@ -89,12 +115,9 @@ struct FullPostViewModel {
     let userOwner: UserViewModel
     let metaDataLocation: String
     let likedBy: [NotificationListItemViewModel]
-    var id: UUID {
-        UUID()
-        
-    }
+    var id: UUID { UUID() }
     
-    private enum CodingKeys : String, CodingKey { case contents, comments, userOwner, metaDataLocation, likedBy }
+//    private enum CodingKeys : String, CodingKey { case contents, comments, userOwner, metaDataLocation, likedBy }
 
     
     var headerPostViewModel: HeaderPostViewModel {
@@ -127,23 +150,36 @@ extension FullPostViewModel: Equatable, Hashable {
     }
 }
 
-
 /// MARK:- Post feed small
 struct PostViewModel {
-    
-    let id: String
+        
+    var id: UUID {
+        UUID()
+    }
     let content: FileContent
     
     static var userFeedPosts: [PostViewModel] {
-        PostMockData.userProfilePhotos.map { PostViewModel(id: "id", content: .photo(PhotoPostViewModel(photoURL: "", image: $0))) }
+        PostMockData.userProfilePhotos.map { PostViewModel(content: .photo(PhotoPostViewModel(photoURL: "", image: $0))) }
     }
     
     static var homeFeedPosts: [PostViewModel] {
-        PostMockData.homeFeedPhotos.map { PostViewModel(id: "id", content: .photo(PhotoPostViewModel(photoURL: "", image: $0))) }
+        PostMockData.homeFeedPhotos.map { PostViewModel(content: .photo(PhotoPostViewModel(photoURL: "", image: $0))) }
     }
     
     static var searchFeedPlaceholderPosts: [PostViewModel] {
-        PostMockData.searchFeedPlaceholderPhotos.map { PostViewModel(id: "id", content: .photo(PhotoPostViewModel(photoURL: "", image: $0))) }
+        PostMockData.searchFeedPlaceholderPhotos.map { PostViewModel(content: .photo(PhotoPostViewModel(photoURL: "", image: $0))) }
+    }
+}
+
+extension PostViewModel: Equatable, Hashable {
+    
+    static func == (lhs: PostViewModel, rhs: PostViewModel) -> Bool {
+        return
+            lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
 }
 
@@ -164,6 +200,7 @@ struct StoryVideoCoverViewModel {
     let videoURL: String
     let videoCover: UIImage?
     let userOwner: UserStoryCoverViewModel
+    var id: UUID { UUID() }
     
     static var storyVideoCovers: [StoryVideoCoverViewModel] {
         var covers: [StoryVideoCoverViewModel] = []
@@ -173,6 +210,17 @@ struct StoryVideoCoverViewModel {
             covers.append(viewModel)
         }
         return covers
+    }
+}
+
+extension StoryVideoCoverViewModel: Equatable, Hashable {
+    static func == (lhs: StoryVideoCoverViewModel, rhs: StoryVideoCoverViewModel) -> Bool {
+        return
+            lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
 }
 

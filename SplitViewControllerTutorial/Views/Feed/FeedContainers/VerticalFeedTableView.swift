@@ -19,8 +19,8 @@ final class VerticalFeedTableView: BaseXibView {
         }
     }
     
-    private var dataSource: UITableViewDiffableDataSource<Section, VerticalFeed>?
-    private var currentSnapshot: NSDiffableDataSourceSnapshot<Section, VerticalFeed>?
+    private var dataSource: UITableViewDiffableDataSource<VerticalSection, VerticalFeed>?
+    private var currentSnapshot: NSDiffableDataSourceSnapshot<VerticalSection, VerticalFeed>?
     
     func setupDataSourceWith(_ models: [VerticalFeed]) {
         
@@ -33,14 +33,11 @@ final class VerticalFeedTableView: BaseXibView {
             }
         }
         feedTableView.dataSource = dataSource
-      //  DispatchQueue.main.async {
-            self.snapshot(models)
-    //    }
     }
     
     func snapshot(_ models: [VerticalFeed]) {
         
-        currentSnapshot = NSDiffableDataSourceSnapshot<Section, VerticalFeed>()
+        currentSnapshot = NSDiffableDataSourceSnapshot<VerticalSection, VerticalFeed>()
         currentSnapshot?.appendSections([.main])
         currentSnapshot?.appendItems(models, toSection: .main)
         guard let snapShot = currentSnapshot else { return }
@@ -61,7 +58,7 @@ extension VerticalFeedTableView: UITableViewDelegate {
     }
 }
 
-enum Section {
+enum VerticalSection {
     
     case main
     
@@ -70,13 +67,16 @@ enum Section {
         case .main:
             let header = HorizontalCollectionView()
             let headerDataModels = HilightViewModel.mockHilights.map { HorizontalContent.hilightsSnippet($0) }
-            header.setupDataSourceWith(headerDataModels)
-            header.setupLayoutKind(.hilightsLayout(traitCollection))
+            
+            /// james fix 
+           // header.setupDataSourceWith(headerDataModels)
+                //  header.setupLayoutKind(.horizontalHilightsLayout(traitCollection))
             return header
         }
     }
 }
 
+/// Need to be used in diffable instances
 enum VerticalFeed: Hashable {
     
     var id: UUID { UUID() }
@@ -84,18 +84,5 @@ enum VerticalFeed: Hashable {
     static func == (lhs: VerticalFeed, rhs: VerticalFeed) -> Bool {
         lhs.id == rhs.id
     }
-    
     case userPostFeed(FullPostViewModel)
-}
-
-extension VerticalFeed: ContentCollection {}
-
-
-//struct Section<U: Hashable, T: Hashable>: Hashable {
-//    let headerItem: U
-//    let items: T
-//}
-
-struct DataSource<T: Hashable> {
-    let sections: [T]
 }

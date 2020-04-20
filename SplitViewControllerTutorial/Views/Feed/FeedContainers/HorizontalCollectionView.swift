@@ -24,17 +24,22 @@ final class HorizontalCollectionView: BaseXibView {
             collectionView.register(VideoPostCollectionViewCell.self)
         }
     }
-
-    private var dataSource: CellKindCollectionViewDataSource<HorizontalContent>?
+    
+  //      private var dataSource: CellKindCollectionViewDataSource<HorizontalContent>?
+    private var dataSource: UICollectionViewDiffableDataSource<HorizontalSection, HorizontalContent>?
+    private var currentSnapshot: NSDiffableDataSourceSnapshot<HorizontalSection, HorizontalContent>?
     
     // MARK:- Layout
     func setupLayoutKind(_ layoutKind: LayoutKind) {
         collectionView.collectionViewLayout = layoutKind.layout
     }
     
+    private var localmodels: [HorizontalContent] = []
+
+    
     func setupDataSourceWith(_ models: [HorizontalContent]) {
         
-        dataSource = CellKindCollectionViewDataSource(models: [models], configureCell: { collectionView, indexPath, model in
+        dataSource = UICollectionViewDiffableDataSource <HorizontalSection, HorizontalContent>(collectionView: collectionView) { collectionView, indexPath, model in
             switch model {
             case .hilightsSnippet(let viewModel):
                 let cell: CircularCoverWithTitleViewCell = collectionView.dequeueReusableCell(forIndexPath: indexPath)
@@ -44,7 +49,6 @@ final class HorizontalCollectionView: BaseXibView {
                 let cell: StoryVideoCollectionViewCell = collectionView.dequeueReusableCell(forIndexPath: indexPath)
                 cell.item = storySnippetViewModel
                 return cell
-                
             case .post(let fileContent):
                 switch fileContent {
                 case .photo(let photoPostViewModel):
@@ -61,21 +65,38 @@ final class HorizontalCollectionView: BaseXibView {
                 cell.item = viewModel
                 return cell
             }
-        })
+        }
         collectionView.dataSource = dataSource
+        localmodels.append(contentsOf: models)
+        
+        currentSnapshot = NSDiffableDataSourceSnapshot<HorizontalSection, HorizontalContent>()
+         currentSnapshot?.appendSections([.main])
+         currentSnapshot?.appendItems(localmodels, toSection: .main)
+         guard let snapShot = currentSnapshot else { return }
+         dataSource?.apply(snapShot, animatingDifferences: true)
     }
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        invalidateLayout()
-    }
-    
-    func invalidateLayout() {
-        collectionView.collectionViewLayout.invalidateLayout()
     }
 }
 
-enum HorizontalContent {
+/// Diff stuff
+enum HorizontalSection {
+    case main
+}
+
+enum HorizontalContent: Hashable {
+    
+    var id: UUID { UUID() }
+    
+    static func == (lhs: HorizontalContent, rhs: HorizontalContent) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
     
     case hilightsSnippet(HilightViewModel) // hilights holds an image and a title
     case storySnippet(StoryVideoCoverViewModel) // story previews
@@ -83,26 +104,28 @@ enum HorizontalContent {
     case userStoryCircularCover(UserStoryCoverViewModel)
 }
 
+
+/// layout stuff 
 enum LayoutKind {
     
-    case hilightsLayout(UITraitCollection)
-    case storySnippetLayout(UITraitCollection)
+    case horizontalHilightsLayout(UITraitCollection)
+    case horizontalStorySnippetLayout(UITraitCollection)
     case horizontalPostsLayout(UITraitCollection)
-    case storyUserCoverLayout(UITraitCollection)
+    case horizontalStoryUserCoverLayout(UITraitCollection)
     
     var layout: UICollectionViewLayout {
         switch self {
-        case .hilightsLayout(_):
-            return UICollectionViewCompositionalLayout.layoutWith(width: 120.0,
+        case .horizontalHilightsLayout(_):
+            return UICollectionViewCompositionalLayout.layoutWith(width: 130.0,
                                                                   itemInset: UIEdgeInsets(top: 10, left: 10.0, bottom: 10, right: 10.0),
                                                                   sectionInset: .zero)
-        case .storySnippetLayout(_):
-            return UICollectionViewCompositionalLayout.layoutWith(width: 140.0,
+        case .horizontalStorySnippetLayout(_):
+            return UICollectionViewCompositionalLayout.layoutWith(width: 160.0,
                                                                   itemInset: UIEdgeInsets(top: 10, left: 7.0, bottom: 10, right: 7.0),
                                                                   sectionInset: .zero)
         case .horizontalPostsLayout(_):
             return UICollectionViewCompositionalLayout.gridLayout(1, scrollAxis: .horizontal(.paging))
-        case .storyUserCoverLayout(_):
+        case .horizontalStoryUserCoverLayout(_):
             return UICollectionViewCompositionalLayout.layoutWith(width: 150.0,
                                                                   itemInset: UIEdgeInsets(top: 10, left: 12.0, bottom: 10, right: 12.0),
                                                                   sectionInset: .zero)

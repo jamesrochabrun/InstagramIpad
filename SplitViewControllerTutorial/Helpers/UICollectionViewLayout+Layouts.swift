@@ -74,6 +74,13 @@ extension UICollectionViewCompositionalLayout {
             
             let section = NSCollectionLayoutSection(group: finalNestedGroup)
             
+            let headerFooterSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                          heightDimension: .estimated(180.0))
+            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+                layoutSize: headerFooterSize,
+                elementKind:  UICollectionView.elementKindSectionHeader, alignment: .top)
+            section.boundarySupplementaryItems = [sectionHeader]
+            
             return section
             
         }
@@ -108,6 +115,13 @@ extension UICollectionViewCompositionalLayout {
              subitems: nestedSubGroups)
             
             let section = NSCollectionLayoutSection(group: finalNestedGroup)
+            
+            let headerFooterSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                          heightDimension: .estimated(300.0))
+            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+                layoutSize: headerFooterSize,
+                elementKind:  UICollectionView.elementKindSectionHeader, alignment: .top)
+            section.boundarySupplementaryItems = [sectionHeader]
 
             return section
 
