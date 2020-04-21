@@ -22,16 +22,6 @@ final class HomeViewController: UIViewController {
         updateTo(traitCollection)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        navigationController?.navigationBar.setBackgroundImage(UIImage(named: "instagramTextLogo")!, for: .default)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController!.navigationBar.setBackgroundImage(UIImage(named: "send")!, for: .default)
-    }
-    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         guard traitCollection.isDifferentToPrevious(previousTraitCollection) else { return }
@@ -47,9 +37,7 @@ final class HomeViewController: UIViewController {
 extension HomeViewController: GridCollectionViewDelegate {
     
     func cellDidSelect(_ model: PostViewModel) {
-        
-        /// Present a Profile VC
-       // self.navigationController?.present(UserProfileViewController.instantiate(from: "Main"), animated: true)
-        self.navigationController?.pushViewController(UserProfileViewController.instantiate(from: "Main"), animated: true)
+        let userProfileViewController = UserProfileViewController.instantiate(from: "Main")
+        self.navigationController?.pushViewController(userProfileViewController, animated: true)
     }
 }

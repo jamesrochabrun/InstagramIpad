@@ -25,7 +25,7 @@ final class HorizontalCollectionView: BaseXibView {
         }
     }
     
-  //      private var dataSource: CellKindCollectionViewDataSource<HorizontalContent>?
+    //      private var dataSource: CellKindCollectionViewDataSource<HorizontalContent>?
     private var dataSource: UICollectionViewDiffableDataSource<HorizontalSection, HorizontalContent>?
     private var currentSnapshot: NSDiffableDataSourceSnapshot<HorizontalSection, HorizontalContent>?
     
@@ -33,9 +33,6 @@ final class HorizontalCollectionView: BaseXibView {
     func setupLayoutKind(_ layoutKind: LayoutKind) {
         collectionView.collectionViewLayout = layoutKind.layout
     }
-    
-    private var localmodels: [HorizontalContent] = []
-
     
     func setupDataSourceWith(_ models: [HorizontalContent]) {
         
@@ -67,15 +64,17 @@ final class HorizontalCollectionView: BaseXibView {
             }
         }
         collectionView.dataSource = dataSource
-        localmodels.append(contentsOf: models)
         
+        // Snapshot
         currentSnapshot = NSDiffableDataSourceSnapshot<HorizontalSection, HorizontalContent>()
-         currentSnapshot?.appendSections([.main])
-         currentSnapshot?.appendItems(localmodels, toSection: .main)
-         guard let snapShot = currentSnapshot else { return }
-         dataSource?.apply(snapShot, animatingDifferences: true)
+        currentSnapshot?.appendSections([.main])
+        currentSnapshot?.appendItems(models, toSection: .main)
+        guard let snapShot = currentSnapshot else { return }
+        DispatchQueue.main.async {
+            self.dataSource?.apply(snapShot, animatingDifferences: false)
+        }
     }
-
+    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
     }
@@ -116,7 +115,7 @@ enum LayoutKind {
     var layout: UICollectionViewLayout {
         switch self {
         case .horizontalHilightsLayout(_):
-            return UICollectionViewCompositionalLayout.layoutWith(width: 130.0,
+            return UICollectionViewCompositionalLayout.layoutWith(width: 100.0,
                                                                   itemInset: UIEdgeInsets(top: 10, left: 10.0, bottom: 10, right: 10.0),
                                                                   sectionInset: .zero)
         case .horizontalStorySnippetLayout(_):
@@ -133,6 +132,4 @@ enum LayoutKind {
     }
 }
 
-protocol ContentCollection {}
-extension HorizontalContent: ContentCollection {}
 

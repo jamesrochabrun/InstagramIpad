@@ -20,7 +20,7 @@ final class SplitViewController: UISplitViewController {
         let button = UIButton(type: .system, image: SplitViewControllerViewModel.displayModeButtonImageFor(self.displayMode), tintColor: Instagram.tintColor(traitCollection), target: self, selector: #selector(changeDisplayMode))
         button.constrainWidth(constant: 44.0)
         button.constrainHeight(constant: 44.0)
-        button.imageEdgeInsets = .init(top: 4.0, left: 4.0, bottom: 4.0, right: 4.0)
+        button.imageEdgeInsets = .init(top: 8.0, left: 8.0, bottom: 8.0, right: 8.0)
         return button
     }()
     

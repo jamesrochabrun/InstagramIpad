@@ -28,7 +28,6 @@ final class UserProfileViewController: UIViewController {
         userProfileView?.setupWith(profileInfoViewModel)
         feedCollectionView?.setupDataSourceWith(PostViewModel.userFeedPosts)
         updateTo(traitCollection)
-
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

@@ -42,6 +42,9 @@ final class GenericTableViewDataSource<V, T>: NSObject, UITableViewDataSource wh
     }
 }
 
+protocol ContentCollection {}
+
+
 final class CellKindTableViewDataSource<T>: NSObject, UITableViewDataSource where T: ContentCollection {
     
     private var models: [[T]]

@@ -46,6 +46,11 @@ final class StoryVideoCollectionViewCell: GenericCollectionViewCell<StoryVideoCo
         userOwnerProfileCoverView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         layoutIfNeeded()
         videoImageCoverView.layer.addSublayer(bottomGradient)
+
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
         bottomGradient.frame = .init(x: 0, y: frame.height - Self.profileCoverSize.height, width: frame.width, height: Self.profileCoverSize.height)
     }
     

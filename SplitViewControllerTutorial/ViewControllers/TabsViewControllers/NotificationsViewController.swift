@@ -10,28 +10,19 @@ import UIKit
 
 final class NotificationsViewController: UIViewController {
         
-    @IBOutlet weak var usersTableView: UITableView! {
-        didSet {
-            usersTableView.register(NotificationListCell.self)
-            usersTableView.rowHeight =  UITableView.automaticDimension
-            usersTableView.estimatedRowHeight = 200
-        }
-    }
+    @IBOutlet weak var notificationsTableView: VerticalFeedTableView!
     private var dataSource: GenericTableViewDataSource<NotificationListCell, NotificationListItemViewModel>?
+    
+    private var stubData: [VerticalFeed] {
+        NotificationListItemViewModel.users.map { VerticalFeed.userNotifications($0) }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupDataSource()
+        notificationsTableView.setupDataSourceWith(stubData)
         updateTo(traitCollection)
     }
-    
-    func setupDataSource() {
-        dataSource = GenericTableViewDataSource(models: [NotificationListItemViewModel.users], configureCell: { cell, model in
-            cell.item = model
-            return cell
-        })
-        usersTableView.dataSource = dataSource
-    }
+
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)

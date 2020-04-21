@@ -26,7 +26,6 @@ final class GridCollectionView: BaseXibView {
         }
     }
     
- //   private var dataSource: CellKindCollectionViewDataSource<PostViewModel>?
     private var dataSource: UICollectionViewDiffableDataSource<GridSection, PostViewModel>?
     private var currentSnapshot: NSDiffableDataSourceSnapshot<GridSection, PostViewModel>?
     
@@ -34,16 +33,7 @@ final class GridCollectionView: BaseXibView {
     func setupLayoutKind(_ layoutKind: GridLayoutKind) {
         collectionView.collectionViewLayout = layoutKind.layout
         configureHeader(layoutKind)
-        
-        currentSnapshot = NSDiffableDataSourceSnapshot<GridSection, PostViewModel>()
-        currentSnapshot?.appendSections([.main])
-        currentSnapshot?.appendItems(localmodels, toSection: .main)
-        guard let snapShot = currentSnapshot else { return }
-        dataSource?.apply(snapShot, animatingDifferences: true)
     }
-    
-    /// DataSource
-    private var localmodels: [PostViewModel] = []
     
     func setupDataSourceWith(_ models: [PostViewModel]) {
         
@@ -61,38 +51,41 @@ final class GridCollectionView: BaseXibView {
             }
         }
         collectionView.dataSource = dataSource
-        localmodels.append(contentsOf: models)
+        
+        /// Snap
+        currentSnapshot = NSDiffableDataSourceSnapshot<GridSection, PostViewModel>()
+        currentSnapshot?.appendSections([.main])
+        currentSnapshot?.appendItems(models, toSection: .main)
+        guard let snapShot = currentSnapshot else { return }
+        
+        DispatchQueue.main.async {
+            self.dataSource?.apply(snapShot, animatingDifferences: true)
+        }
     }
     
-    
     func configureHeader(_ layoutKind: GridLayoutKind) {
-
-          dataSource?.supplementaryViewProvider = { (
-              collectionView: UICollectionView,
-              kind: String,
-              indexPath: IndexPath) -> UICollectionReusableView? in
         
+        dataSource?.supplementaryViewProvider = { (
+            collectionView: UICollectionView,
+            kind: String,
+            indexPath: IndexPath) -> UICollectionReusableView? in
+            
             let storiesCollectionViewHeader: CollectionReusableView = collectionView.dequeueSuplementaryView(of: UICollectionView.elementKindSectionHeader, at: indexPath)
             
             switch layoutKind {
             case .home(let traitCollection):
-                let largeSnippetStoryCovers = StoryVideoCoverViewModel.storyVideoCovers.map { HorizontalContent.storySnippet($0) }
+                guard let largeSnippetStoryCovers = layoutKind.horizontalStubContentForHeader else { return nil }
                 storiesCollectionViewHeader.collectionView.setupDataSourceWith(largeSnippetStoryCovers)
                 storiesCollectionViewHeader.collectionView.setupLayoutKind(.horizontalStorySnippetLayout(traitCollection))
             case .search(let traitCollection):
-                let userStoryCovers = UserStoryCoverViewModel.userProfileStoryCovers.map { HorizontalContent.userStoryCircularCover($0) }
+                guard let userStoryCovers = layoutKind.horizontalStubContentForHeader else { return nil }
                 storiesCollectionViewHeader.collectionView.setupDataSourceWith(userStoryCovers)
                 storiesCollectionViewHeader.collectionView.setupLayoutKind(.horizontalStoryUserCoverLayout(traitCollection))
             default: break
             }
-              return storiesCollectionViewHeader
-          }
-      }
-    
-//    override func layoutSubviews() {
-//        super.layoutSubviews()
-//        collectionView.collectionViewLayout.invalidateLayout()
-//    }
+            return storiesCollectionViewHeader
+        }
+    }
 }
 
 extension GridCollectionView: PhotoPostCollectionViewCellDelegate {
@@ -100,26 +93,20 @@ extension GridCollectionView: PhotoPostCollectionViewCellDelegate {
     func cellDidTapped(_ cell: PhotoPostCollectionViewCell) {
         guard let indexPath = collectionView.indexPath(for: cell) else { return }
         guard let model = self.dataSource?.itemIdentifier(for: indexPath) else { return }
-       // guard let model = dataSource?.getModelAt(indexPath) else { return }
-         delegate?.cellDidSelect(model)
+        delegate?.cellDidSelect(model)
     }
 }
 
 /// diff stuff
-
 enum GridSection {
     case main
 }
-
-
 /// Layout
-
 enum GridLayoutKind {
     
     case home(UITraitCollection)
     case search(UITraitCollection)
     case profile(UITraitCollection)
-    
     
     var layout: UICollectionViewLayout {
         switch self {
@@ -128,8 +115,15 @@ enum GridLayoutKind {
         case .profile(_): return UICollectionViewCompositionalLayout.gridLayout(3)
         }
     }
+    
+    var horizontalStubContentForHeader: [HorizontalContent]? {
+        switch self {
+        case .home(_): return StoryVideoCoverViewModel.storyVideoCovers.map { HorizontalContent.storySnippet($0) }
+        case .search(_): return UserStoryCoverViewModel.userProfileStoryCovers.map { HorizontalContent.userStoryCircularCover($0) }
+        default: return nil
+        }
+    }
 }
-
 
 final class CollectionReusableView: UICollectionReusableView {
     

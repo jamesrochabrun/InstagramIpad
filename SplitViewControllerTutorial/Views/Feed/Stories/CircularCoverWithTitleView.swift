@@ -41,7 +41,8 @@ final class CircularCoverWithTitleView: GenericView<CircularCoverDisplayWithText
     }
     
     func reuse() {
-        // todo
+        titleLabel?.text = ""
+        imageView?.setImage(nil)
     }
 }
 

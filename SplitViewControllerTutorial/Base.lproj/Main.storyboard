@@ -60,27 +60,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ctv-xD-mmP">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ElW-db-0aF" customClass="VerticalFeedTableView" customModule="SplitViewControllerTutorial" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </tableView>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Ctv-xD-mmP" firstAttribute="top" secondItem="6my-aG-S4c" secondAttribute="top" id="1mS-qu-sMa"/>
-                            <constraint firstAttribute="bottom" secondItem="Ctv-xD-mmP" secondAttribute="bottom" id="cdT-Vf-FxV"/>
-                            <constraint firstItem="Ctv-xD-mmP" firstAttribute="leading" secondItem="6my-aG-S4c" secondAttribute="leading" id="hiL-eS-3jb"/>
-                            <constraint firstAttribute="trailing" secondItem="Ctv-xD-mmP" secondAttribute="trailing" id="pwq-Ve-8o6"/>
+                            <constraint firstItem="ElW-db-0aF" firstAttribute="top" secondItem="6my-aG-S4c" secondAttribute="top" id="Iox-0U-gYn"/>
+                            <constraint firstItem="FEA-0l-MJ7" firstAttribute="trailing" secondItem="ElW-db-0aF" secondAttribute="trailing" id="RbE-tE-Mmh"/>
+                            <constraint firstAttribute="bottom" secondItem="ElW-db-0aF" secondAttribute="bottom" id="rtl-58-dkF"/>
+                            <constraint firstItem="ElW-db-0aF" firstAttribute="leading" secondItem="FEA-0l-MJ7" secondAttribute="leading" id="uUJ-Tx-ers"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="FEA-0l-MJ7"/>
                     </view>
                     <connections>
-                        <outlet property="usersTableView" destination="Ctv-xD-mmP" id="Bqe-IB-R26"/>
+                        <outlet property="notificationsTableView" destination="ElW-db-0aF" id="ggA-5D-ef2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jer-hX-0Hl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1116" y="-516"/>
+            <point key="canvasLocation" x="1114.4927536231885" y="-516.29464285714289"/>
         </scene>
         <!--User Profile View Controller-->
         <scene sceneID="uVk-zH-PpJ">

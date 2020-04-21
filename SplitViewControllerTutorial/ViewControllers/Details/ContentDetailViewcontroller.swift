@@ -12,20 +12,15 @@ final class ContentDetailViewcontroller: UIViewController {
     
     @IBOutlet private var verticalFeedTableView: VerticalFeedTableView!
     
-    var mockData: [VerticalFeed] {
-        FullPostViewModel.posts.map( { VerticalFeed.userPostFeed($0) })
+    var stubData: [VerticalFeed] {
+        FullPostViewModel.posts.map( { VerticalFeed.userPostsFeed($0) })
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        verticalFeedTableView.setupDataSourceWith(mockData)
+        verticalFeedTableView.setupDataSourceWith(stubData)
         navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
         updateTo(traitCollection)
-        verticalFeedTableView.snapshot(mockData)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

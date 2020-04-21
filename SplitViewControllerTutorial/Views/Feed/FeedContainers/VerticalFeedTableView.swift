@@ -13,76 +13,52 @@ final class VerticalFeedTableView: BaseXibView {
     @IBOutlet private var feedTableView: UITableView! {
         didSet {
             feedTableView.registerNib(FeedPostTableViewCell.self)
+            feedTableView.register(NotificationListCell.self)
             feedTableView.rowHeight = UITableView.automaticDimension
             feedTableView.estimatedRowHeight = 200
             feedTableView.delegate = self
         }
     }
-    
-    private var dataSource: UITableViewDiffableDataSource<VerticalSection, VerticalFeed>?
-    private var currentSnapshot: NSDiffableDataSourceSnapshot<VerticalSection, VerticalFeed>?
-    
+        
+    private var dataSource: CellKindTableViewDataSource<VerticalFeed>?
+
     func setupDataSourceWith(_ models: [VerticalFeed]) {
         
-        dataSource = UITableViewDiffableDataSource(tableView: feedTableView) { tableView, indexPath, model in
+        dataSource = CellKindTableViewDataSource(models: [models], configureCell: { (tableView, indexPath, model) -> UITableViewCell in
             switch model {
-            case .userPostFeed(let viewModel):
+            case .userPostsFeed(let viewModel):
                 let cell: FeedPostTableViewCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
                 cell.item = viewModel
                 return cell
+            case .userNotifications(let viewModel):
+                let cell: NotificationListCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
+                cell.item = viewModel
+                return cell
             }
-        }
+        })
         feedTableView.dataSource = dataSource
     }
-    
-    func snapshot(_ models: [VerticalFeed]) {
-        
-        currentSnapshot = NSDiffableDataSourceSnapshot<VerticalSection, VerticalFeed>()
-        currentSnapshot?.appendSections([.main])
-        currentSnapshot?.appendItems(models, toSection: .main)
-        guard let snapShot = currentSnapshot else { return }
-        dataSource?.apply(snapShot, animatingDifferences: true)
-    }
 }
-
 
 extension VerticalFeedTableView: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let sectionIdentifier = currentSnapshot?.sectionIdentifiers[section].headerForSection(traitCollection)
-        return sectionIdentifier
+        guard case VerticalFeed.userPostsFeed(_) = dataSource!.getModelAt(IndexPath(item: 0, section: section)) else { return nil }
+        let header = HorizontalCollectionView()
+        let headerDataModels = HilightViewModel.mockHilights.map { HorizontalContent.hilightsSnippet($0) }
+        header.setupDataSourceWith(headerDataModels)
+        header.setupLayoutKind(.horizontalHilightsLayout(traitCollection))
+        return header
     }
-    
+
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        170.0
+        guard case VerticalFeed.userPostsFeed(_) = dataSource!.getModelAt(IndexPath(item: 0, section: section)) else { return 0 }
+        return 140.0
     }
 }
 
-enum VerticalSection {
+enum VerticalFeed: ContentCollection {
     
-    case main
-    
-    func headerForSection(_ traitCollection: UITraitCollection) -> UIView {
-        switch self {
-        case .main:
-            let header = HorizontalCollectionView()
-            let headerDataModels = HilightViewModel.mockHilights.map { HorizontalContent.hilightsSnippet($0) }
-            
-            /// james fix 
-           // header.setupDataSourceWith(headerDataModels)
-                //  header.setupLayoutKind(.horizontalHilightsLayout(traitCollection))
-            return header
-        }
-    }
-}
-
-/// Need to be used in diffable instances
-enum VerticalFeed: Hashable {
-    
-    var id: UUID { UUID() }
-    
-    static func == (lhs: VerticalFeed, rhs: VerticalFeed) -> Bool {
-        lhs.id == rhs.id
-    }
-    case userPostFeed(FullPostViewModel)
+    case userPostsFeed(FullPostViewModel)
+    case userNotifications(NotificationListItemViewModel)
 }
