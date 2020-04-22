@@ -46,7 +46,7 @@ struct NotificationListItemViewModel {
   
         var viewModels: [NotificationListItemViewModel] = []
         for enumerated in zip(UsersMockData.userNames, UsersMockData.comments).enumerated() {
-            let photo = PostMockData.userProfilePhotos[enumerated.offset]
+            let photo = PostsStubData.userProfilePhotos[enumerated.offset]
             let userName = enumerated.element.0
             let comment = enumerated.element.1
             let user = UserViewModel(id: "", userName: userName, profilePicture: UIImage(named: "prof\(enumerated.offset)"))

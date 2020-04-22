@@ -13,7 +13,7 @@ final class ContentDetailViewcontroller: UIViewController {
     @IBOutlet private var verticalFeedTableView: VerticalFeedTableView!
     
     var stubData: [VerticalFeed] {
-        FullPostViewModel.posts.map( { VerticalFeed.userPostsFeed($0) })
+        FullPostViewModel.stubFullPosts.map( { VerticalFeed.userPostsFeed($0) })
     }
     
     override func viewDidLoad() {

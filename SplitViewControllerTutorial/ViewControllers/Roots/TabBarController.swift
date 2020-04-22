@@ -16,7 +16,7 @@ class TabBarController: UITabBarController {
     }
     
     private func childInNavigationController(_ viewModel: TabBarViewModel) -> UINavigationController {
-        let navigationController = UINavigationController(rootViewController: viewModel.mainContainerViewController)
+        let navigationController = NavigationController(rootViewController: viewModel.mainContainerViewController)
         navigationController.tabBarItem.title = viewModel.title
         navigationController.tabBarItem.image = viewModel.icon
         return navigationController

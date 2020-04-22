@@ -75,6 +75,7 @@
 		1FE515AF243D0C9E0003F6DB /* UIView+Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE515AE243D0C9E0003F6DB /* UIView+Gradient.swift */; };
 		1FE515B1243D47AA0003F6DB /* HilightViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE515B0243D47AA0003F6DB /* HilightViewModel.swift */; };
 		1FE515B32446CF970003F6DB /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE515B22446CF970003F6DB /* UIButton+Extension.swift */; };
+		7B23374B244E926C00E2C57F /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B23374A244E926C00E2C57F /* NavigationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -169,6 +170,7 @@
 		1FE515AE243D0C9E0003F6DB /* UIView+Gradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Gradient.swift"; sourceTree = "<group>"; };
 		1FE515B0243D47AA0003F6DB /* HilightViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HilightViewModel.swift; sourceTree = "<group>"; };
 		1FE515B22446CF970003F6DB /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
+		7B23374A244E926C00E2C57F /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -335,6 +337,7 @@
 				1F590EBE24311D0A0019AD4E /* SplitViewController.swift */,
 				1F590EA8243108810019AD4E /* RootViewController.swift */,
 				1F590EAA243108D40019AD4E /* TabBarController.swift */,
+				7B23374A244E926C00E2C57F /* NavigationController.swift */,
 			);
 			path = Roots;
 			sourceTree = "<group>";
@@ -618,6 +621,7 @@
 				1FE51590243947DB0003F6DB /* FeedPostActionsView.swift in Sources */,
 				1F590E78243104850019AD4E /* AppDelegate.swift in Sources */,
 				1F590EAB243108D40019AD4E /* TabBarController.swift in Sources */,
+				7B23374B244E926C00E2C57F /* NavigationController.swift in Sources */,
 				1F3BC4D024378F9200CFE119 /* StoryVideoCollectionViewCell.swift in Sources */,
 				1F4FD4FD2431A06C008F2257 /* GenericCollectionViewDataSource.swift in Sources */,
 				1F590ED824312B650019AD4E /* NotificationListUserView.swift in Sources */,

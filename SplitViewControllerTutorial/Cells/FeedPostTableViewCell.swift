@@ -20,6 +20,6 @@ final class FeedPostTableViewCell: GenericTableViewCell<FullPostViewModel> {
     
     override func setupWith(_ item: FullPostViewModel) {
         headerPostContentView.setupWith(item.headerPostViewModel)
-        postsCollectionView.setupDataSourceWith(item.contents.map { HorizontalContent.post($0) })
+        postsCollectionView.setupDataSourceWith(item.contents.map { HorizontalContent.post($0.content) })
     }
 }

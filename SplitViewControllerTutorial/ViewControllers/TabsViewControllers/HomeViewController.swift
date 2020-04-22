@@ -20,6 +20,13 @@ final class HomeViewController: UIViewController {
         super.viewDidLoad()
         feedCollectionView?.setupDataSourceWith(PostViewModel.homeFeedPosts.shuffled())
         updateTo(traitCollection)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "heart"), style: .plain, target: self, action: #selector(displayNotifications))
+    }
+    
+    @objc func displayNotifications() {
+        let notificationsViewController = NotificationsViewController.instantiate(from: "Main")
+        navigationController!.present(notificationsViewController, animated: true)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -38,6 +45,7 @@ extension HomeViewController: GridCollectionViewDelegate {
     
     func cellDidSelect(_ model: PostViewModel) {
         let userProfileViewController = UserProfileViewController.instantiate(from: "Main")
-        self.navigationController?.pushViewController(userProfileViewController, animated: true)
+        navigationController?.pushViewController(userProfileViewController, animated: true)
     }
 }
+

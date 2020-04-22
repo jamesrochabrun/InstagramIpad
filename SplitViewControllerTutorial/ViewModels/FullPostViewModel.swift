@@ -8,14 +8,13 @@
 
 import UIKit
 
-// Dummy data
-
-struct PostMockData {
+// Stub data for grid collection content
+struct PostsStubData {
     
     static var userProfilePhotos: [UIImage] {
         var photos: [UIImage?] = []
         for i in 0...36 {
-            photos.append(UIImage(named: "post\(i)"))
+            photos.append(UIImage(named: "post\(i)")) // personal user photos
         }
         return photos.compactMap { $0 }
     }
@@ -23,7 +22,7 @@ struct PostMockData {
     static var homeFeedPhotos: [UIImage] {
         var photos: [UIImage?] = []
         for i in 0...36 {
-            photos.append(UIImage(named: "home\(i)"))
+            photos.append(UIImage(named: "home\(i)")) // posts of followed users
         }
         return photos.compactMap { $0 }
     }
@@ -31,7 +30,7 @@ struct PostMockData {
     static var searchFeedPlaceholderPhotos: [UIImage] {
         var photos: [UIImage?] = []
         for i in 0...36 {
-            photos.append(UIImage(named: "search\(i)"))
+            photos.append(UIImage(named: "search\(i)")) // random posts
         }
         return photos.compactMap { $0 }
     }
@@ -75,28 +74,22 @@ struct VideoPostViewModel: Equatable, Hashable {
     let videoURL: String
     var id: UUID { UUID() }
 
-    static var videos: [VideoPostViewModel] {
-        (0...50).mapRepeat(VideoPostViewModel(videoURL: ""))
-    }
     static func == (lhs: VideoPostViewModel, rhs: VideoPostViewModel) -> Bool {
         lhs.id == rhs.id
-    }
+    }/TabBarController.swift
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
 }
 
-
 /// James add posts here 
 struct PhotoPostViewModel: Hashable, Equatable {
+    
     let photoURL: String
     let image: UIImage? // for now
     var id: UUID { UUID() }
 
-    static var photos: [PhotoPostViewModel] {
-        (0...50).mapRepeat(PhotoPostViewModel(photoURL: "", image: UIImage(named: "zizou")))
-    }
     static func == (lhs: PhotoPostViewModel, rhs: PhotoPostViewModel) -> Bool {
         lhs.id == rhs.id
     }
@@ -110,31 +103,24 @@ struct PhotoPostViewModel: Hashable, Equatable {
 /// MARK- Post feed full
 struct FullPostViewModel {
     
-    let contents: [FileContent]
+    let contents: [PostViewModel]
     let comments: [CommentViewModel]
     let userOwner: UserViewModel
     let metaDataLocation: String
     let likedBy: [NotificationListItemViewModel]
     var id: UUID { UUID() }
     
-//    private enum CodingKeys : String, CodingKey { case contents, comments, userOwner, metaDataLocation, likedBy }
-
+    //    private enum CodingKeys : String, CodingKey { case contents, comments, userOwner, metaDataLocation, likedBy }
     
     var headerPostViewModel: HeaderPostViewModel {
         HeaderPostViewModel(user: userOwner, location: metaDataLocation)
     }
     
-    static var empty: FullPostViewModel {
-        
-        FullPostViewModel(contents: PhotoPostViewModel.photos.map { FileContent.photo($0) },
-                      comments: [CommentViewModel(userName: "James", comment: "wow so cool")],
-                      userOwner: UserViewModel(id: "", userName: "Sasha", profilePicture: UIImage(named: "sashi")),
-                      metaDataLocation: "London",
-                      likedBy: [])
-    }
-    
-    static var posts: [FullPostViewModel] {
-        (0...50).mapRepeat(FullPostViewModel.empty)
+    /// used in tableview content detail
+    static var stubFullPosts: [FullPostViewModel]  {
+        PostViewModel.userFeedPosts.map {
+            FullPostViewModel(contents: (0...3).mapRepeat($0), comments: [], userOwner: UserViewModel(id: "", userName: "Sasha", profilePicture: UIImage(named: "sashi")), metaDataLocation: "Somewhere around the world", likedBy: [])
+        }
     }
 }
 
@@ -150,7 +136,7 @@ extension FullPostViewModel: Equatable, Hashable {
     }
 }
 
-/// MARK:- Post feed small
+/// MARK:- Post feed small used in grids/
 struct PostViewModel {
         
     var id: UUID {
@@ -159,15 +145,15 @@ struct PostViewModel {
     let content: FileContent
     
     static var userFeedPosts: [PostViewModel] {
-        PostMockData.userProfilePhotos.map { PostViewModel(content: .photo(PhotoPostViewModel(photoURL: "", image: $0))) }
+        PostsStubData.userProfilePhotos.map { PostViewModel(content: .photo(PhotoPostViewModel(photoURL: "", image: $0))) }
     }
     
     static var homeFeedPosts: [PostViewModel] {
-        PostMockData.homeFeedPhotos.map { PostViewModel(content: .photo(PhotoPostViewModel(photoURL: "", image: $0))) }
+        PostsStubData.homeFeedPhotos.map { PostViewModel(content: .photo(PhotoPostViewModel(photoURL: "", image: $0))) }
     }
     
     static var searchFeedPlaceholderPosts: [PostViewModel] {
-        PostMockData.searchFeedPlaceholderPhotos.map { PostViewModel(content: .photo(PhotoPostViewModel(photoURL: "", image: $0))) }
+        PostsStubData.searchFeedPlaceholderPhotos.map { PostViewModel(content: .photo(PhotoPostViewModel(photoURL: "", image: $0))) }
     }
 }
 
