@@ -30,6 +30,14 @@ struct UserProfileViewModel {
     var userAvatar: UIImage?
     let userDataStackViewModel: UserDataStackViewModel
     let profileDescription: UserProfileDescription
+    
+    static var stub: UserProfileViewModel {
+        UserProfileViewModel(userAvatar: UIImage(named: "sashi"),
+        userDataStackViewModel: UserDataStackViewModel(photoDataInfo: UserDataViewModel(numberInfo: "100", sectionInfoTitle: "Photos"),
+                                                       followersDataInfo: UserDataViewModel(numberInfo: "250", sectionInfoTitle: "Followers"),
+                                                       followingDataInfo: UserDataViewModel(numberInfo: "300", sectionInfoTitle: "Following")),
+        profileDescription: UserProfileDescription(userName: "Sasha", userPersonalDescription: "✈️🇲🇽🇨🇱🇯🇵🇪🇸🇻🇬"))
+    }
 }
 
 struct UserProfileDescription {

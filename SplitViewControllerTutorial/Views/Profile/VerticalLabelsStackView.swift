@@ -12,6 +12,7 @@ final class VerticalLabelsStackView: BaseXibView {
     
     @IBOutlet private var topLabel: UILabel!
     @IBOutlet private var bottomLabel: UILabel!
+
     
     func setupWith(_ item: HeaderSubHeaderInfo) {
         topLabel.text = item.header

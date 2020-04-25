@@ -9,9 +9,7 @@
 import UIKit
 
 final class UserProfileViewController: UIViewController {
-    
-    @IBOutlet private var userProfileView: ProfileInfoView! 
-    
+        
     @IBOutlet private var feedCollectionView: GridCollectionView! {
         didSet {
             feedCollectionView.delegate = self
@@ -20,14 +18,14 @@ final class UserProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let profileInfoViewModel = UserProfileViewModel(userAvatar: UIImage(named: "sashi"),
-                                                        userDataStackViewModel: UserDataStackViewModel(photoDataInfo: UserDataViewModel(numberInfo: "100", sectionInfoTitle: "Photos"),
-                                                                                                       followersDataInfo: UserDataViewModel(numberInfo: "250", sectionInfoTitle: "Followers"),
-                                                                                                       followingDataInfo: UserDataViewModel(numberInfo: "300", sectionInfoTitle: "Following")),
-                                                        profileDescription: UserProfileDescription(userName: "Sasha", userPersonalDescription: "✈️🇲🇽🇨🇱🇯🇵🇪🇸🇻🇬"))
-        userProfileView?.setupWith(profileInfoViewModel)
         feedCollectionView?.setupDataSourceWith(PostViewModel.userFeedPosts)
         updateTo(traitCollection)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateTo(traitCollection)
+
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

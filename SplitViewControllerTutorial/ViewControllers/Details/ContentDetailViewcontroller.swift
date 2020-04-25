@@ -19,7 +19,6 @@ final class ContentDetailViewcontroller: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         verticalFeedTableView.setupDataSourceWith(stubData)
-        navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
         updateTo(traitCollection)
     }
     
@@ -31,6 +30,7 @@ final class ContentDetailViewcontroller: UIViewController {
     
     private func updateTo(_ traitCollection: UITraitCollection) {
         view.backgroundColor = Instagram.mainContainerBackgroundColor(traitCollection)
+        navigationItem.leftBarButtonItem = traitCollection.isRegularWidthRegularHeight ? splitViewController?.displayModeButtonItem : nil
     }
 }
 

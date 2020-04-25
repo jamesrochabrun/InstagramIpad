@@ -76,7 +76,7 @@ struct VideoPostViewModel: Equatable, Hashable {
 
     static func == (lhs: VideoPostViewModel, rhs: VideoPostViewModel) -> Bool {
         lhs.id == rhs.id
-    }/TabBarController.swift
+    }
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)

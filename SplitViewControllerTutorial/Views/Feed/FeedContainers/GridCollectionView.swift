@@ -22,7 +22,8 @@ final class GridCollectionView: BaseXibView {
         didSet {
             collectionView.register(PhotoPostCollectionViewCell.self)
             collectionView.register(VideoPostCollectionViewCell.self)
-            collectionView.registerHeader(CollectionReusableView.self, kind: UICollectionView.elementKindSectionHeader)
+            collectionView.registerHeader(CollectionReusableView<HorizontalCollectionView>.self, kind: UICollectionView.elementKindSectionHeader)
+            collectionView.registerHeader(CollectionReusableView<ProfileInfoView>.self, kind: UICollectionView.elementKindSectionHeader)
         }
     }
     
@@ -54,7 +55,7 @@ final class GridCollectionView: BaseXibView {
         
         /// Snap
         currentSnapshot = NSDiffableDataSourceSnapshot<GridSection, PostViewModel>()
-        currentSnapshot?.appendSections([.main])
+        currentSnapshot?.appendSections([.headerInfo, .main])
         currentSnapshot?.appendItems(models, toSection: .main)
         guard let snapShot = currentSnapshot else { return }
         
@@ -70,20 +71,29 @@ final class GridCollectionView: BaseXibView {
             kind: String,
             indexPath: IndexPath) -> UICollectionReusableView? in
             
-            let storiesCollectionViewHeader: CollectionReusableView = collectionView.dequeueSuplementaryView(of: UICollectionView.elementKindSectionHeader, at: indexPath)
+            let header: CollectionReusableView<HorizontalCollectionView> = collectionView.dequeueSuplementaryView(of: UICollectionView.elementKindSectionHeader, at: indexPath)
             
             switch layoutKind {
             case .home(let traitCollection):
                 guard let largeSnippetStoryCovers = layoutKind.horizontalStubContentForHeader else { return nil }
-                storiesCollectionViewHeader.collectionView.setupDataSourceWith(largeSnippetStoryCovers)
-                storiesCollectionViewHeader.collectionView.setupLayoutKind(.horizontalStorySnippetLayout(traitCollection))
+                header.subView.setupDataSourceWith(largeSnippetStoryCovers)
+                header.subView.setupLayoutKind(.horizontalStorySnippetLayout(traitCollection))
             case .search(let traitCollection):
                 guard let userStoryCovers = layoutKind.horizontalStubContentForHeader else { return nil }
-                storiesCollectionViewHeader.collectionView.setupDataSourceWith(userStoryCovers)
-                storiesCollectionViewHeader.collectionView.setupLayoutKind(.horizontalStoryUserCoverLayout(traitCollection))
-            default: break
+                header.subView.setupDataSourceWith(userStoryCovers)
+                header.subView.setupLayoutKind(.horizontalStoryUserCoverLayout(traitCollection))
+            case .profile(let traitCollection):
+                if indexPath.section == 0 {
+                   let header: CollectionReusableView<ProfileInfoView> = collectionView.dequeueSuplementaryView(of: UICollectionView.elementKindSectionHeader, at: indexPath)
+                    header.subView.setupWith(UserProfileViewModel.stub)
+                    return header
+                } else {
+                    guard let hilights = layoutKind.horizontalStubContentForHeader else { return nil }
+                    header.subView.setupDataSourceWith(hilights)
+                    header.subView.setupLayoutKind(.horizontalHilightsLayout(traitCollection))
+                }
             }
-            return storiesCollectionViewHeader
+            return header
         }
     }
 }
@@ -99,6 +109,7 @@ extension GridCollectionView: PhotoPostCollectionViewCellDelegate {
 
 /// diff stuff
 enum GridSection {
+    case headerInfo
     case main
 }
 /// Layout
@@ -112,7 +123,18 @@ enum GridLayoutKind {
         switch self {
         case .home(_): return UICollectionViewCompositionalLayout.homeLayout()
         case .search(_): return UICollectionViewCompositionalLayout.searchLayout()
-        case .profile(_): return UICollectionViewCompositionalLayout.gridLayout(3)
+        case .profile(let traitCollection):
+            
+            return UICollectionViewCompositionalLayout.gridLayout(3, sectionIndexCompletion: { sectionIndex in
+                let higlightsEstimatedHeight: CGFloat = !traitCollection.isRegularWidthRegularHeight ? 110.0 : 0.1
+                let estimatedHeight: CGFloat = sectionIndex == 0 ? 350.0 : higlightsEstimatedHeight
+                let headerFooterSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                              heightDimension: .estimated(estimatedHeight))
+                let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+                    layoutSize: headerFooterSize,
+                    elementKind:  UICollectionView.elementKindSectionHeader, alignment: .top)
+                return sectionHeader
+            })
         }
     }
     
@@ -120,15 +142,15 @@ enum GridLayoutKind {
         switch self {
         case .home(_): return StoryVideoCoverViewModel.storyVideoCovers.map { HorizontalContent.storySnippet($0) }
         case .search(_): return UserStoryCoverViewModel.userProfileStoryCovers.map { HorizontalContent.userStoryCircularCover($0) }
-        default: return nil
+        case .profile(_): return HilightViewModel.mockHilights.map { HorizontalContent.hilightsSnippet($0) }
         }
     }
 }
 
-final class CollectionReusableView: UICollectionReusableView {
+final class CollectionReusableView<T: UIView>: UICollectionReusableView {
     
-    let collectionView: HorizontalCollectionView = {
-        HorizontalCollectionView()
+    let subView: T = {
+        T()
     }()
     
     override init(frame: CGRect) {
@@ -142,7 +164,7 @@ final class CollectionReusableView: UICollectionReusableView {
     }
     
     func initialize() {
-        addSubview(collectionView)
-        collectionView.fillSuperview()
+        addSubview(subView)
+        subView.fillSuperview()
     }
 }

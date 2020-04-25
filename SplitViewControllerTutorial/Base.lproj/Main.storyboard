@@ -90,33 +90,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Am4-Iq-0hy" customClass="ProfileInfoView" customModule="SplitViewControllerTutorial" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44" width="414" height="350"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="350" id="dcP-g6-E6K"/>
-                                </constraints>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qts-Mm-5Wu" customClass="GridCollectionView" customModule="SplitViewControllerTutorial" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="394" width="414" height="502"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Am4-Iq-0hy" firstAttribute="leading" secondItem="ipO-b4-Neg" secondAttribute="leading" id="CIX-dz-2MB"/>
-                            <constraint firstItem="Am4-Iq-0hy" firstAttribute="trailing" secondItem="ipO-b4-Neg" secondAttribute="trailing" id="IgU-0y-ExT"/>
+                            <constraint firstItem="Qts-Mm-5Wu" firstAttribute="top" secondItem="28g-4H-kDI" secondAttribute="top" id="JOm-Dt-h1g"/>
                             <constraint firstItem="Qts-Mm-5Wu" firstAttribute="trailing" secondItem="28g-4H-kDI" secondAttribute="trailing" id="UOJ-8v-ZIB"/>
                             <constraint firstItem="Qts-Mm-5Wu" firstAttribute="leading" secondItem="28g-4H-kDI" secondAttribute="leading" id="VN2-YV-8Pl"/>
-                            <constraint firstItem="Qts-Mm-5Wu" firstAttribute="top" secondItem="Am4-Iq-0hy" secondAttribute="bottom" id="rZn-5g-0CJ"/>
                             <constraint firstAttribute="bottom" secondItem="Qts-Mm-5Wu" secondAttribute="bottom" id="ubY-tl-Wdo"/>
-                            <constraint firstItem="Am4-Iq-0hy" firstAttribute="top" secondItem="ipO-b4-Neg" secondAttribute="top" id="xi1-M4-3n9"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ipO-b4-Neg"/>
                     </view>
                     <connections>
                         <outlet property="feedCollectionView" destination="Qts-Mm-5Wu" id="azs-ft-aZD"/>
-                        <outlet property="userProfileView" destination="Am4-Iq-0hy" id="hNt-9y-yAa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5rz-xD-L1D" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

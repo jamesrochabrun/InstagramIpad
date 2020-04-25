@@ -10,13 +10,14 @@ import UIKit
 
 final class ProfileDataView: BaseXibView {
     
-    @IBOutlet private var followingView: VerticalLabelsStackView!
-    @IBOutlet private var followersView: VerticalLabelsStackView!
     @IBOutlet private var photosDataView: VerticalLabelsStackView!
+    @IBOutlet private var followersView: VerticalLabelsStackView!
+    @IBOutlet private var followingView: VerticalLabelsStackView!
+
     
     func setupWith(_ item: UserDataStackViewModel) {
-        followingView.setupWith(item.photoDataInfo)
+        photosDataView.setupWith(item.photoDataInfo)
         followersView.setupWith(item.followersDataInfo)
-        followersView.setupWith(item.followingDataInfo)
+        followingView.setupWith(item.followingDataInfo)
     }
 }

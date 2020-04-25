@@ -114,9 +114,11 @@ enum LayoutKind {
     
     var layout: UICollectionViewLayout {
         switch self {
-        case .horizontalHilightsLayout(_):
-            return UICollectionViewCompositionalLayout.layoutWith(width: 100.0,
-                                                                  itemInset: UIEdgeInsets(top: 10, left: 10.0, bottom: 10, right: 10.0),
+        case .horizontalHilightsLayout(let traitCollection):
+            let width: CGFloat = traitCollection.isRegularWidthRegularHeight ? 100.0 : 75.0
+            let itemInset: CGFloat = traitCollection.isRegularWidthRegularHeight ? 10.0 : 8.0
+            return UICollectionViewCompositionalLayout.layoutWith(width: width,
+                                                                  itemInset: UIEdgeInsets(top: itemInset, left: itemInset, bottom: itemInset, right: itemInset),
                                                                   sectionInset: .zero)
         case .horizontalStorySnippetLayout(_):
             return UICollectionViewCompositionalLayout.layoutWith(width: 160.0,

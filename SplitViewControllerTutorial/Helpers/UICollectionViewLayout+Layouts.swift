@@ -18,7 +18,8 @@ extension UICollectionViewCompositionalLayout {
     static func gridLayout(_ columns: Int,
                            contentInsets: UIEdgeInsets = .zero,
                            sectionInset: UIEdgeInsets = .zero,
-                           scrollAxis: ScrollAxis = .vertical) -> UICollectionViewLayout {
+                           scrollAxis: ScrollAxis = .vertical,
+                           sectionIndexCompletion: ((Int) ->  NSCollectionLayoutBoundarySupplementaryItem?)? = nil) -> UICollectionViewLayout {
         
         /// columns must be >= 1
         return UICollectionViewCompositionalLayout { (sectionIndex: Int,
@@ -48,6 +49,11 @@ extension UICollectionViewCompositionalLayout {
                 section.orthogonalScrollingBehavior = scrollBehaviour
             case .vertical: break
             }
+            
+            if let suplementaryItem = sectionIndexCompletion?(sectionIndex) {
+                section.boundarySupplementaryItems = [suplementaryItem]
+            }
+            
             return section
         }
     }
@@ -79,7 +85,11 @@ extension UICollectionViewCompositionalLayout {
             let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
                 layoutSize: headerFooterSize,
                 elementKind:  UICollectionView.elementKindSectionHeader, alignment: .top)
-            section.boundarySupplementaryItems = [sectionHeader]
+            
+            /// we only want to add a header on the first section
+            if sectionIndex == 0 {
+                section.boundarySupplementaryItems = [sectionHeader]
+            }
             
             return section
             
@@ -121,7 +131,11 @@ extension UICollectionViewCompositionalLayout {
             let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
                 layoutSize: headerFooterSize,
                 elementKind:  UICollectionView.elementKindSectionHeader, alignment: .top)
-            section.boundarySupplementaryItems = [sectionHeader]
+            
+            /// we only want to add a header on the first section
+            if sectionIndex == 0 {
+                section.boundarySupplementaryItems = [sectionHeader]
+            }
 
             return section
 
