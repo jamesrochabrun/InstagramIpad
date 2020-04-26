@@ -43,7 +43,7 @@ final class HomeViewController: UIViewController {
 
 extension HomeViewController: GridCollectionViewDelegate {
     
-    func cellDidSelect(_ model: PostViewModel) {
+    func cellDidSelect(_ indexPath: IndexPath) {
         let userProfileViewController = UserProfileViewController.instantiate(from: "Main")
         navigationController?.pushViewController(userProfileViewController, animated: true)
     }

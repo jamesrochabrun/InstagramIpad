@@ -17,7 +17,6 @@ class TabBarController: UITabBarController {
     
     private func childInNavigationController(_ viewModel: TabBarViewModel) -> UINavigationController {
         let navigationController = NavigationController(rootViewController: viewModel.mainContainerViewController)
-        navigationController.tabBarItem.title = viewModel.title
         navigationController.tabBarItem.image = viewModel.icon
         return navigationController
     }
@@ -32,7 +31,13 @@ enum TabBarViewModel: String, CaseIterable {
     case profile
     
     var icon: UIImage? {
-        nil
+        switch self {
+        case .home: return UIImage(systemName: "house.fill")
+        case .search: return UIImage(systemName: "magnifyingglass")
+        case .camera: return UIImage(systemName: "plus.app")
+        case .notifications: return UIImage(systemName: "suit.heart")
+        case .profile: return UIImage(systemName: "person")
+        }
     }
     
     var title: String {

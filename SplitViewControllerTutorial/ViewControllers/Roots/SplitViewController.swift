@@ -97,6 +97,6 @@ extension UIView {
 struct SplitViewControllerViewModel {
     
     static func displayModeButtonImageFor(_ displayMode: UISplitViewController.DisplayMode) -> UIImage? {
-        displayMode == .allVisible ? UIImage(named: "expand") : UIImage(named: "collapse")
+        displayMode == .allVisible ? UIImage(systemName: "arrow.up.left.and.arrow.down.right") : UIImage(systemName: "arrow.down.right.and.arrow.up.left")
     }
 }

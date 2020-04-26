@@ -38,6 +38,14 @@ final class VerticalFeedTableView: BaseXibView {
         })
         feedTableView.dataSource = dataSource
     }
+    
+    // MARK:- Public
+    func scrollTo(_ indexPath: IndexPath) {
+        let normalizedIndexPath = IndexPath(row: indexPath.item, section: 0)
+        DispatchQueue.main.async {
+            self.feedTableView?.scrollToRow(at: normalizedIndexPath, at: .top, animated: false)
+        }
+    }
 }
 
 extension VerticalFeedTableView: UITableViewDelegate {
@@ -53,7 +61,7 @@ extension VerticalFeedTableView: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         guard case VerticalFeed.userPostsFeed(_) = dataSource!.getModelAt(IndexPath(item: 0, section: section)) else { return 0 }
-        return 140.0
+        return traitCollection.isRegularWidthRegularHeight ? 140.0 : 0
     }
 }
 

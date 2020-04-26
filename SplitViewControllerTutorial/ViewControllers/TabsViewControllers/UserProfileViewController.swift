@@ -35,16 +35,17 @@ final class UserProfileViewController: UIViewController {
      }
      
     private func updateTo(_ traitCollection: UITraitCollection) {
-        feedCollectionView?.setupLayoutKind(.profile(traitCollection))
+        feedCollectionView?.setupLayoutKind(.profile(traitCollection, collapsed: splitViewController?.isCollapsed ?? false))
         view.backgroundColor = Instagram.mainContainerBackgroundColor(traitCollection)
     }
 }
 
 extension UserProfileViewController: GridCollectionViewDelegate {
 
-    func cellDidSelect(_ model: PostViewModel) {
+    func cellDidSelect(_ indexPath: IndexPath) {
         
         let contentViewController = ContentDetailViewcontroller.instantiate(from: "Main")
         splitViewController?.showDetailEmbededinNavigationController(vc: contentViewController, sender: self)
+        contentViewController.selectedIndexPath = indexPath
     }
 }

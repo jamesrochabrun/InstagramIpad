@@ -9,7 +9,7 @@
 import UIKit
 
 protocol GridCollectionViewDelegate: AnyObject {
-    func cellDidSelect(_ model: PostViewModel)
+    func cellDidSelect(_ indexPath: IndexPath)
 }
 
 final class GridCollectionView: BaseXibView {
@@ -30,6 +30,8 @@ final class GridCollectionView: BaseXibView {
     private var dataSource: UICollectionViewDiffableDataSource<GridSection, PostViewModel>?
     private var currentSnapshot: NSDiffableDataSourceSnapshot<GridSection, PostViewModel>?
     
+    private var privateModels: [PostViewModel] = []
+    
     /// MARK:-  Layout
     func setupLayoutKind(_ layoutKind: GridLayoutKind) {
         collectionView.collectionViewLayout = layoutKind.layout
@@ -38,6 +40,7 @@ final class GridCollectionView: BaseXibView {
     
     func setupDataSourceWith(_ models: [PostViewModel]) {
         
+        privateModels.append(contentsOf: models)
         dataSource = UICollectionViewDiffableDataSource <GridSection, PostViewModel>(collectionView: collectionView) { collectionView, indexPath, model in
             switch model.content {
             case .photo(let photoPostViewModel):
@@ -65,7 +68,7 @@ final class GridCollectionView: BaseXibView {
     }
     
     func configureHeader(_ layoutKind: GridLayoutKind) {
-        
+                
         dataSource?.supplementaryViewProvider = { (
             collectionView: UICollectionView,
             kind: String,
@@ -82,7 +85,7 @@ final class GridCollectionView: BaseXibView {
                 guard let userStoryCovers = layoutKind.horizontalStubContentForHeader else { return nil }
                 header.subView.setupDataSourceWith(userStoryCovers)
                 header.subView.setupLayoutKind(.horizontalStoryUserCoverLayout(traitCollection))
-            case .profile(let traitCollection):
+            case .profile(let traitCollection, _):
                 if indexPath.section == 0 {
                    let header: CollectionReusableView<ProfileInfoView> = collectionView.dequeueSuplementaryView(of: UICollectionView.elementKindSectionHeader, at: indexPath)
                     header.subView.setupWith(UserProfileViewModel.stub)
@@ -102,8 +105,7 @@ extension GridCollectionView: PhotoPostCollectionViewCellDelegate {
     
     func cellDidTapped(_ cell: PhotoPostCollectionViewCell) {
         guard let indexPath = collectionView.indexPath(for: cell) else { return }
-        guard let model = self.dataSource?.itemIdentifier(for: indexPath) else { return }
-        delegate?.cellDidSelect(model)
+        delegate?.cellDidSelect(indexPath)
     }
 }
 
@@ -117,22 +119,27 @@ enum GridLayoutKind {
     
     case home(UITraitCollection)
     case search(UITraitCollection)
-    case profile(UITraitCollection)
+    case profile(UITraitCollection, collapsed: Bool = false)
     
     var layout: UICollectionViewLayout {
         switch self {
-        case .home(_): return UICollectionViewCompositionalLayout.homeLayout()
+        case .home(let trait):
+            return UICollectionViewCompositionalLayout.homeLayout()
+           // return trait.isRegularWidthRegularHeight ? UICollectionViewCompositionalLayout.homeLayout() : UICollectionViewCompositionalLayout.gridLayout(2)
         case .search(_): return UICollectionViewCompositionalLayout.searchLayout()
-        case .profile(let traitCollection):
+        case .profile(_, let collapsed):
             
             return UICollectionViewCompositionalLayout.gridLayout(3, sectionIndexCompletion: { sectionIndex in
-                let higlightsEstimatedHeight: CGFloat = !traitCollection.isRegularWidthRegularHeight ? 110.0 : 0.1
+                let higlightsEstimatedHeight: CGFloat = collapsed ?  110.0 : 0.1
                 let estimatedHeight: CGFloat = sectionIndex == 0 ? 350.0 : higlightsEstimatedHeight
                 let headerFooterSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                                               heightDimension: .estimated(estimatedHeight))
                 let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
                     layoutSize: headerFooterSize,
                     elementKind:  UICollectionView.elementKindSectionHeader, alignment: .top)
+//                guard sectionIndex == 0  else {
+//                    return collapsed ? sectionHeader : nil
+//                }
                 return sectionHeader
             })
         }

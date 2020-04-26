@@ -16,10 +16,15 @@ final class ContentDetailViewcontroller: UIViewController {
         FullPostViewModel.stubFullPosts.map( { VerticalFeed.userPostsFeed($0) })
     }
     
+    // MARK:- Public
+    var selectedIndexPath: IndexPath?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         verticalFeedTableView.setupDataSourceWith(stubData)
         updateTo(traitCollection)
+        guard let indexPath = selectedIndexPath else { return }
+              verticalFeedTableView?.scrollTo(indexPath)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

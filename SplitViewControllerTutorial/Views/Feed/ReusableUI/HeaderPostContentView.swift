@@ -18,7 +18,11 @@ final class HeaderPostContentView: BaseXibView {
     @IBOutlet private var profileImageView: ImageView!
     @IBOutlet private var usernameLabel: UILabel!
     @IBOutlet private var locationLabel: UILabel!
-    @IBOutlet private var actionButton: UIButton!
+    @IBOutlet private var actionButton: UIButton! {
+        didSet {
+            actionButton.setImage(UIImage(systemName: "ellipsis"), for: .normal)
+        }
+    }
     
     override func setUpViews() {
         actionButton?.tintColor = Instagram.tintColor(traitCollection)

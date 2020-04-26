@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,8 +20,8 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="55"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="JUV-Ax-JaI">
-                    <rect key="frame" x="20" y="0.0" width="156" height="55"/>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="JUV-Ax-JaI">
+                    <rect key="frame" x="20" y="0.0" width="148" height="55"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pO2-Cm-7Lj">
                             <rect key="frame" x="0.0" y="7.5" width="40" height="40"/>
@@ -29,23 +29,20 @@
                                 <constraint firstAttribute="width" constant="40" id="AHr-UW-hUv"/>
                                 <constraint firstAttribute="height" constant="40" id="JSE-Mu-iut"/>
                             </constraints>
-                            <state key="normal" image="heart"/>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A2P-39-UIs">
-                            <rect key="frame" x="58" y="7.5" width="40" height="40"/>
+                            <rect key="frame" x="54" y="7.5" width="40" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="dge-zW-fyb"/>
                                 <constraint firstAttribute="width" constant="40" id="wCp-PK-gdY"/>
                             </constraints>
-                            <state key="normal" image="bubble"/>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bYP-iQ-xWu">
-                            <rect key="frame" x="116" y="7.5" width="40" height="40"/>
+                            <rect key="frame" x="108" y="7.5" width="40" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="40" id="VXt-cM-WT9"/>
                                 <constraint firstAttribute="height" constant="40" id="g4f-j9-FuA"/>
                             </constraints>
-                            <state key="normal" image="send"/>
                         </button>
                     </subviews>
                 </stackView>
@@ -55,7 +52,6 @@
                         <constraint firstAttribute="height" constant="40" id="P7e-7X-tjw"/>
                         <constraint firstAttribute="width" constant="40" id="w2Z-2g-gXv"/>
                     </constraints>
-                    <state key="normal" image="save"/>
                 </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -74,10 +70,4 @@
             <point key="canvasLocation" x="50.724637681159422" y="428.23660714285711"/>
         </view>
     </objects>
-    <resources>
-        <image name="bubble" width="50" height="50"/>
-        <image name="heart" width="50" height="50"/>
-        <image name="save" width="50" height="50"/>
-        <image name="send" width="50" height="50"/>
-    </resources>
 </document>
