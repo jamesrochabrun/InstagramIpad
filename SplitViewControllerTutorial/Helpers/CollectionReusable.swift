@@ -12,7 +12,6 @@ protocol CollectionReusable {}
 
 /// Disclaimer: From Apple UI engineer - its allow to force cast the cell in this method, if it fails its mostly another issue in the implementation.
 
-
 /// MARK:- UITableView
 extension CollectionReusable where Self: UITableViewCell  {
     static var reuseIdentifier: String {

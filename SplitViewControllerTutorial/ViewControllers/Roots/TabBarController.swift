@@ -12,13 +12,7 @@ class TabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewControllers = TabBarViewModel.allCases.map { childInNavigationController($0).inSplitViewControllerIfSupported(for: $0) }
-    }
-    
-    private func childInNavigationController(_ viewModel: TabBarViewModel) -> UINavigationController {
-        let navigationController = NavigationController(rootViewController: viewModel.mainContainerViewController)
-        navigationController.tabBarItem.image = viewModel.icon
-        return navigationController
+        viewControllers = TabBarViewModel.allCases.map { NavigationController(rootViewController: $0.masterViewController).inSplitViewControllerIfSupported(for: $0) }
     }
 }
 
@@ -44,7 +38,7 @@ enum TabBarViewModel: String, CaseIterable {
         rawValue
     }
     
-    var mainContainerViewController: UIViewController  {
+    var masterViewController: UIViewController  {
         switch self {
         case .home: return HomeViewController.instantiate(from: "Main")
         case .search: return SearchViewController.instantiate(from: "Main")
@@ -67,7 +61,11 @@ enum TabBarViewModel: String, CaseIterable {
 extension UINavigationController {
     
     func inSplitViewControllerIfSupported(for viewModel: TabBarViewModel) -> UIViewController {
-        guard viewModel.inSplitViewController else { return self }
-        return SplitViewController(viewControllers: [self, EmptyDetailViewcontroller()])
+        guard viewModel.inSplitViewController else {
+            self.tabBarItem.image = viewModel.icon
+            return self }
+        let splitViewController = SplitViewController(viewControllers: [self, EmptyDetailViewcontroller()])
+        splitViewController.tabBarItem.image = viewModel.icon
+        return splitViewController
     }
 }

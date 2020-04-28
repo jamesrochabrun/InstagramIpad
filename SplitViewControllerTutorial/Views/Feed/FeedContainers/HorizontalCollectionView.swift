@@ -25,12 +25,11 @@ final class HorizontalCollectionView: BaseXibView {
         }
     }
     
-    //      private var dataSource: CellKindCollectionViewDataSource<HorizontalContent>?
     private var dataSource: UICollectionViewDiffableDataSource<HorizontalSection, HorizontalContent>?
     private var currentSnapshot: NSDiffableDataSourceSnapshot<HorizontalSection, HorizontalContent>?
     
     // MARK:- Layout
-    func setupLayoutKind(_ layoutKind: LayoutKind) {
+    func setupLayoutKind(_ layoutKind: HorizontalLayoutKind) {
         collectionView.collectionViewLayout = layoutKind.layout
     }
     
@@ -74,10 +73,6 @@ final class HorizontalCollectionView: BaseXibView {
             self.dataSource?.apply(snapShot, animatingDifferences: false)
         }
     }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-    }
 }
 
 /// Diff stuff
@@ -105,28 +100,24 @@ enum HorizontalContent: Hashable {
 
 
 /// layout stuff 
-enum LayoutKind {
+enum HorizontalLayoutKind {
     
-    case horizontalHilightsLayout(UITraitCollection)
-    case horizontalStorySnippetLayout(UITraitCollection)
-    case horizontalPostsLayout(UITraitCollection)
-    case horizontalStoryUserCoverLayout(UITraitCollection)
+    case horizontalHilightsLayout
+    case horizontalStorySnippetLayout
+    case horizontalPostsLayout
+    case horizontalStoryUserCoverLayout
     
     var layout: UICollectionViewLayout {
         switch self {
-        case .horizontalHilightsLayout(let traitCollection):
-            let width: CGFloat = traitCollection.isRegularWidthRegularHeight ? 100.0 : 75.0
-            let itemInset: CGFloat = traitCollection.isRegularWidthRegularHeight ? 10.0 : 8.0
-            return UICollectionViewCompositionalLayout.layoutWith(width: width,
-                                                                  itemInset: UIEdgeInsets(top: itemInset, left: itemInset, bottom: itemInset, right: itemInset),
-                                                                  sectionInset: .zero)
-        case .horizontalStorySnippetLayout(_):
-            return UICollectionViewCompositionalLayout.layoutWith(width: 160.0,
-                                                                  itemInset: UIEdgeInsets(top: 10, left: 7.0, bottom: 10, right: 7.0),
-                                                                  sectionInset: .zero)
-        case .horizontalPostsLayout(_):
+        case .horizontalHilightsLayout: return UICollectionViewCompositionalLayout.horizontalHilightsLayout()
+        case .horizontalStorySnippetLayout:
+            let dimension = LayoutDimension(itemWidth: (160.0, 100.0),
+                                            itemInset: (.init(top: 10.0, left: 7.0, bottom: 10.0, right: 7.0), .init(top: 10.0, left: 7.0, bottom: 10.0, right: 7.0)),
+                                            sectionInset: (.zero, .zero))
+            return UICollectionViewCompositionalLayout.layoutWithDimension(dimension)
+        case .horizontalPostsLayout:
             return UICollectionViewCompositionalLayout.gridLayout(1, scrollAxis: .horizontal(.paging))
-        case .horizontalStoryUserCoverLayout(_):
+        case .horizontalStoryUserCoverLayout:
             return UICollectionViewCompositionalLayout.layoutWith(width: 150.0,
                                                                   itemInset: UIEdgeInsets(top: 10, left: 12.0, bottom: 10, right: 12.0),
                                                                   sectionInset: .zero)

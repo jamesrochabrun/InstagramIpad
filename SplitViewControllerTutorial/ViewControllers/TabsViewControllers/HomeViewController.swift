@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class HomeViewController: UIViewController {
+final class HomeViewController: ViewController {
     
     @IBOutlet private var feedCollectionView: GridCollectionView! {
         didSet {
@@ -19,25 +19,13 @@ final class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         feedCollectionView?.setupDataSourceWith(PostViewModel.homeFeedPosts.shuffled())
-        updateTo(traitCollection)
-        
+        feedCollectionView?.setupLayoutKind(.home)
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "heart"), style: .plain, target: self, action: #selector(displayNotifications))
     }
     
     @objc func displayNotifications() {
         let notificationsViewController = NotificationsViewController.instantiate(from: "Main")
-        navigationController!.present(notificationsViewController, animated: true)
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        guard traitCollection.isDifferentToPrevious(previousTraitCollection) else { return }
-        updateTo(traitCollection)
-    }
-    
-    private func updateTo(_ traitCollection: UITraitCollection) {
-        feedCollectionView?.setupLayoutKind(.home(traitCollection))
-        view.backgroundColor = Instagram.mainContainerBackgroundColor(traitCollection)
+        navigationController?.present(notificationsViewController, animated: true)
     }
 }
 

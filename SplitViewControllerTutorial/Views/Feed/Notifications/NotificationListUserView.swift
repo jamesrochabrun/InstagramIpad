@@ -11,7 +11,11 @@ import UIKit
 final class NotificationListUserView: GenericView<NotificationListItemViewModel> {
     
     @IBOutlet private var profileImageView: ImageView!
-    @IBOutlet private var contentLabel: UILabel!
+    @IBOutlet private var contentLabel: PrimaryLabel! {
+        didSet {
+            contentLabel.textColor = .label
+        }
+    }
     @IBOutlet private var postImageView: UIImageView!
     
     override func setupWith(_ item: NotificationListItemViewModel) {

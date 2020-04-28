@@ -11,7 +11,8 @@ import UIKit
 final class NavigationController: UINavigationController {
     
     override func viewDidLoad() {
-        super.viewDidLoad()        
-        navigationItem.rightBarButtonItems?.forEach { $0.tintColor = .white }
+        super.viewDidLoad()
+        
+            //  navigationItem.rightBarButtonItems?.forEach { $0.tintColor = .white }
     }
 }

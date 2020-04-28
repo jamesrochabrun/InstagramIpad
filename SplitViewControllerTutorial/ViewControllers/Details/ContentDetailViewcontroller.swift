@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class ContentDetailViewcontroller: UIViewController {
+final class ContentDetailViewcontroller: ViewController {
     
     @IBOutlet private var verticalFeedTableView: VerticalFeedTableView!
     
@@ -19,12 +19,18 @@ final class ContentDetailViewcontroller: UIViewController {
     // MARK:- Public
     var selectedIndexPath: IndexPath?
     
+    @IBOutlet weak var tableViewTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var tableViewLeadingConstraint: NSLayoutConstraint!
     override func viewDidLoad() {
         super.viewDidLoad()
         verticalFeedTableView.setupDataSourceWith(stubData)
         updateTo(traitCollection)
         guard let indexPath = selectedIndexPath else { return }
               verticalFeedTableView?.scrollTo(indexPath)
+    }
+    
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        verticalFeedTableView?.reload(animated: false)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -34,7 +40,6 @@ final class ContentDetailViewcontroller: UIViewController {
     }
     
     private func updateTo(_ traitCollection: UITraitCollection) {
-        view.backgroundColor = Instagram.mainContainerBackgroundColor(traitCollection)
         navigationItem.leftBarButtonItem = traitCollection.isRegularWidthRegularHeight ? splitViewController?.displayModeButtonItem : nil
     }
 }
@@ -42,10 +47,19 @@ final class ContentDetailViewcontroller: UIViewController {
 extension ContentDetailViewcontroller: DisplayModeUpdatable {
     
     func displayModeWillChangeTo(_ displayMode: UISplitViewController.DisplayMode) {
-    //    hilightsCollectionView.invalidateLayout()
+        
+        verticalFeedTableView?.displayMode = displayMode
+        let constant: CGFloat = displayMode
+            != .allVisible ? 100 : 0
+        tableViewTrailingConstraint?.constant = -constant
+        tableViewLeadingConstraint?.constant = constant
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
+        verticalFeedTableView?.reload(animated: true)
     }
     
     func displayModeDidChangeTo(_ displayMode: UISplitViewController.DisplayMode) {
-        
+        // Perform an action if needed
     }
 }

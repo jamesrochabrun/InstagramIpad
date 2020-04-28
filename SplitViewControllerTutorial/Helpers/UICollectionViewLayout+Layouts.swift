@@ -8,94 +8,30 @@
 
 import UIKit
 
+// MARK:- Helper Models
+
 enum ScrollAxis {
     case vertical
     case horizontal(UICollectionLayoutSectionOrthogonalScrollingBehavior)
 }
 
+enum VerticalRectanglePosition: CaseIterable {
+    case topLeading
+    case topTrailing
+    case bottomLeading
+    case bottomTrailing
+}
+
+struct LayoutDimension {
+    let itemWidth: (regularWidthHeight: CGFloat, compact: CGFloat)
+    let itemInset: (regularWidthHeight: UIEdgeInsets, compact: UIEdgeInsets)
+    let sectionInset: (regularWidthHeight: UIEdgeInsets, compact: UIEdgeInsets)
+}
+
+// MARK:- Master Layouts
 extension UICollectionViewCompositionalLayout {
     
-    static func gridLayout(_ columns: Int,
-                           contentInsets: UIEdgeInsets = .zero,
-                           sectionInset: UIEdgeInsets = .zero,
-                           scrollAxis: ScrollAxis = .vertical,
-                           sectionIndexCompletion: ((Int) ->  NSCollectionLayoutBoundarySupplementaryItem?)? = nil) -> UICollectionViewLayout {
-        
-        /// columns must be >= 1
-        return UICollectionViewCompositionalLayout { (sectionIndex: Int,
-            layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
-            
-            /// cell size
-            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                  heightDimension: .fractionalHeight(1.0))
-            
-            let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            
-            /// min line spacing and the min spearator
-            item.contentInsets = NSDirectionalEdgeInsets(top: contentInsets.top, leading: contentInsets.left, bottom: contentInsets.bottom, trailing: contentInsets.right)
-                        
-            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                   heightDimension: .fractionalWidth(1.0 / CGFloat(columns)))
-            
-            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: columns)
-            
-            /// sections insets
-            let section = NSCollectionLayoutSection(group: group)
-            
-            section.contentInsets = NSDirectionalEdgeInsets(top: sectionInset.top, leading: sectionInset.left, bottom: sectionInset.bottom, trailing: sectionInset.right)
-            
-            switch scrollAxis {
-            case .horizontal(let scrollBehaviour):
-                section.orthogonalScrollingBehavior = scrollBehaviour
-            case .vertical: break
-            }
-            
-            if let suplementaryItem = sectionIndexCompletion?(sectionIndex) {
-                section.boundarySupplementaryItems = [suplementaryItem]
-            }
-            
-            return section
-        }
-    }
-    
-    static func searchLayout() -> UICollectionViewLayout {
-        let layout = UICollectionViewCompositionalLayout {
-            (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
-            
-            let groupsFraction: CGFloat = 2.0 // needs to be equal of numbers of final grouped items
-            let insets = NSDirectionalEdgeInsets.all(1.0)
-            /// PART 1
-            let firstGroup = NSCollectionLayoutGroup.mainContentTopTrailingWith(insets, fraction: groupsFraction)
-            /// PART 2
-            let secondGroup = NSCollectionLayoutGroup.mainContentTopLeadingWith(insets, fraction: groupsFraction)
-            
-            /// FINAL GROUP
-            let nestedSubGroups = [firstGroup, secondGroup]
-            let nestedSubGroupsCount = CGFloat(nestedSubGroups.count)
-            
-            let finalNestedGroup = NSCollectionLayoutGroup.vertical(
-                layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                   heightDimension: .fractionalWidth(nestedSubGroupsCount)),
-                subitems: nestedSubGroups)
-            
-            let section = NSCollectionLayoutSection(group: finalNestedGroup)
-            
-            let headerFooterSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                          heightDimension: .estimated(180.0))
-            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
-                layoutSize: headerFooterSize,
-                elementKind:  UICollectionView.elementKindSectionHeader, alignment: .top)
-            
-            /// we only want to add a header on the first section
-            if sectionIndex == 0 {
-                section.boundarySupplementaryItems = [sectionHeader]
-            }
-            
-            return section
-            
-        }
-        return layout
-    }
+    // MARK:- Home Master Layout
     
     static func homeLayout() -> UICollectionViewLayout {
         
@@ -124,10 +60,14 @@ extension UICollectionViewCompositionalLayout {
                                                 heightDimension: .fractionalWidth(nestedSubGroupsCount)),
              subitems: nestedSubGroups)
             
-            let section = NSCollectionLayoutSection(group: finalNestedGroup)
+            let isVertical = layoutEnvironment.container.contentSize.height > layoutEnvironment.container.contentSize.width
+
+            let section = isVertical ? NSCollectionLayoutSection(group: finalNestedGroup) : UICollectionViewCompositionalLayout.grid(3)
+            
+            let headerSize: CGFloat = layoutEnvironment.traitCollection.isRegularWidthRegularHeight ? 300.0 : 220.0
             
             let headerFooterSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                          heightDimension: .estimated(300.0))
+                                                          heightDimension: .estimated(headerSize))
             let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
                 layoutSize: headerFooterSize,
                 elementKind:  UICollectionView.elementKindSectionHeader, alignment: .top)
@@ -136,13 +76,171 @@ extension UICollectionViewCompositionalLayout {
             if sectionIndex == 0 {
                 section.boundarySupplementaryItems = [sectionHeader]
             }
-
             return section
-
         }
         return layout
     }
     
+    // MARK:- Search Master Layout
+    
+    static func searchLayout() -> UICollectionViewLayout {
+        let layout = UICollectionViewCompositionalLayout {
+            (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
+            
+            let groupsFraction: CGFloat = 2.0 // needs to be equal of numbers of final grouped items
+            let insets = NSDirectionalEdgeInsets.all(1.0)
+            /// PART 1
+            let firstGroup = NSCollectionLayoutGroup.mainContentTopTrailingWith(insets, fraction: groupsFraction)
+            /// PART 2
+            let secondGroup = NSCollectionLayoutGroup.mainContentTopLeadingWith(insets, fraction: groupsFraction)
+            
+            /// FINAL GROUP
+            let nestedSubGroups = [firstGroup, secondGroup]
+            let nestedSubGroupsCount = CGFloat(nestedSubGroups.count)
+            
+            let finalNestedGroup = NSCollectionLayoutGroup.vertical(
+                layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                   heightDimension: .fractionalWidth(nestedSubGroupsCount)),
+                subitems: nestedSubGroups)
+            
+            let isVertical = layoutEnvironment.container.contentSize.height > layoutEnvironment.container.contentSize.width
+
+            /// handles layout on device rotation
+            let section = isVertical ? NSCollectionLayoutSection(group: finalNestedGroup) : UICollectionViewCompositionalLayout.grid(3)
+                        
+            let headerFooterSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                          heightDimension: .estimated(180.0))
+            
+            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+                layoutSize: headerFooterSize,
+                elementKind:  UICollectionView.elementKindSectionHeader, alignment: .top)
+            
+            /// we only want to add a header on the first section
+            if sectionIndex == 0 {
+                section.boundarySupplementaryItems = [sectionHeader]
+            }
+            return section
+        }
+        return layout
+    }
+    
+    // MARK:- Profile Master Layout
+    
+    static func gridProfileLayout(_ columns: Int,
+                                  contentInsets: UIEdgeInsets = .zero,
+                                  sectionInset: UIEdgeInsets = .zero,
+                                  scrollAxis: ScrollAxis = .vertical) -> UICollectionViewLayout {
+        
+        /// columns must be >= 1
+        return UICollectionViewCompositionalLayout { (sectionIndex: Int,
+            layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
+            
+            let gridSection = UICollectionViewCompositionalLayout.grid(columns, contentInsets: contentInsets, sectionInset: sectionInset)
+            
+            switch scrollAxis {
+            case .horizontal(let scrollBehaviour):
+                gridSection.orthogonalScrollingBehavior = scrollBehaviour
+            case .vertical: break
+            }
+            
+            let higlightsEstimatedHeight: CGFloat = 110.0
+            let estimatedHeight: CGFloat = sectionIndex == 0 ? 350.0 : higlightsEstimatedHeight
+            let headerFooterSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                          heightDimension: .estimated(estimatedHeight))
+            let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(
+                layoutSize: headerFooterSize,
+                elementKind:  UICollectionView.elementKindSectionHeader, alignment: .top)
+            
+            gridSection.boundarySupplementaryItems = [sectionHeader]
+            
+            return gridSection
+        }
+    }
+    
+    // MARK:- Horizontal hilights layout.
+    
+    static func horizontalHilightsLayout() -> UICollectionViewLayout {
+        return UICollectionViewCompositionalLayout { (sectionIndex: Int,
+            layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
+            
+            let width: CGFloat = layoutEnvironment.traitCollection.isRegularWidthRegularHeight ? 100.0 : 75.0
+            let itemInset: CGFloat = layoutEnvironment.traitCollection.isRegularWidthRegularHeight ? 10.0 : 8.0
+            let sectionInset: UIEdgeInsets = .zero
+            /// ideal for squares
+            let itemSize = NSCollectionLayoutSize(widthDimension: NSCollectionLayoutDimension.absolute(width),
+                                                  heightDimension: NSCollectionLayoutDimension.fractionalHeight(1.0))
+            
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+            /// min line spacing and the min spearator
+            item.contentInsets = NSDirectionalEdgeInsets.all(itemInset)
+            
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: itemSize, subitems: [item])
+            
+            /// sections insets
+            let section = NSCollectionLayoutSection(group: group)
+            
+            section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
+            
+            section.contentInsets = NSDirectionalEdgeInsets(top: sectionInset.top, leading: sectionInset.left, bottom: sectionInset.bottom, trailing: sectionInset.right)
+            return section
+        }
+    }
+}
+
+// MARK:- Reusable Layouts
+
+extension UICollectionViewCompositionalLayout {
+    
+    static func gridLayout(_ columns: Int,
+                           contentInsets: UIEdgeInsets = .zero,
+                           sectionInset: UIEdgeInsets = .zero,
+                           scrollAxis: ScrollAxis = .vertical,
+                           sectionIndexCompletion: ((Int) ->  NSCollectionLayoutBoundarySupplementaryItem?)? = nil) -> UICollectionViewLayout {
+        
+        /// columns must be >= 1
+        return UICollectionViewCompositionalLayout { (sectionIndex: Int,
+            layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
+                        
+            let gridSection = UICollectionViewCompositionalLayout.grid(columns, contentInsets: contentInsets, sectionInset: sectionInset)
+            
+            switch scrollAxis {
+            case .horizontal(let scrollBehaviour):
+                gridSection.orthogonalScrollingBehavior = scrollBehaviour
+            case .vertical: break
+            }
+            
+            if let suplementaryItem = sectionIndexCompletion?(sectionIndex) {
+                gridSection.boundarySupplementaryItems = [suplementaryItem]
+            }
+            return gridSection
+        }
+    }
+
+    ///  Grid layout
+    static func grid(_ columns: Int, contentInsets: UIEdgeInsets = .zero, sectionInset: UIEdgeInsets = .zero) -> NSCollectionLayoutSection {
+        
+             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                   heightDimension: .fractionalHeight(1.0))
+             
+             let item = NSCollectionLayoutItem(layoutSize: itemSize)
+             
+             /// min line spacing and the min spearator
+             item.contentInsets = NSDirectionalEdgeInsets(top: contentInsets.top, leading: contentInsets.left, bottom: contentInsets.bottom, trailing: contentInsets.right)
+                         
+             let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                    heightDimension: .fractionalWidth(1.0 / CGFloat(columns)))
+             
+             let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: columns)
+             
+             /// sections insets
+             let section = NSCollectionLayoutSection(group: group)
+             
+             section.contentInsets = NSDirectionalEdgeInsets(top: sectionInset.top, leading: sectionInset.left, bottom: sectionInset.bottom, trailing: sectionInset.right)
+        
+        return section
+    }
+
+    /// item that represents a vertical rectangle.
     static func verticalRectanglesPerGroup() -> UICollectionViewLayout {
         
         let layout = UICollectionViewCompositionalLayout {
@@ -162,11 +260,42 @@ extension UICollectionViewCompositionalLayout {
         return layout
     }
     
+    /// Custom Layout constructor
     static func layoutWith(width: CGFloat, itemInset: UIEdgeInsets, sectionInset: UIEdgeInsets) -> UICollectionViewLayout {
         return UICollectionViewCompositionalLayout { (sectionIndex: Int,
             layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
 
             /// ideal for squares
+            let itemSize = NSCollectionLayoutSize(widthDimension: NSCollectionLayoutDimension.absolute(width),
+                                                  heightDimension: NSCollectionLayoutDimension.fractionalHeight(1.0))
+            
+            let item = NSCollectionLayoutItem(layoutSize: itemSize)
+            
+            /// min line spacing and the min spearator
+            item.contentInsets = NSDirectionalEdgeInsets(top: itemInset.top, leading: itemInset.left, bottom: itemInset.bottom, trailing: itemInset.right)
+    
+            let group = NSCollectionLayoutGroup.horizontal(layoutSize: itemSize, subitems: [item])
+            
+            /// sections insets
+            let section = NSCollectionLayoutSection(group: group)
+            
+            section.orthogonalScrollingBehavior = .continuousGroupLeadingBoundary
+            
+            section.contentInsets = NSDirectionalEdgeInsets(top: sectionInset.top, leading: sectionInset.left, bottom: sectionInset.bottom, trailing: sectionInset.right)
+            return section
+        }
+    }
+    
+    /// Custom Layout constructor using `LayoutDimension` helper.
+    static func layoutWithDimension(_ dimension: LayoutDimension) -> UICollectionViewLayout {
+        return UICollectionViewCompositionalLayout { (sectionIndex: Int,
+            layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
+            
+            /// ideal for squares
+            let width: CGFloat = layoutEnvironment.traitCollection.isRegularWidthRegularHeight ? dimension.itemWidth.regularWidthHeight : dimension.itemWidth.compact
+            let itemInset: UIEdgeInsets = layoutEnvironment.traitCollection.isRegularWidthRegularHeight ? dimension.itemInset.regularWidthHeight : dimension.itemInset.compact
+            let sectionInset: UIEdgeInsets =  layoutEnvironment.traitCollection.isRegularWidthRegularHeight ? dimension.sectionInset.regularWidthHeight : dimension.sectionInset.compact
+            
             let itemSize = NSCollectionLayoutSize(widthDimension: NSCollectionLayoutDimension.absolute(width),
                                                   heightDimension: NSCollectionLayoutDimension.fractionalHeight(1.0))
             
@@ -220,14 +349,7 @@ extension UICollectionViewCompositionalLayout {
     }
 }
 
-extension NSDirectionalEdgeInsets {
-    
-    static func all(_ value: CGFloat) -> NSDirectionalEdgeInsets {
-        NSDirectionalEdgeInsets(top: value, leading: value, bottom: value, trailing: value)
-    }
-}
-
-
+// MARK: Groups
 extension NSCollectionLayoutGroup {
     
     /// Returns a square full width aspect ratio 1:1
@@ -347,7 +469,6 @@ extension NSCollectionLayoutGroup {
     }
     
     /// Vertical rectangular as main content
-    
     static func mainContentVerticalRectangle(_ insets: NSDirectionalEdgeInsets, fraction: CGFloat, rectanglePosition: VerticalRectanglePosition) -> NSCollectionLayoutGroup {
         
         ////  top  group
@@ -395,13 +516,8 @@ extension NSCollectionLayoutGroup {
     }
 }
 
-enum VerticalRectanglePosition: CaseIterable {
-    case topLeading
-    case topTrailing
-    case bottomLeading
-    case bottomTrailing
-}
 
+// MARK:- Single item
 extension NSCollectionLayoutItem {
     
     static var mainItem: NSCollectionLayoutItem {
@@ -429,7 +545,7 @@ extension NSCollectionLayoutItem {
     }
 }
 
-// Siimple groups
+// MARK:- Simple groups
 extension NSCollectionLayoutGroup {
     
     static func vertical2RegularItems(_ item: NSCollectionLayoutItem) -> NSCollectionLayoutGroup {
@@ -451,5 +567,12 @@ extension NSCollectionLayoutGroup {
         layoutSize: NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
                                            heightDimension: .fractionalHeight(1/3)),
         subitem: item, count: 3)
+    }
+}
+
+extension NSDirectionalEdgeInsets {
+    
+    static func all(_ value: CGFloat) -> NSDirectionalEdgeInsets {
+        NSDirectionalEdgeInsets(top: value, leading: value, bottom: value, trailing: value)
     }
 }

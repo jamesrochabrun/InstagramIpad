@@ -7,10 +7,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Root View Controller-->
+        <!--Tab Bar Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="RootViewController" customModule="SplitViewControllerTutorial" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="TabBarController" customModule="SplitViewControllerTutorial" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -165,6 +165,8 @@
                         <viewLayoutGuide key="safeArea" id="YCe-4q-Yfs"/>
                     </view>
                     <connections>
+                        <outlet property="tableViewLeadingConstraint" destination="yk3-Ax-OFu" id="TJn-cf-wx0"/>
+                        <outlet property="tableViewTrailingConstraint" destination="D1h-3v-l1C" id="qfY-Wu-rQv"/>
                         <outlet property="verticalFeedTableView" destination="aBn-2v-KN8" id="vEX-b3-QrW"/>
                     </connections>
                 </viewController>

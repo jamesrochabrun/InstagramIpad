@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class SearchViewController: UIViewController {
+final class SearchViewController: ViewController {
     
     lazy private var searchController: UISearchController = {
         let search = UISearchController(searchResultsController: nil)
@@ -24,18 +24,7 @@ final class SearchViewController: UIViewController {
         super.viewDidLoad()
         navigationItem.searchController = searchController
         searchFeedCollectionView?.setupDataSourceWith(PostViewModel.searchFeedPlaceholderPosts)
-        updateTo(traitCollection)
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        guard traitCollection.isDifferentToPrevious(previousTraitCollection) else { return }
-        updateTo(traitCollection)
-    }
-    
-    private func updateTo(_ traitCollection: UITraitCollection) {
-        searchFeedCollectionView?.setupLayoutKind(.search(traitCollection))
-        view.backgroundColor = Instagram.mainContainerBackgroundColor(traitCollection)
+        searchFeedCollectionView?.setupLayoutKind(.search)
     }
 }
 

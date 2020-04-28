@@ -13,7 +13,7 @@ final class FeedPostTableViewCell: GenericTableViewCell<FullPostViewModel> {
     @IBOutlet var headerPostContentView: HeaderPostContentView!
     @IBOutlet var postsCollectionView: HorizontalCollectionView! {
         didSet {
-            postsCollectionView.setupLayoutKind(.horizontalPostsLayout(traitCollection))
+            postsCollectionView.setupLayoutKind(.horizontalPostsLayout)
         }
     }
     @IBOutlet var actionsView: FeedPostActionsView!

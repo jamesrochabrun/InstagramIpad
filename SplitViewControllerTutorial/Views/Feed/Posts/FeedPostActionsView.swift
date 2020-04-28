@@ -10,39 +10,29 @@ import UIKit
 
 final class FeedPostActionsView: BaseXibView {
     
-    @IBOutlet private var likeButton: UIButton! {
+    @IBOutlet private var likeButton: Button! {
         didSet {
             likeButton.setImage(UIImage(systemName: "suit.heart"), for: .normal)
         }
     }
-    @IBOutlet private var shareButton: UIButton! {
+    @IBOutlet private var shareButton: Button! {
         didSet {
             shareButton.setImage(UIImage(systemName: "paperplane"), for: .normal)
         }
     }
-    @IBOutlet private var commentButton: UIButton! {
+    @IBOutlet private var commentButton: Button! {
         didSet {
             commentButton.setImage(UIImage(systemName: "message"), for: .normal)
         }
     }
-    @IBOutlet private var saveButton: UIButton! {
+    @IBOutlet private var saveButton: Button! {
         didSet {
             saveButton.setImage(UIImage(systemName: "bookmark"), for: .normal)
         }
     }
     
-    var items: [UIButton]  {
+    var items: [Button]  {
         [likeButton, shareButton, commentButton, saveButton]
-    }
-    
-    override func setUpViews() {
-        items.forEach { $0.tintColor = Instagram.tintColor(traitCollection) }
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        guard traitCollection.isDifferentToPrevious(previousTraitCollection) else { return }
-        items.forEach { $0.tintColor = Instagram.tintColor(traitCollection) }
     }
 }
 

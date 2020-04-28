@@ -9,6 +9,7 @@
 import UIKit
 
 class GenericView<V>: BaseXibView {
+    
     var item: V? {
         didSet {
             guard let item = item else { return }

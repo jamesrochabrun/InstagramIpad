@@ -19,10 +19,9 @@ extension UIButton {
         titleLabel?.font = titleFont
     }
     
-    convenience init(type: UIButton.ButtonType, image: UIImage?, tintColor: UIColor, target: Any, selector: Selector) {
+    convenience init(type: UIButton.ButtonType, image: UIImage?, target: Any, selector: Selector) {
         self.init(type: type)
         setImage(image, for: .normal)
-        self.tintColor = tintColor
         addTarget(target, action: selector, for: .touchUpInside)
     }
 }

@@ -16,8 +16,8 @@ protocol DisplayModeUpdatable {
 final class SplitViewController: UISplitViewController {
     
     // MARK:- UI
-    lazy var displayModeCustomButton: UIButton = {
-        let button = UIButton(type: .system, image: SplitViewControllerViewModel.displayModeButtonImageFor(self.displayMode), tintColor: Instagram.tintColor(traitCollection), target: self, selector: #selector(changeDisplayMode))
+    lazy var displayModeCustomButton: Button = {
+        let button = Button(type: .system, image: SplitViewControllerViewModel.displayModeButtonImageFor(self.displayMode), target: self, selector: #selector(changeDisplayMode))
         button.constrainWidth(constant: 44.0)
         button.constrainHeight(constant: 44.0)
         button.imageEdgeInsets = .init(top: 8.0, left: 8.0, bottom: 8.0, right: 8.0)
@@ -37,13 +37,13 @@ final class SplitViewController: UISplitViewController {
         UIView.animate(withDuration: 0.3, animations: {
             self.preferredDisplayMode = self.displayMode == .allVisible ? .primaryHidden : .allVisible
             self.displayModeCustomButton.setImage(SplitViewControllerViewModel.displayModeButtonImageFor( self.preferredDisplayMode), for: .normal)
-
+            
         }) { _ in
-//            guard executing, let detailViewOnDisplayModeChange = self.detailViewController?.findLastChild(DisplayModeUpdatable.self) else { return }
-//            detailViewOnDisplayModeChange.displayModeDidChangeTo(self.displayMode)
+            if let detailViewOnDisplayModeChange = self.detailViewController as? UINavigationController, let displayModeUpdatable = detailViewOnDisplayModeChange.topViewController as? DisplayModeUpdatable  {
+                displayModeUpdatable.displayModeDidChangeTo(self.displayMode)
+            }
         }
     }
-    
     
     convenience init(viewControllers: [UIViewController]) {
         self.init()
@@ -65,32 +65,6 @@ extension SplitViewController: UISplitViewControllerDelegate {
         if let detailViewOnDisplayModeChange = svc.detailViewController as? UINavigationController, let displayModeUpdatable = detailViewOnDisplayModeChange.topViewController as? DisplayModeUpdatable  {
             displayModeUpdatable.displayModeWillChangeTo(displayMode)
         }
-    }
-}
-
-extension UISplitViewController {
-    
-    var masterViewController: UIViewController? {
-        viewControllers.first
-    }
-    var detailViewController: UIViewController? {
-        viewControllers.count > 1 ? viewControllers.last : nil
-    }
-    
-    func showDetailEmbededinNavigationController(vc: UIViewController, sender: Any?) {
-        showDetailViewController(UINavigationController(rootViewController: vc), sender: sender)
-    }
-    
-    func isDetail(_ viewController: UIViewController) -> Bool {
-        (viewController.navigationController ?? viewController) == detailViewController
-    }
-}
-
-extension UIView {
-    
-    func addBorder(_ color: UIColor) {
-        layer.borderWidth = 2.0
-        layer.borderColor = color.cgColor
     }
 }
 

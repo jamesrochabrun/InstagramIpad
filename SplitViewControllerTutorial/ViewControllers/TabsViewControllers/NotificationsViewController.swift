@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class NotificationsViewController: UIViewController {
+final class NotificationsViewController: ViewController {
         
     @IBOutlet weak var notificationsTableView: VerticalFeedTableView!
     private var dataSource: GenericTableViewDataSource<NotificationListCell, NotificationListItemViewModel>?
@@ -20,17 +20,5 @@ final class NotificationsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         notificationsTableView.setupDataSourceWith(stubData)
-        updateTo(traitCollection)
-    }
-
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        guard traitCollection.isDifferentToPrevious(previousTraitCollection) else { return }
-        updateTo(traitCollection)
-    }
-    
-    private func updateTo(_ traitCollection: UITraitCollection) {
-        view.backgroundColor = Instagram.mainContainerBackgroundColor(traitCollection)
     }
 }

@@ -8,6 +8,10 @@
 
 import UIKit
 
+/*
+ Generic collectionView Data Sources.
+*/
+
 final class GenericCollectionViewDataSource<V, T>: NSObject, UICollectionViewDataSource where V: UICollectionViewCell {
     
     private var models: [[T]]
@@ -20,7 +24,7 @@ final class GenericCollectionViewDataSource<V, T>: NSObject, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return models[section].count
+        models[section].count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -30,18 +34,17 @@ final class GenericCollectionViewDataSource<V, T>: NSObject, UICollectionViewDat
     }
     
     func getModelAt(_ indexPath: IndexPath) -> T {
-        return models[indexPath.section][indexPath.item]
+        models[indexPath.section][indexPath.item]
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return models.count
+        models.count
     }
     
     var numberOfItems: Int {
-        return models.count
+        models.count
     }
 }
-
 
 final class CellKindCollectionViewDataSource<T>: NSObject, UICollectionViewDataSource where T: ContentCollection {
     
@@ -49,14 +52,14 @@ final class CellKindCollectionViewDataSource<T>: NSObject, UICollectionViewDataS
     
     private let configureCell: CellConfiguration
     typealias CellConfiguration = (UICollectionView, IndexPath, T) -> UICollectionViewCell
-
+    
     init(models: [[T]], configureCell: @escaping CellConfiguration) {
         self.models = models
         self.configureCell = configureCell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return models[section].count
+        models[section].count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -65,14 +68,14 @@ final class CellKindCollectionViewDataSource<T>: NSObject, UICollectionViewDataS
     }
     
     func getModelAt(_ indexPath: IndexPath) -> T {
-        return models[indexPath.section][indexPath.item]
+        models[indexPath.section][indexPath.item]
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return models.count
+        models.count
     }
     
     var numberOfItems: Int {
-        return models.count
+        models.count
     }
 }

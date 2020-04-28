@@ -17,10 +17,13 @@ final class VerticalFeedTableView: BaseXibView {
             feedTableView.rowHeight = UITableView.automaticDimension
             feedTableView.estimatedRowHeight = 200
             feedTableView.delegate = self
+            feedTableView.separatorStyle = .none
         }
     }
         
     private var dataSource: CellKindTableViewDataSource<VerticalFeed>?
+    
+    var displayMode: UISplitViewController.DisplayMode = .allVisible
 
     func setupDataSourceWith(_ models: [VerticalFeed]) {
         
@@ -46,22 +49,36 @@ final class VerticalFeedTableView: BaseXibView {
             self.feedTableView?.scrollToRow(at: normalizedIndexPath, at: .top, animated: false)
         }
     }
+    
+    func reload(animated: Bool, duration: TimeInterval = 0.3) {
+        guard animated else {
+            feedTableView?.reloadData()
+            return
+        }
+        UIView.transition(with: feedTableView,
+                          duration: duration,
+                          options: .transitionCrossDissolve,
+                          animations: { self.feedTableView.reloadData() })
+    }
 }
 
 extension VerticalFeedTableView: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard case VerticalFeed.userPostsFeed(_) = dataSource!.getModelAt(IndexPath(item: 0, section: section)) else { return nil }
+        guard let dataSource = dataSource,
+        case VerticalFeed.userPostsFeed(_) = dataSource.getModelAt(IndexPath(item: 0, section: section)) else { return nil }
         let header = HorizontalCollectionView()
         let headerDataModels = HilightViewModel.mockHilights.map { HorizontalContent.hilightsSnippet($0) }
         header.setupDataSourceWith(headerDataModels)
-        header.setupLayoutKind(.horizontalHilightsLayout(traitCollection))
+        header.setupLayoutKind(.horizontalHilightsLayout)
         return header
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        guard case VerticalFeed.userPostsFeed(_) = dataSource!.getModelAt(IndexPath(item: 0, section: section)) else { return 0 }
-        return traitCollection.isRegularWidthRegularHeight ? 140.0 : 0
+        
+        guard let dataSource = dataSource,
+        case VerticalFeed.userPostsFeed(_) = dataSource.getModelAt(IndexPath(item: 0, section: section)) else { return 0 }
+        return displayMode != .allVisible ? 140.0 : 0
     }
 }
 

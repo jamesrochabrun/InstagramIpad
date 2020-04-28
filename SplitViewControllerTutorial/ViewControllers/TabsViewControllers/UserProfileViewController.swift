@@ -8,7 +8,7 @@
 
 import UIKit
 
-final class UserProfileViewController: UIViewController {
+final class UserProfileViewController: ViewController {
         
     @IBOutlet private var feedCollectionView: GridCollectionView! {
         didSet {
@@ -19,24 +19,7 @@ final class UserProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         feedCollectionView?.setupDataSourceWith(PostViewModel.userFeedPosts)
-        updateTo(traitCollection)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        updateTo(traitCollection)
-
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-         super.traitCollectionDidChange(previousTraitCollection)
-         guard traitCollection.isDifferentToPrevious(previousTraitCollection) else { return }
-         updateTo(traitCollection)
-     }
-     
-    private func updateTo(_ traitCollection: UITraitCollection) {
-        feedCollectionView?.setupLayoutKind(.profile(traitCollection, collapsed: splitViewController?.isCollapsed ?? false))
-        view.backgroundColor = Instagram.mainContainerBackgroundColor(traitCollection)
+        feedCollectionView?.setupLayoutKind(.profile)
     }
 }
 

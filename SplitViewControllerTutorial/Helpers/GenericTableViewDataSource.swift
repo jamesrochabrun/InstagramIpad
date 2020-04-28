@@ -8,6 +8,10 @@
 
 import UIKit
 
+/*
+ Generic tableView Data Sources.
+*/
+
 final class GenericTableViewDataSource<V, T>: NSObject, UITableViewDataSource where V: GenericTableViewCell<T> {
     
     private var models: [[T]]
@@ -20,7 +24,7 @@ final class GenericTableViewDataSource<V, T>: NSObject, UITableViewDataSource wh
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return models[section].count
+        models[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -30,27 +34,27 @@ final class GenericTableViewDataSource<V, T>: NSObject, UITableViewDataSource wh
     }
     
     func getModelAt(_ indexPath: IndexPath) -> T {
-        return models[indexPath.section][indexPath.row]
+        models[indexPath.section][indexPath.row]
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return models.count
+        models.count
     }
     
     var numberOfItems: Int {
-        return models.count
+        models.count
     }
 }
 
+// Marker protocol to allow array homogeinity in a collection.
 protocol ContentCollection {}
-
 
 final class CellKindTableViewDataSource<T>: NSObject, UITableViewDataSource where T: ContentCollection {
     
     private var models: [[T]]
     private let configureCell: CellConfiguration
     typealias CellConfiguration = (UITableView, IndexPath, T) -> UITableViewCell
-
+    
     
     init(models: [[T]], configureCell: @escaping CellConfiguration) {
         self.models = models
@@ -58,7 +62,7 @@ final class CellKindTableViewDataSource<T>: NSObject, UITableViewDataSource wher
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return models[section].count
+        models[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -67,15 +71,15 @@ final class CellKindTableViewDataSource<T>: NSObject, UITableViewDataSource wher
     }
     
     func getModelAt(_ indexPath: IndexPath) -> T {
-        return models[indexPath.section][indexPath.row]
+        models[indexPath.section][indexPath.row]
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return models.count
+        models.count
     }
     
     var numberOfItems: Int {
-        return models.count
+        models.count
     }
 }
 

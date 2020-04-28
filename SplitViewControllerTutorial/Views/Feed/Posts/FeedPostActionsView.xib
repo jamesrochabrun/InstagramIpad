@@ -23,21 +23,21 @@
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="JUV-Ax-JaI">
                     <rect key="frame" x="20" y="0.0" width="148" height="55"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pO2-Cm-7Lj">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pO2-Cm-7Lj" customClass="Button" customModule="SplitViewControllerTutorial" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="7.5" width="40" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="40" id="AHr-UW-hUv"/>
                                 <constraint firstAttribute="height" constant="40" id="JSE-Mu-iut"/>
                             </constraints>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A2P-39-UIs">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A2P-39-UIs" customClass="Button" customModule="SplitViewControllerTutorial" customModuleProvider="target">
                             <rect key="frame" x="54" y="7.5" width="40" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="dge-zW-fyb"/>
                                 <constraint firstAttribute="width" constant="40" id="wCp-PK-gdY"/>
                             </constraints>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bYP-iQ-xWu">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bYP-iQ-xWu" customClass="Button" customModule="SplitViewControllerTutorial" customModuleProvider="target">
                             <rect key="frame" x="108" y="7.5" width="40" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="40" id="VXt-cM-WT9"/>
@@ -46,7 +46,7 @@
                         </button>
                     </subviews>
                 </stackView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZeU-xt-M8I">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZeU-xt-M8I" customClass="Button" customModule="SplitViewControllerTutorial" customModuleProvider="target">
                     <rect key="frame" x="354" y="7.5" width="40" height="40"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="P7e-7X-tjw"/>

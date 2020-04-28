@@ -16,18 +16,14 @@ struct HeaderPostViewModel {
 final class HeaderPostContentView: BaseXibView {
     
     @IBOutlet private var profileImageView: ImageView!
-    @IBOutlet private var usernameLabel: UILabel!
-    @IBOutlet private var locationLabel: UILabel!
+    @IBOutlet private var usernameLabel: PrimaryLabel!
+    @IBOutlet private var locationLabel: PrimaryLabel!
     @IBOutlet private var actionButton: UIButton! {
         didSet {
             actionButton.setImage(UIImage(systemName: "ellipsis"), for: .normal)
         }
     }
-    
-    override func setUpViews() {
-        actionButton?.tintColor = Instagram.tintColor(traitCollection)
-    }
-    
+
     func setupWith(_ viewModel: HeaderPostViewModel) {
         usernameLabel?.text = viewModel.user.userName
         locationLabel?.text = viewModel.location
@@ -41,12 +37,6 @@ final class HeaderPostContentView: BaseXibView {
         super.layoutSubviews()
         profileImageView?.circle()
         profileImageView?.setupGradient(cornerRadius: profileImageView?.layer.cornerRadius ?? 0, lineWidth: 1.5)
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        guard traitCollection.isDifferentToPrevious(previousTraitCollection) else { return }
-        actionButton?.tintColor = Instagram.tintColor(traitCollection)
     }
 }
 

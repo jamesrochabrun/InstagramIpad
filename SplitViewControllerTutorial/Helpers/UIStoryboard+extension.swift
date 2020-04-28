@@ -19,27 +19,12 @@ extension UIViewController {
 }
 
 extension UIStoryboard {
-    /**
-     Infers type information from return type or by casting explicitly.
-     ```
-     let cardDashboardViewController: CardDashBoardDetailViewController = storyboard.instantiateViewControllerSubclass()
-     // or
-     let cardDashboardViewController = storyboard.instantiateViewControllerSubclass() as CardDashBoardDetailViewController
-     ```
-     */
+
     func instantiateViewControllerSubclass<T: UIViewController>() -> T {
         // Force casting as it would be programmer error to use this function and create a view controller from a storyboard whos initial view controller is not of this type.
         return instantiateViewController(withIdentifier: String(describing: T.self)) as! T
     }
-    
-    /**
-     Infers type information from return type or by casting explicitly.
-     ```
-     let cardDashboardViewController: CardDashBoardDetailViewController = storyboard.instantiateInitialViewControllerSubclass()
-     // or
-     let cardDashboardViewController = storyboard.instantiateInitialViewControllerSubclass() as CardDashBoardDetailViewController
-     ```
-     */
+
     func instantiateInitialViewControllerSubclass<T: UIViewController>() -> T {
         // Force casting as it would be programmer error to use this function and create a view controller from a storyboard whos initial view controller is not of this type.
         return instantiateInitialViewController() as! T
@@ -51,23 +36,12 @@ protocol Storyboardable: class {
 }
 
 extension Storyboardable where Self: UIViewController {
-    /**
-     Use the name of the view controller class to derive the storyboard as well as the type of the initial view controller.
-     ```
-     let smartViewContainer = SmartViewContainerViewController.storyboardInitialViewController()
-     ```
-     */
+
     static func storyboardInitialViewController() -> Self {
         // Force casting as it would be programmer error to use this function and create a view controller from a storyboard whos initial view controller is not of this type.
         return Self.storyboard.instantiateInitialViewControllerSubclass()
     }
-    
-    /**
-     Use the name of the view controller class to derive the storyboard while infering the actually view controller to instantiate by the return type.
-     ```
-     let cardDashboardViewController = CardDashBoardDetailViewController.instantiate(from: CardDashBoardViewController.storyboard)
-     ```
-     */
+
     static func instantiate(from storyboard: UIStoryboard) -> Self {
         // Force casting as it would be programmer error to use this function and create a view controller from a storyboard whos initial view controller is not of this type.
         return storyboard.instantiateViewControllerSubclass()
@@ -77,9 +51,6 @@ extension Storyboardable where Self: UIViewController {
      Use the ViewController Class that you want to be returned as caller.
      Use the name of the Storyboard as parameter.
      This function should be used when the Storyboard name does not match the class name of it's Initial ViewController, Ideally they should.
-     ```
-     let calendarInviteViewController = CalendarInviteViewController.instantiate(from: "ConversationDetail")
-     ```
      **/
     static func instantiate(from storyboardName: String) -> Self {
         return UIStoryboard(name: storyboardName, bundle: nil).instantiateViewControllerSubclass()

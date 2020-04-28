@@ -11,14 +11,6 @@ import UIKit
 struct Instagram {
     
     static let gradientColors: [UIColor] = [#colorLiteral(red: 0.9607843137, green: 0.5215686275, blue: 0.1607843137, alpha: 1),#colorLiteral(red: 0.8666666667, green: 0.1647058824, blue: 0.4823529412, alpha: 1)]//[#colorLiteral(red: 0.9607843137, green: 0.5215686275, blue: 0.1607843137, alpha: 1), #colorLiteral(red: 0.9960784314, green: 0.8549019608, blue: 0.4666666667, alpha: 1), #colorLiteral(red: 0.8666666667, green: 0.1647058824, blue: 0.4823529412, alpha: 1), #colorLiteral(red: 0.5058823529, green: 0.2039215686, blue: 0.6862745098, alpha: 1), #colorLiteral(red: 0.3176470588, green: 0.3568627451, blue: 0.831372549, alpha: 1)]
-    
-    static func mainContainerBackgroundColor(_ traitCollection: UITraitCollection) -> UIColor {
-        traitCollection.userInterfaceStyle == .light ? .white : .black
-    }
-    
-    static func tintColor(_ traitCollection: UITraitCollection) -> UIColor {
-        traitCollection.userInterfaceStyle == .light ? .black : .white
-    }
 }
 
 enum StrokeGradientDirection {

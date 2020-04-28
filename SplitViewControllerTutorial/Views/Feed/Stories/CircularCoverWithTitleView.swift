@@ -23,6 +23,8 @@ final class CircularCoverWithTitleView: GenericView<CircularCoverDisplayWithText
     @IBOutlet private var titleLabel: UILabel!
     @IBOutlet private var borderContainer: UIView!
     
+    private var borderKind: BorderKind = .none
+    
     override func setupWith(_ item: CircularCoverDisplayWithText) {
         titleLabel.text = item.title
         imageView.setImage(item.cover)
@@ -31,13 +33,22 @@ final class CircularCoverWithTitleView: GenericView<CircularCoverDisplayWithText
     
     func updateBorderKind(_ kind: BorderKind) {
         layoutIfNeeded()
+        borderKind = kind
         switch kind {
         case .gradient:
             borderContainer?.setupGradient(cornerRadius: frame.size.width / 2.0, frame: frame)
+            titleLabel?.textColor = Theme.secondaryText.color
         default:
+            titleLabel?.textColor = Theme.primaryText.color
             borderContainer?.circle(frame)
-            borderContainer.addBorder(.white, width: 2.0)
+            borderContainer.addBorder(Theme.circularBorder.color ?? .clear, width: 2.0)
         }
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        guard case borderKind = BorderKind.none else { return }
+        borderContainer.addBorder(Theme.circularBorder.color ?? .clear, width: 2.0)
     }
     
     func reuse() {
