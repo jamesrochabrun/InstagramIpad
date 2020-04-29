@@ -19,7 +19,8 @@ final class ProfileInfoView: BaseXibView {
             editProfileButton.layer.cornerRadius = 4.0
             editProfileButton.layer.masksToBounds = false
             editProfileButton?.layer.borderColor = Theme.buttonTint.color?.cgColor
-            editProfileButton?.setTitleColor( Theme.buttonTint.color, for: .normal)
+            editProfileButton?.setTitleColor(Theme.buttonTint.color, for: .normal)
+            editProfileButton?.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.light)
         }
     }
     

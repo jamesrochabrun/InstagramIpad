@@ -22,5 +22,6 @@ final class PrimaryLabel: UILabel {
     
     private func initialize() {
         textColor = Theme.primaryText.color
+        font = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.light)
     }
 }

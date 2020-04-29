@@ -14,6 +14,7 @@ final class NotificationListUserView: GenericView<NotificationListItemViewModel>
     @IBOutlet private var contentLabel: PrimaryLabel! {
         didSet {
             contentLabel.textColor = .label
+            contentLabel.font = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.light)
         }
     }
     @IBOutlet private var postImageView: UIImageView!

@@ -20,6 +20,7 @@ final class GridCollectionView: BaseXibView {
 
     @IBOutlet private var collectionView: UICollectionView! {
         didSet {
+            collectionView.showsVerticalScrollIndicator = false
             collectionView.register(PhotoPostCollectionViewCell.self)
             collectionView.register(VideoPostCollectionViewCell.self)
             collectionView.registerHeader(CollectionReusableView<HorizontalCollectionView>.self, kind: UICollectionView.elementKindSectionHeader)

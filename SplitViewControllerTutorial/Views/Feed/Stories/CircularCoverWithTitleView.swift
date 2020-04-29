@@ -20,7 +20,11 @@ enum BorderKind {
 final class CircularCoverWithTitleView: GenericView<CircularCoverDisplayWithText> {
     
     @IBOutlet private var imageView: ImageView!
-    @IBOutlet private var titleLabel: UILabel!
+    @IBOutlet private var titleLabel: UILabel! {
+        didSet {
+            titleLabel.font = UIFont.systemFont(ofSize: 15, weight: UIFont.Weight.light)
+        }
+    }
     @IBOutlet private var borderContainer: UIView!
     
     private var borderKind: BorderKind = .none

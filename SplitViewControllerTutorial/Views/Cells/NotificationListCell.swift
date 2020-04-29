@@ -15,6 +15,7 @@ final class NotificationListCell: GenericTableViewCell<NotificationListItemViewM
     }()
     
     override func setupSubviews() {
+        super.setupSubviews()
         contentView.addSubview(userView)
         userView.fillSuperview()
     }

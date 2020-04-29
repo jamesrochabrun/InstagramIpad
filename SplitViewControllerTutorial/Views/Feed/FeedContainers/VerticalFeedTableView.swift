@@ -18,6 +18,7 @@ final class VerticalFeedTableView: BaseXibView {
             feedTableView.estimatedRowHeight = 200
             feedTableView.delegate = self
             feedTableView.separatorStyle = .none
+            feedTableView.showsVerticalScrollIndicator = false
         }
     }
         
