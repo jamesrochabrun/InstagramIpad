@@ -15,18 +15,17 @@ final class ContentDetailViewcontroller: ViewController {
     var stubData: [VerticalFeed] {
         FullPostViewModel.stubFullPosts.map( { VerticalFeed.userPostsFeed($0) })
     }
-    
-    // MARK:- Public
-    var selectedIndexPath: IndexPath?
-    
+
     @IBOutlet weak var tableViewTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var tableViewLeadingConstraint: NSLayoutConstraint!
     override func viewDidLoad() {
         super.viewDidLoad()
         verticalFeedTableView.setupDataSourceWith(stubData)
-        updateTo(traitCollection)
-        guard let indexPath = selectedIndexPath else { return }
-              verticalFeedTableView?.scrollTo(indexPath)
+    }
+    
+    private func setupNavigationItems() {
+        navigationItem.leftItemsSupplementBackButton = true
+        navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
     }
     
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -40,7 +39,7 @@ final class ContentDetailViewcontroller: ViewController {
     }
     
     private func updateTo(_ traitCollection: UITraitCollection) {
-        navigationItem.leftBarButtonItem = traitCollection.isRegularWidthRegularHeight ? splitViewController?.displayModeButtonItem : nil
+
     }
 }
 

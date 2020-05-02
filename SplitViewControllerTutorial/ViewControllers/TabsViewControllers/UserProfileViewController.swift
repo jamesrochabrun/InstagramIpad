@@ -24,7 +24,9 @@ final class UserProfileViewController: ViewController {
     }
     
     lazy private var contentDetailViewController: ContentDetailViewcontroller = {
-        ContentDetailViewcontroller.instantiate(from: "Main")
+        let detailViewController = ContentDetailViewcontroller.instantiate(from: "Main")
+        delegate = detailViewController
+        return detailViewController
     }()
     
     // MARK:- Public
@@ -40,15 +42,16 @@ final class UserProfileViewController: ViewController {
 
 // MARK:- GridCollectionViewDelegate
 extension UserProfileViewController: GridCollectionViewDelegate {
-
+    
     func cellDidSelect(_ indexPath: IndexPath) {
-                
-        guard let userProfileDelegate = delegate else {
-            splitViewController?.showDetailEmbededinNavigationController(vc: contentDetailViewController, sender: self)
-            delegate = contentDetailViewController
-            contentDetailViewController.selectedIndexPath = indexPath
+        
+        guard let secondaryContentNavigationController = splitViewController?.secondaryViewController as? NavigationController, let secondaryContentViewController = secondaryContentNavigationController.topViewController as? ContentDetailViewcontroller else {
+            let detailNavigationController = NavigationController(rootViewController: contentDetailViewController)
+            splitViewController?.showDetailInNavigationControllerIfNeeded(detailNavigationController, sender: self)
+            delegate?.postSelectedAt(indexPath)
             return
         }
-        userProfileDelegate.postSelectedAt(indexPath)
+        splitViewController?.showDetailInNavigationControllerIfNeeded(secondaryContentViewController, sender: self)
+        delegate?.postSelectedAt(indexPath)
     }
 }
