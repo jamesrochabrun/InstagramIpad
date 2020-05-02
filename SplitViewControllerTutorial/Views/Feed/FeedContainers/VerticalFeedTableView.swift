@@ -44,10 +44,10 @@ final class VerticalFeedTableView: BaseXibView {
     }
     
     // MARK:- Public
-    func scrollTo(_ indexPath: IndexPath) {
+    func scrollTo(_ indexPath: IndexPath, animated: Bool = false) {
         let normalizedIndexPath = IndexPath(row: indexPath.item, section: 0)
         DispatchQueue.main.async {
-            self.feedTableView?.scrollToRow(at: normalizedIndexPath, at: .top, animated: false)
+            self.feedTableView?.scrollToRow(at: normalizedIndexPath, at: .top, animated: animated)
         }
     }
     

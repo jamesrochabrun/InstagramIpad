@@ -8,14 +8,29 @@
 
 import UIKit
 
+// MARK:- Protocol
+protocol UserProfileFeedSelectionDelegate: AnyObject {
+    func postSelectedAt(_ indexPath: IndexPath)
+}
+
+// MARK:- Class
 final class UserProfileViewController: ViewController {
-        
+
+    // MARK:- UI
     @IBOutlet private var feedCollectionView: GridCollectionView! {
         didSet {
             feedCollectionView.delegate = self
         }
     }
     
+    lazy private var contentDetailViewController: ContentDetailViewcontroller = {
+        ContentDetailViewcontroller.instantiate(from: "Main")
+    }()
+    
+    // MARK:- Public
+    weak var delegate: UserProfileFeedSelectionDelegate?
+    
+    // MARK:- Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         feedCollectionView?.setupDataSourceWith(PostViewModel.userFeedPosts)
@@ -23,12 +38,17 @@ final class UserProfileViewController: ViewController {
     }
 }
 
+// MARK:- GridCollectionViewDelegate
 extension UserProfileViewController: GridCollectionViewDelegate {
 
     func cellDidSelect(_ indexPath: IndexPath) {
-        
-        let contentViewController = ContentDetailViewcontroller.instantiate(from: "Main")
-        splitViewController?.showDetailEmbededinNavigationController(vc: contentViewController, sender: self)
-        contentViewController.selectedIndexPath = indexPath
+                
+        guard let userProfileDelegate = delegate else {
+            splitViewController?.showDetailEmbededinNavigationController(vc: contentDetailViewController, sender: self)
+            delegate = contentDetailViewController
+            contentDetailViewController.selectedIndexPath = indexPath
+            return
+        }
+        userProfileDelegate.postSelectedAt(indexPath)
     }
 }

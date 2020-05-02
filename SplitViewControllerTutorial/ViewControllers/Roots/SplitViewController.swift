@@ -39,7 +39,7 @@ final class SplitViewController: UISplitViewController {
             self.displayModeCustomButton.setImage(SplitViewControllerViewModel.displayModeButtonImageFor( self.preferredDisplayMode), for: .normal)
             
         }) { _ in
-            if let detailViewOnDisplayModeChange = self.detailViewController as? UINavigationController, let displayModeUpdatable = detailViewOnDisplayModeChange.topViewController as? DisplayModeUpdatable  {
+            if let detailViewOnDisplayModeChange = self.secondaryViewController as? UINavigationController, let displayModeUpdatable = detailViewOnDisplayModeChange.topViewController as? DisplayModeUpdatable  {
                 displayModeUpdatable.displayModeDidChangeTo(self.displayMode)
             }
         }
@@ -62,7 +62,7 @@ final class SplitViewController: UISplitViewController {
 extension SplitViewController: UISplitViewControllerDelegate {
     
     func splitViewController(_ svc: UISplitViewController, willChangeTo displayMode: UISplitViewController.DisplayMode) {
-        if let detailViewOnDisplayModeChange = svc.detailViewController as? UINavigationController, let displayModeUpdatable = detailViewOnDisplayModeChange.topViewController as? DisplayModeUpdatable  {
+        if let detailViewOnDisplayModeChange = svc.secondaryViewController as? UINavigationController, let displayModeUpdatable = detailViewOnDisplayModeChange.topViewController as? DisplayModeUpdatable  {
             displayModeUpdatable.displayModeWillChangeTo(displayMode)
         }
     }

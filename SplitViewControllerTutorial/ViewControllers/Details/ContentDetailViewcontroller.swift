@@ -63,3 +63,10 @@ extension ContentDetailViewcontroller: DisplayModeUpdatable {
         // Perform an action if needed
     }
 }
+
+extension ContentDetailViewcontroller: UserProfileFeedSelectionDelegate {
+    
+    func postSelectedAt(_ indexPath: IndexPath) {
+        verticalFeedTableView?.scrollTo(indexPath, animated: true)
+    }
+}

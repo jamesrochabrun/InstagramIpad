@@ -22,7 +22,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2zK-CE-WGY">
                     <rect key="frame" x="0.0" y="0.0" width="126" height="126"/>
                     <subviews>
-                        <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="4YU-kg-vj3" customClass="ImageView" customModule="SplitViewControllerTutorial" customModuleProvider="target">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4YU-kg-vj3" customClass="ImageView" customModule="SplitViewControllerTutorial" customModuleProvider="target">
                             <rect key="frame" x="3" y="3" width="120" height="120"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>

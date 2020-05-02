@@ -8,14 +8,19 @@
 
 import UIKit
 
-class TabBarController: UITabBarController {
-    
+// MARK:- TabBarController
+final class TabBarController: UITabBarController {
+    /// 1 - Set view Controllers using `TabBarViewModel`
+       /// 2 - This iteration will create a master veiw controller embedded in a navigation controller for each tab.
+       /// 3 - `inSplitViewControllerIfSupported` is a `UINavigationController` extension method that will embed it in a `UISplitViewController` if supported.
+       /// we will see the implementation later.
     override func viewDidLoad() {
         super.viewDidLoad()
         viewControllers = TabBarViewModel.allCases.map { NavigationController(rootViewController: $0.masterViewController).inSplitViewControllerIfSupported(for: $0) }
     }
 }
 
+// MARK:- ViewModel
 enum TabBarViewModel: String, CaseIterable {
     
     case home
@@ -24,6 +29,7 @@ enum TabBarViewModel: String, CaseIterable {
     case notifications
     case profile
     
+    /// Return:- the tab bar icon
     var icon: UIImage? {
         switch self {
         case .home: return UIImage(systemName: "house.fill")
@@ -33,11 +39,12 @@ enum TabBarViewModel: String, CaseIterable {
         case .profile: return UIImage(systemName: "person")
         }
     }
-    
+    /// Return:- the tab bar title
     var title: String {
         rawValue
     }
     
+    /// Return:-  the master/primary `topViewController`,  it instantiates a view controller using a convenient method for `UIStoryboards`.
     var masterViewController: UIViewController  {
         switch self {
         case .home: return HomeViewController.instantiate(from: "Main")
@@ -47,7 +54,7 @@ enum TabBarViewModel: String, CaseIterable {
         case .profile: return UserProfileViewController.instantiate(from: "Main")
         }
     }
-    
+    /// Return:-  It defines if a tab should use a `UISplitViewController` as root or not.
     var inSplitViewController: Bool {
         switch self {
         case .profile:
@@ -59,7 +66,10 @@ enum TabBarViewModel: String, CaseIterable {
 }
 
 extension UINavigationController {
-    
+    /**
+     - parameters:
+       - viewModel: The `TabBarViewModel` element.
+    */
     func inSplitViewControllerIfSupported(for viewModel: TabBarViewModel) -> UIViewController {
         guard viewModel.inSplitViewController else {
             self.tabBarItem.image = viewModel.icon

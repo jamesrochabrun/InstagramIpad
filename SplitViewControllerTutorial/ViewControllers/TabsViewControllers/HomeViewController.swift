@@ -33,7 +33,18 @@ extension HomeViewController: GridCollectionViewDelegate {
     
     func cellDidSelect(_ indexPath: IndexPath) {
         let userProfileViewController = UserProfileViewController.instantiate(from: "Main")
-        navigationController?.pushViewController(userProfileViewController, animated: true)
+        
+        let spli = SplitViewController()
+        spli.preferredDisplayMode = .allVisible
+        spli.viewControllers = [userProfileViewController, EmptyDetailViewcontroller()]
+
+        let container = UIViewController()
+        container.addChild(spli)
+        container.view.addSubview(spli.view)
+        spli.view.fillSuperview(withinSafeArea: true, padding: .zero)
+        spli.didMove(toParent: self)
+        
+        navigationController?.pushViewController(container, animated: true)
     }
 }
 
