@@ -8,8 +8,10 @@
 
 import UIKit
 
+
 final class VerticalFeedTableView: BaseXibView {
     
+    // MARK:- UI
     @IBOutlet private var feedTableView: UITableView! {
         didSet {
             feedTableView.registerNib(FeedPostTableViewCell.self)
@@ -21,10 +23,13 @@ final class VerticalFeedTableView: BaseXibView {
             feedTableView.showsVerticalScrollIndicator = false
         }
     }
-        
+    
+    // MARK:- Private
     private var dataSource: CellKindTableViewDataSource<VerticalFeed>?
     
+    // MARK:- Public
     var displayMode: UISplitViewController.DisplayMode = .allVisible
+    var selectionHandler: (() -> Void)?
 
     func setupDataSourceWith(_ models: [VerticalFeed]) {
         
@@ -33,6 +38,7 @@ final class VerticalFeedTableView: BaseXibView {
             case .userPostsFeed(let viewModel):
                 let cell: FeedPostTableViewCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
                 cell.item = viewModel
+                cell.delegate = self
                 return cell
             case .userNotifications(let viewModel):
                 let cell: NotificationListCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
@@ -80,6 +86,13 @@ extension VerticalFeedTableView: UITableViewDelegate {
         guard let dataSource = dataSource,
         case VerticalFeed.userPostsFeed(_) = dataSource.getModelAt(IndexPath(item: 0, section: section)) else { return 0 }
         return displayMode != .allVisible ? 140.0 : 0
+    }
+}
+
+extension VerticalFeedTableView: FeedPostTableViewCellDelegate {
+    
+    func viewAllCommentsDidTapped() {
+        selectionHandler?()
     }
 }
 

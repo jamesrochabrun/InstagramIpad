@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="583" id="1tl-sV-vGE" customClass="FeedPostTableViewCell" customModule="SplitViewControllerTutorial" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="415" height="583"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="634" id="1tl-sV-vGE" customClass="FeedPostTableViewCell" customModule="SplitViewControllerTutorial" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="417" height="634"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1tl-sV-vGE" id="oQS-iF-jf0">
-                <rect key="frame" x="0.0" y="0.0" width="415" height="583"/>
+                <rect key="frame" x="0.0" y="0.0" width="417" height="634"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zIw-1l-3bE" customClass="HeaderPostContentView" customModule="SplitViewControllerTutorial" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="415" height="80"/>
+                        <rect key="frame" x="0.0" y="0.0" width="189" height="80"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="80" id="8na-94-Rls"/>
@@ -31,32 +31,46 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n68-ga-guV" customClass="FeedPostActionsView" customModule="SplitViewControllerTutorial" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="495" width="415" height="80"/>
+                        <rect key="frame" x="0.0" y="495" width="189" height="80"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="80" id="jH5-O2-ciM"/>
                         </constraints>
                     </view>
+                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="View all comments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TfF-AU-bIC" customClass="PrimaryLabel" customModule="SplitViewControllerTutorial" customModuleProvider="target">
+                        <rect key="frame" x="25" y="583" width="144" height="25"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="zv4-Xu-64R"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="n68-ga-guV" secondAttribute="bottom" priority="999" id="09M-Kg-AF9"/>
+                    <constraint firstAttribute="bottom" secondItem="TfF-AU-bIC" secondAttribute="bottom" priority="999" constant="20" id="0Bp-tO-mOn"/>
                     <constraint firstItem="aqP-Wy-nzl" firstAttribute="top" secondItem="zIw-1l-3bE" secondAttribute="bottom" id="DR1-9p-gpJ"/>
+                    <constraint firstItem="TfF-AU-bIC" firstAttribute="leading" secondItem="oQS-iF-jf0" secondAttribute="leading" constant="25" id="Ei7-4Q-LbR"/>
                     <constraint firstAttribute="trailing" secondItem="aqP-Wy-nzl" secondAttribute="trailing" id="Krg-zy-cDb"/>
                     <constraint firstItem="n68-ga-guV" firstAttribute="leading" secondItem="oQS-iF-jf0" secondAttribute="leading" id="Lj2-qy-azk"/>
                     <constraint firstItem="zIw-1l-3bE" firstAttribute="leading" secondItem="oQS-iF-jf0" secondAttribute="leading" id="O8V-HM-G5L"/>
                     <constraint firstItem="aqP-Wy-nzl" firstAttribute="leading" secondItem="oQS-iF-jf0" secondAttribute="leading" id="OFp-3b-FTF"/>
                     <constraint firstAttribute="trailing" secondItem="n68-ga-guV" secondAttribute="trailing" id="POY-KM-DSG"/>
+                    <constraint firstItem="TfF-AU-bIC" firstAttribute="top" secondItem="n68-ga-guV" secondAttribute="bottom" constant="8" id="VuG-t0-Cvd"/>
                     <constraint firstAttribute="trailing" secondItem="zIw-1l-3bE" secondAttribute="trailing" id="amV-yZ-uLH"/>
+                    <constraint firstAttribute="trailing" secondItem="TfF-AU-bIC" secondAttribute="trailing" constant="20" id="mqm-rG-IMl"/>
                     <constraint firstItem="n68-ga-guV" firstAttribute="top" secondItem="aqP-Wy-nzl" secondAttribute="bottom" id="qfj-aS-uZS"/>
                     <constraint firstItem="zIw-1l-3bE" firstAttribute="top" secondItem="oQS-iF-jf0" secondAttribute="top" id="uzo-IZ-h2m"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="actionsView" destination="n68-ga-guV" id="mw9-rg-auM"/>
+                <outlet property="commentsLabel" destination="TfF-AU-bIC" id="wYb-tA-wxd"/>
                 <outlet property="headerPostContentView" destination="zIw-1l-3bE" id="GlE-pW-iry"/>
                 <outlet property="postsCollectionView" destination="aqP-Wy-nzl" id="VjO-Cp-h4n"/>
             </connections>
-            <point key="canvasLocation" x="221.01449275362322" y="101.45089285714285"/>
+            <point key="canvasLocation" x="222.46376811594206" y="118.52678571428571"/>
         </tableViewCell>
     </objects>
 </document>

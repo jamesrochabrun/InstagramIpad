@@ -10,24 +10,29 @@ import UIKit
 
 final class ContentDetailViewcontroller: ViewController {
     
-    @IBOutlet private var verticalFeedTableView: VerticalFeedTableView!
-    
+    // MARK:- Stub content
     var stubData: [VerticalFeed] {
         FullPostViewModel.stubFullPosts.map( { VerticalFeed.userPostsFeed($0) })
     }
-
-    @IBOutlet weak var tableViewTrailingConstraint: NSLayoutConstraint!
-    @IBOutlet weak var tableViewLeadingConstraint: NSLayoutConstraint!
+    
+    // MARK:- UI
+    @IBOutlet private var verticalFeedTableView: VerticalFeedTableView!
+    @IBOutlet private var tableViewTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet private var tableViewLeadingConstraint: NSLayoutConstraint!
+    
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         verticalFeedTableView.setupDataSourceWith(stubData)
+        verticalFeedTableView.selectionHandler = { [weak self] in
+            guard let strongSelf = self else { return }
+            let dummyCommentsViewController = ViewController()
+            dummyCommentsViewController.title = "Comments"
+            strongSelf.navigationController?.pushViewController(dummyCommentsViewController, animated: true)
+        }
     }
     
-    private func setupNavigationItems() {
-        navigationItem.leftItemsSupplementBackButton = true
-        navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
-    }
-    
+    // MARK:- UITraitCollection
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
         verticalFeedTableView?.reload(animated: false)
     }
@@ -38,11 +43,18 @@ final class ContentDetailViewcontroller: ViewController {
         updateTo(traitCollection)
     }
     
+    // MARK:- Private setup
+    private func setupNavigationItems() {
+        navigationItem.leftItemsSupplementBackButton = true
+        navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+    }
+    
     private func updateTo(_ traitCollection: UITraitCollection) {
 
     }
 }
 
+// MARK:- DisplayModeUpdatable Protocol conformance
 extension ContentDetailViewcontroller: DisplayModeUpdatable {
     
     func displayModeWillChangeTo(_ displayMode: UISplitViewController.DisplayMode) {
@@ -63,6 +75,7 @@ extension ContentDetailViewcontroller: DisplayModeUpdatable {
     }
 }
 
+// MARK:- UserProfileFeedSelectionDelegate Protocol conformance
 extension ContentDetailViewcontroller: UserProfileFeedSelectionDelegate {
     
     func postSelectedAt(_ indexPath: IndexPath) {
