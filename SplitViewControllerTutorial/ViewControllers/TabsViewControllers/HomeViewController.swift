@@ -10,25 +10,30 @@ import UIKit
 
 final class HomeViewController: ViewController {
     
+    // MARK:- UI
     @IBOutlet private var feedCollectionView: GridCollectionView! {
         didSet {
             feedCollectionView.delegate = self
         }
     }
     
+    // MARK:- Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         feedCollectionView?.setupDataSourceWith(PostViewModel.homeFeedPosts.shuffled())
         feedCollectionView?.setupLayoutKind(.home)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "heart"), style: .plain, target: self, action: #selector(displayNotifications))
+        let notificationsBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "suit.heart"), style: .plain, target: self, action: #selector(displayNotifications))
+        navigationItem.rightBarButtonItem = notificationsBarButtonItem
     }
-    
+
+    // MARK:- Actions
     @objc func displayNotifications() {
         let notificationsViewController = NotificationsViewController.instantiate(from: "Main")
         navigationController?.present(notificationsViewController, animated: true)
     }
 }
 
+// MARK:- GridCollectionViewDelegate Conformance
 extension HomeViewController: GridCollectionViewDelegate {
     
     func cellDidSelect(_ indexPath: IndexPath) {

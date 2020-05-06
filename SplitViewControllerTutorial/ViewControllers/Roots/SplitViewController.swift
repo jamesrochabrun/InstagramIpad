@@ -17,7 +17,7 @@ final class SplitViewController: UISplitViewController {
     
     // MARK:- UI
     lazy var displayModeCustomButton: Button = {
-        let button = Button(type: .system, image: SplitViewControllerViewModel.displayModeButtonImageFor(self.displayMode), target: self, selector: #selector(changeDisplayMode))
+        let button = Button(type: .system, image: SplitViewControllerViewModel.displayModeButtonImageFor(self.displayMode), target: self, selector: #selector(togglePrefferDisplayModeExecutingCompletion))
         button.constrainWidth(constant: 44.0)
         button.constrainHeight(constant: 44.0)
         button.imageEdgeInsets = .init(top: 8.0, left: 8.0, bottom: 8.0, right: 8.0)
@@ -32,23 +32,24 @@ final class SplitViewController: UISplitViewController {
 //     Change `preferredDisplayMode` animated with a time duration of 0.25.
 //     - Parameters:
 //     - executing: Bool value that determines if DisplayModeUpdatable conformers should perform an update.
-//     */
-    func togglePrefferDisplayModeExecutingCompletion(_ executing: Bool = true) {
+    //     */
+    @objc func togglePrefferDisplayModeExecutingCompletion(_ executing: Bool = true) {
         UIView.animate(withDuration: 0.3, animations: {
             self.preferredDisplayMode = self.displayMode == .allVisible ? .primaryHidden : .allVisible
-            self.displayModeCustomButton.setImage(SplitViewControllerViewModel.displayModeButtonImageFor( self.preferredDisplayMode), for: .normal)
+            self.displayModeCustomButton.setImage(SplitViewControllerViewModel.displayModeButtonImageFor(self.preferredDisplayMode), for: .normal)
             
         }) { _ in
-            if let detailViewOnDisplayModeChange = self.secondaryViewController as? UINavigationController, let displayModeUpdatable = detailViewOnDisplayModeChange.topViewController as? DisplayModeUpdatable  {
-                displayModeUpdatable.displayModeDidChangeTo(self.displayMode)
-            }
+            guard let detailViewOnDisplayModeChange = self.secondaryViewController as? UINavigationController,
+                let displayModeUpdatable = detailViewOnDisplayModeChange.topViewController as? DisplayModeUpdatable
+                else { return }
+            displayModeUpdatable.displayModeDidChangeTo(self.displayMode)
         }
     }
     
     convenience init(viewControllers: [UIViewController]) {
         self.init()
         self.viewControllers = viewControllers
-        preferredDisplayMode = .allVisible            
+        preferredDisplayMode = .allVisible
         super.delegate = self
     }
     
@@ -62,9 +63,9 @@ final class SplitViewController: UISplitViewController {
 extension SplitViewController: UISplitViewControllerDelegate {
     
     func splitViewController(_ svc: UISplitViewController, willChangeTo displayMode: UISplitViewController.DisplayMode) {
-        if let detailViewOnDisplayModeChange = svc.secondaryViewController as? UINavigationController, let displayModeUpdatable = detailViewOnDisplayModeChange.topViewController as? DisplayModeUpdatable  {
-            displayModeUpdatable.displayModeWillChangeTo(displayMode)
-        }
+        guard let detailViewOnDisplayModeChange = svc.secondaryViewController as? UINavigationController, let displayModeUpdatable = detailViewOnDisplayModeChange.topViewController as? DisplayModeUpdatable else {
+            return }
+        displayModeUpdatable.displayModeWillChangeTo(displayMode)
     }
 }
 

@@ -23,11 +23,12 @@ final class ContentDetailViewcontroller: ViewController {
     // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigationItems()
         verticalFeedTableView.setupDataSourceWith(stubData)
         verticalFeedTableView.selectionHandler = { [weak self] in
             guard let strongSelf = self else { return }
-            let dummyCommentsViewController = ViewController()
-            dummyCommentsViewController.title = "Comments"
+            let dummyCommentsViewController = NavigationController(rootViewController: ViewController())
+           // dummyCommentsViewController.title = "Comments"
             strongSelf.navigationController?.pushViewController(dummyCommentsViewController, animated: true)
         }
     }
@@ -47,10 +48,18 @@ final class ContentDetailViewcontroller: ViewController {
     private func setupNavigationItems() {
         navigationItem.leftItemsSupplementBackButton = true
         navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+        let notificationsBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "suit.heart"), style: .plain, target: self, action: #selector(displayNotifications))
+             navigationItem.rightBarButtonItem = notificationsBarButtonItem
     }
     
     private func updateTo(_ traitCollection: UITraitCollection) {
 
+    }
+    
+    // MARK:- Actions
+    @objc func displayNotifications() {
+        let notificationsViewController = NotificationsViewController.instantiate(from: "Main")
+        navigationController?.present(notificationsViewController, animated: true)
     }
 }
 
