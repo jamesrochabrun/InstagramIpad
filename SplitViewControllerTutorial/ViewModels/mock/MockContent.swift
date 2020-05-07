@@ -1,13 +1,47 @@
 //
-//  UserViewModel.swift
+//  MockContent.swift
 //  SplitViewControllerTutorial
 //
-//  Created by james rochabrun on 3/29/20.
+//  Created by James Rochabrun on 5/7/20.
 //  Copyright © 2020 james rochabrun. All rights reserved.
 //
 
 import UIKit
 
+/**
+- Remark:- generates different kind of contents for home, search etc.
+*/
+struct PostsStubData {
+    
+    static var userProfilePhotos: [UIImage] {
+        var photos: [UIImage?] = []
+        for i in 0...36 {
+            photos.append(UIImage(named: "post\(i)")) // personal user photos
+        }
+        return photos.compactMap { $0 }
+    }
+    
+    static var homeFeedPhotos: [UIImage] {
+        var photos: [UIImage?] = []
+        for i in 0...36 {
+            photos.append(UIImage(named: "home\(i)")) // posts of followed users
+        }
+        return photos.compactMap { $0 }
+    }
+    
+    static var searchFeedPlaceholderPhotos: [UIImage] {
+        var photos: [UIImage?] = []
+        for i in 0...36 {
+            photos.append(UIImage(named: "search\(i)")) // random posts
+        }
+        return photos.compactMap { $0 }
+    }
+}
+
+
+/**
+- Remark:- Content for notifications.
+*/
 struct UsersMockData {
     
     static let userNames = ["Alex", "Alana", "Bryan", "Kevin", "Marilyn", "Sasha", "Isabela", "James", "Melissa", "Vince", "Antonio", "zizou", "Monkey", "Mandalorian", "Leia", "LukeSkyWalker", "DarthVader2000", "Messi", "Zidane"]
@@ -31,31 +65,4 @@ struct UsersMockData {
                            "liked your comment: Liked your photo",
                            "commented: I will be there on summer! ☀️",
                            "liked your comment: Liked your photo"]
-}
-
-
-
-
-struct NotificationListItemViewModel {
-    
-    let user: UserViewModel
-    let comment: String
-    let postImage: UIImage?
-    
-    static var users: [NotificationListItemViewModel] {
-  
-        var viewModels: [NotificationListItemViewModel] = []
-        for enumerated in zip(UsersMockData.userNames, UsersMockData.comments).enumerated() {
-            let photo = PostsStubData.userProfilePhotos[enumerated.offset]
-            let userName = enumerated.element.0
-            let comment = enumerated.element.1
-            let user = UserViewModel(id: "", userName: userName, profilePicture: UIImage(named: "prof\(enumerated.offset)"))
-            viewModels.append(NotificationListItemViewModel(user: user, comment: comment, postImage: photo))
-        }
-        return viewModels
-    }
-}
-
-extension NotificationListItemViewModel: Equatable {
-    
 }

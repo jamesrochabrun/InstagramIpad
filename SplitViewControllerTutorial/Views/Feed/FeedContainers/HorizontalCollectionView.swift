@@ -12,6 +12,7 @@ protocol HorizontalCollectionViewDelegate: AnyObject {
     func didSelectAt(_ indexPath: IndexPath)
 }
 
+// MARK:- UI
 final class HorizontalCollectionView: BaseXibView {
     
     weak var delegate: HorizontalCollectionViewDelegate?
@@ -75,7 +76,7 @@ final class HorizontalCollectionView: BaseXibView {
     }
 }
 
-/// Diff stuff
+// MARK:- Data Source
 enum HorizontalSection {
     case main
 }
@@ -99,7 +100,7 @@ enum HorizontalContent: Hashable {
 }
 
 
-/// layout stuff 
+// MARK:- Layout
 enum HorizontalLayoutKind {
     
     case horizontalHilightsLayout

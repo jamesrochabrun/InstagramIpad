@@ -37,6 +37,8 @@ final class HomeViewController: ViewController {
 extension HomeViewController: GridCollectionViewDelegate {
     
     func cellDidSelect(_ indexPath: IndexPath) {
+        
+        /// Pushing a split view controller.
         let userProfileViewController = UserProfileViewController.instantiate(from: "Main")
         
         let spli = SplitViewController()

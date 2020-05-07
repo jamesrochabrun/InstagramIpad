@@ -8,23 +8,18 @@
 
 import UIKit
 
-struct UserViewModel {
-    
-    let id: String
-    let userName: String
-    let profilePicture: UIImage?
-}
-
-extension UserViewModel: Equatable {
-    
-    
-}
-
+// MARK:- Protocol
+/**
+- Remark:- protocol that allows UI reusability.
+*/
 protocol HeaderSubHeaderInfo {
     var header: String { get }
     var subHeader: String { get }
 }
 
+/**
+ - Remark:- viewModel displayed in the user profiles page.
+ */
 struct UserProfileViewModel {
     
     var userAvatar: UIImage?
@@ -40,6 +35,9 @@ struct UserProfileViewModel {
     }
 }
 
+/**
+- Remark:- viewModel  user name and personal description
+*/
 struct UserProfileDescription {
     let userName: String
     let userPersonalDescription: String

@@ -13,8 +13,4 @@ final class VideoPostCollectionViewCell: GenericCollectionViewCell<VideoPostView
     override func setupSubviews() {
         backgroundColor = .darkGray
     }
-    //
-    //    override func setupWith(_ item: PhotoPostViewModel) {
-    //        zoomImageView.setupWith(item.image)
-    //    }
 }

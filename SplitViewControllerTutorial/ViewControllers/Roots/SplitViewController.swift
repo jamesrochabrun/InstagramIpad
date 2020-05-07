@@ -67,6 +67,27 @@ extension SplitViewController: UISplitViewControllerDelegate {
             return }
         displayModeUpdatable.displayModeWillChangeTo(displayMode)
     }
+    
+    /**
+     - Remark: Called when App expands from `CompactWidth` to `RegularWidth` in a mulittasking enviromment.
+     */
+    func splitViewController(_ splitViewController: UISplitViewController, separateSecondaryFrom primaryViewController: UIViewController) -> UIViewController? {
+        if let masterAsNavigation = primaryViewController as? UINavigationController,
+            let masterFirstChild = masterAsNavigation.viewControllers.first {
+            masterAsNavigation.setViewControllers([masterFirstChild], animated: false)
+        }
+        guard let masterAsNavigation = primaryViewController as? UINavigationController,
+            let lastShownDetailNavigationController = masterAsNavigation.viewControllers.last as? UINavigationController,
+            let lastShownDetailContentViewController = lastShownDetailNavigationController.viewControllers.first else { return nil }
+        return type(of: lastShownDetailNavigationController).init(rootViewController: lastShownDetailContentViewController)
+    }
+    
+    /**
+     - Remark: Called when App collapses from `RegularWidth` to `CompactWidth` in a mulittasking enviromment.
+     */
+    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
+        return secondaryViewController is EmptyDetailViewcontroller
+    }
 }
 
 struct SplitViewControllerViewModel {

@@ -12,13 +12,13 @@ final class NavigationController: UINavigationController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       // super.delegate = self
+        super.delegate = self
     }
 }
 
-//extension NavigationController: UINavigationControllerDelegate {
-//
-//    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
-//
-//    }
-//}
+extension NavigationController: UINavigationControllerDelegate {
+
+    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+
+    }
+}

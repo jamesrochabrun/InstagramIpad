@@ -27,8 +27,8 @@ final class ContentDetailViewcontroller: ViewController {
         verticalFeedTableView.setupDataSourceWith(stubData)
         verticalFeedTableView.selectionHandler = { [weak self] in
             guard let strongSelf = self else { return }
-            let dummyCommentsViewController = NavigationController(rootViewController: ViewController())
-           // dummyCommentsViewController.title = "Comments"
+            let dummyCommentsViewController = ViewController()
+            dummyCommentsViewController.title = "Comments"
             strongSelf.navigationController?.pushViewController(dummyCommentsViewController, animated: true)
         }
     }

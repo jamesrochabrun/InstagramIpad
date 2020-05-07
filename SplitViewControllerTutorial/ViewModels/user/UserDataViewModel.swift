@@ -8,6 +8,9 @@
 
 import Foundation
 
+/**
+- Remark:- viewModel displayes a single category  followers, following, posts or  counts.
+*/
 struct UserDataViewModel {
     
     let numberInfo: String
@@ -15,11 +18,13 @@ struct UserDataViewModel {
 }
 
 extension UserDataViewModel: HeaderSubHeaderInfo {
-    
     var header: String { numberInfo }
     var subHeader: String { sectionInfoTitle }
 }
 
+/**
+- Remark:- viewModel displayes followers, following and posts in a stackview.
+*/
 struct UserDataStackViewModel {
     
     let photoDataInfo: UserDataViewModel

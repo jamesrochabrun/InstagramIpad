@@ -12,6 +12,7 @@ protocol GridCollectionViewDelegate: AnyObject {
     func cellDidSelect(_ indexPath: IndexPath)
 }
 
+// MARK:- UI
 final class GridCollectionView: BaseXibView {
     
     static let cellSpacing: CGFloat = 4
@@ -107,12 +108,13 @@ extension GridCollectionView: PhotoPostCollectionViewCellDelegate {
     }
 }
 
-/// diff stuff
+// MARK:- Data Source 
 enum GridSection {
     case headerInfo
     case main
 }
-/// Layout
+
+// MARK:- Layout
 enum GridLayoutKind {
     
     case home

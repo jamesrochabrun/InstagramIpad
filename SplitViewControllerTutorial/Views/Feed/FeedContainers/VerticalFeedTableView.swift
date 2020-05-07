@@ -8,10 +8,9 @@
 
 import UIKit
 
-
+// MARK:- UI
 final class VerticalFeedTableView: BaseXibView {
     
-    // MARK:- UI
     @IBOutlet private var feedTableView: UITableView! {
         didSet {
             feedTableView.registerNib(FeedPostTableViewCell.self)
@@ -69,6 +68,7 @@ final class VerticalFeedTableView: BaseXibView {
     }
 }
 
+// MARK:- Layout
 extension VerticalFeedTableView: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -96,6 +96,7 @@ extension VerticalFeedTableView: FeedPostTableViewCellDelegate {
     }
 }
 
+// MARK:- DataSource
 enum VerticalFeed: ContentCollection {
     
     case userPostsFeed(FullPostViewModel)
