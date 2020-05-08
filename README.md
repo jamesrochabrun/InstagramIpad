@@ -2,6 +2,16 @@
 
 Implementing apps in iPad 
 
+tutorial here:
+
+Part one:
+
+https://medium.com/@jamesrochabrun/building-ipad-apps-prototyping-instagram-for-ipad-part-one-9ce4d03ec18a
+
+Part two:
+
+...coming soon.
+
 This app contains:
 
 - MVVM pattern to display posts, users (mock content).
