@@ -15,48 +15,20 @@ protocol DisplayModeUpdatable {
 
 final class SplitViewController: UISplitViewController {
     
-    // MARK:- UI
-    lazy var displayModeCustomButton: Button = {
-        let button = Button(type: .system, image: SplitViewControllerViewModel.displayModeButtonImageFor(self.displayMode), target: self, selector: #selector(togglePrefferDisplayModeExecutingCompletion))
-        button.constrainWidth(constant: 44.0)
-        button.constrainHeight(constant: 44.0)
-        button.imageEdgeInsets = .init(top: 8.0, left: 8.0, bottom: 8.0, right: 8.0)
-        return button
-    }()
-    
-    @objc private func changeDisplayMode() {
-        togglePrefferDisplayModeExecutingCompletion()
-    }
-//
-//    /**
-//     Change `preferredDisplayMode` animated with a time duration of 0.25.
-//     - Parameters:
-//     - executing: Bool value that determines if DisplayModeUpdatable conformers should perform an update.
-    //     */
-    @objc func togglePrefferDisplayModeExecutingCompletion(_ executing: Bool = true) {
-        UIView.animate(withDuration: 0.3, animations: {
-            self.preferredDisplayMode = self.displayMode == .allVisible ? .primaryHidden : .allVisible
-            self.displayModeCustomButton.setImage(SplitViewControllerViewModel.displayModeButtonImageFor(self.preferredDisplayMode), for: .normal)
-            
-        }) { _ in
-            guard let detailViewOnDisplayModeChange = self.secondaryViewController as? UINavigationController,
-                let displayModeUpdatable = detailViewOnDisplayModeChange.topViewController as? DisplayModeUpdatable
-                else { return }
-            displayModeUpdatable.displayModeDidChangeTo(self.displayMode)
-        }
-    }
-    
-    convenience init(viewControllers: [UIViewController]) {
-        self.init()
-        self.viewControllers = viewControllers
-        preferredDisplayMode = .allVisible
+    override init(style: UISplitViewController.Style) {
+        super.init(style: style)
+        preferredDisplayMode = .oneOverSecondary
+        preferredSplitBehavior = .tile
         super.delegate = self
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK:- Lifecycle
      override func viewDidLoad() {
          super.viewDidLoad()
-         displayModeButtonItem.customView = displayModeCustomButton
      }
 }
 
@@ -71,28 +43,14 @@ extension SplitViewController: UISplitViewControllerDelegate {
     /**
      - Remark: Called when App expands from `CompactWidth` to `RegularWidth` in a mulittasking enviromment.
      */
-    func splitViewController(_ splitViewController: UISplitViewController, separateSecondaryFrom primaryViewController: UIViewController) -> UIViewController? {
-        if let masterAsNavigation = primaryViewController as? UINavigationController,
-            let masterFirstChild = masterAsNavigation.viewControllers.first {
-            masterAsNavigation.setViewControllers([masterFirstChild], animated: false)
-        }
-        guard let masterAsNavigation = primaryViewController as? UINavigationController,
-            let lastShownDetailNavigationController = masterAsNavigation.viewControllers.last as? UINavigationController,
-            let lastShownDetailContentViewController = lastShownDetailNavigationController.viewControllers.first else { return nil }
-        return type(of: lastShownDetailNavigationController).init(rootViewController: lastShownDetailContentViewController)
-    }
+//    func splitViewController(_ splitViewController: UISplitViewController, separateSecondaryFrom primaryViewController: UIViewController) -> UIViewController? {
+//
+//    }
     
     /**
      - Remark: Called when App collapses from `RegularWidth` to `CompactWidth` in a mulittasking enviromment.
      */
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
         return secondaryViewController is EmptyDetailViewcontroller
-    }
-}
-
-struct SplitViewControllerViewModel {
-    
-    static func displayModeButtonImageFor(_ displayMode: UISplitViewController.DisplayMode) -> UIImage? {
-        displayMode == .allVisible ? UIImage(systemName: "arrow.up.left.and.arrow.down.right") : UIImage(systemName: "arrow.down.right.and.arrow.up.left")
     }
 }

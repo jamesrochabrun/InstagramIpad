@@ -80,6 +80,7 @@
 		7B2337552458E64A00E2C57F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2337542458E64A00E2C57F /* ViewController.swift */; };
 		7B2337582458E6BE00E2C57F /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2337572458E6BE00E2C57F /* Theme.swift */; };
 		7B23375A2458ED3700E2C57F /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2337592458ED3700E2C57F /* Button.swift */; };
+		7B39A7D524A4683200872838 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B39A7D424A4683200872838 /* SceneDelegate.swift */; };
 		7BD6E4EF2464808600852A3D /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD6E4EE2464808600852A3D /* UserViewModel.swift */; };
 		7BD6E4F1246481CF00852A3D /* FileContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD6E4F0246481CF00852A3D /* FileContent.swift */; };
 		7BD6E4F3246481F700852A3D /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD6E4F2246481F700852A3D /* PostViewModel.swift */; };
@@ -87,6 +88,7 @@
 		7BD6E4F7246482EA00852A3D /* MockContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD6E4F6246482EA00852A3D /* MockContent.swift */; };
 		7BD6E4F92464836700852A3D /* StoryVideoCoverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD6E4F82464836700852A3D /* StoryVideoCoverViewModel.swift */; };
 		7BD6E4FB2464847F00852A3D /* UserStoryCoverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD6E4FA2464847F00852A3D /* UserStoryCoverViewModel.swift */; };
+		7BEAF35424A53CE6005EACB7 /* SideBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BEAF35324A53CE6005EACB7 /* SideBarViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -186,6 +188,7 @@
 		7B2337542458E64A00E2C57F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		7B2337572458E6BE00E2C57F /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		7B2337592458ED3700E2C57F /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
+		7B39A7D424A4683200872838 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		7BD6E4EE2464808600852A3D /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		7BD6E4F0246481CF00852A3D /* FileContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileContent.swift; sourceTree = "<group>"; };
 		7BD6E4F2246481F700852A3D /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
@@ -193,6 +196,7 @@
 		7BD6E4F6246482EA00852A3D /* MockContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockContent.swift; sourceTree = "<group>"; };
 		7BD6E4F82464836700852A3D /* StoryVideoCoverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryVideoCoverViewModel.swift; sourceTree = "<group>"; };
 		7BD6E4FA2464847F00852A3D /* UserStoryCoverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStoryCoverViewModel.swift; sourceTree = "<group>"; };
+		7BEAF35324A53CE6005EACB7 /* SideBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SideBarViewController.swift; path = SplitViewControllerTutorial/SideBarViewController.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -283,6 +287,7 @@
 				1F590EEE24317A390019AD4E /* ViewModels */,
 				1F590EAC243109020019AD4E /* Helpers */,
 				1F590E77243104850019AD4E /* AppDelegate.swift */,
+				7B39A7D424A4683200872838 /* SceneDelegate.swift */,
 				1F590E7D243104850019AD4E /* Main.storyboard */,
 				1F590E80243104850019AD4E /* Assets.xcassets */,
 				1F590E82243104850019AD4E /* LaunchScreen.storyboard */,
@@ -313,6 +318,7 @@
 		1F590EA72431086F0019AD4E /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				7BEAF35224A53CD7005EACB7 /* SideBar */,
 				7B2337532458E63F00E2C57F /* Base */,
 				1F590ECB2431234D0019AD4E /* Details */,
 				1F590ECA243123370019AD4E /* Roots */,
@@ -528,6 +534,14 @@
 			path = storiesAndHilights;
 			sourceTree = "<group>";
 		};
+		7BEAF35224A53CD7005EACB7 /* SideBar */ = {
+			isa = PBXGroup;
+			children = (
+				7BEAF35324A53CE6005EACB7 /* SideBarViewController.swift */,
+			);
+			path = SideBar;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -706,9 +720,11 @@
 				7BD6E4FB2464847F00852A3D /* UserStoryCoverViewModel.swift in Sources */,
 				1F4FD4FD2431A06C008F2257 /* GenericCollectionViewDataSource.swift in Sources */,
 				1F590ED824312B650019AD4E /* NotificationListUserView.swift in Sources */,
+				7B39A7D524A4683200872838 /* SceneDelegate.swift in Sources */,
 				7B2337582458E6BE00E2C57F /* Theme.swift in Sources */,
 				1F590EBD24311B7F0019AD4E /* EmptyDetailViewcontroller.swift in Sources */,
 				1F590ECE243123670019AD4E /* NotificationListCell.swift in Sources */,
+				7BEAF35424A53CE6005EACB7 /* SideBarViewController.swift in Sources */,
 				1FE515A8243AB6840003F6DB /* UITraitCollection+Extension.swift in Sources */,
 				1F590EDC243134360019AD4E /* ImageView.swift in Sources */,
 				7B23374D2457DF5400E2C57F /* CollectionReusableView.swift in Sources */,
@@ -838,7 +854,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -892,7 +908,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -909,7 +925,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = CQ45U4X9K3;
 				INFOPLIST_FILE = SplitViewControllerTutorial/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -928,7 +944,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = CQ45U4X9K3;
 				INFOPLIST_FILE = SplitViewControllerTutorial/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -947,7 +963,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = SplitViewControllerTutorialTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -968,7 +984,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = SplitViewControllerTutorialTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

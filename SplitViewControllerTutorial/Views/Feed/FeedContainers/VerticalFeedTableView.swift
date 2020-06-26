@@ -27,7 +27,7 @@ final class VerticalFeedTableView: BaseXibView {
     private var dataSource: CellKindTableViewDataSource<VerticalFeed>?
     
     // MARK:- Public
-    var displayMode: UISplitViewController.DisplayMode = .allVisible
+    var displayMode: UISplitViewController.DisplayMode = .oneBesideSecondary
     var selectionHandler: (() -> Void)?
 
     func setupDataSourceWith(_ models: [VerticalFeed]) {
@@ -85,7 +85,7 @@ extension VerticalFeedTableView: UITableViewDelegate {
         
         guard let dataSource = dataSource,
         case VerticalFeed.userPostsFeed(_) = dataSource.getModelAt(IndexPath(item: 0, section: section)) else { return 0 }
-        return displayMode != .allVisible ? 140.0 : 0
+        return displayMode != .oneBesideSecondary ? 140.0 : 0
     }
 }
 

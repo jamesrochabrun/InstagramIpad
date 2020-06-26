@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17132" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17105"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -42,7 +42,7 @@
                             <rect key="frame" x="20" y="220" width="670" height="126"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iks-MB-sFg" userLabel="editProfileButton">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iks-MB-sFg" userLabel="editProfileButton">
                             <rect key="frame" x="20" y="361" width="670" height="30"/>
                             <state key="normal" title="Edit Profile"/>
                             <connections>
@@ -60,15 +60,15 @@
                     </constraints>
                 </stackView>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="42y-ek-Iz0" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="1h8-yq-gk4"/>
                 <constraint firstItem="42y-ek-Iz0" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="gfz-gm-Lb2"/>
-                <constraint firstAttribute="bottom" secondItem="42y-ek-Iz0" secondAttribute="bottom" constant="20" id="hsj-Z9-1qg"/>
+                <constraint firstAttribute="bottom" secondItem="42y-ek-Iz0" secondAttribute="bottom" priority="750" constant="20" id="hsj-Z9-1qg"/>
                 <constraint firstAttribute="trailing" secondItem="42y-ek-Iz0" secondAttribute="trailing" constant="20" id="qEd-Y6-l3D"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <point key="canvasLocation" x="192.75362318840581" y="-106.80803571428571"/>
         </view>
     </objects>

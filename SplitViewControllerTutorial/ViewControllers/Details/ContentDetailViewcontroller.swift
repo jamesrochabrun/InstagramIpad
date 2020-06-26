@@ -70,7 +70,7 @@ extension ContentDetailViewcontroller: DisplayModeUpdatable {
         
         verticalFeedTableView?.displayMode = displayMode
         let constant: CGFloat = displayMode
-            != .allVisible ? 100 : 0
+            != .oneBesideSecondary ? 100 : 0
         tableViewTrailingConstraint?.constant = -constant
         tableViewLeadingConstraint?.constant = constant
         UIView.animate(withDuration: 0.3) {

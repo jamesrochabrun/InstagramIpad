@@ -16,7 +16,11 @@ final class TabBarController: UITabBarController {
        /// we will see the implementation later.
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewControllers = TabBarViewModel.allCases.map { NavigationController(rootViewController: $0.masterViewController).inSplitViewControllerIfSupported(for: $0) }
+        viewControllers = TabBarViewModel.allCases.map {
+            let rootNavigationController = NavigationController(rootViewController: $0.masterViewController)
+            rootNavigationController.tabBarItem.image = $0.icon
+            return rootNavigationController
+        }
     }
 }
 
@@ -65,17 +69,4 @@ enum TabBarViewModel: String, CaseIterable {
     }
 }
 
-extension UINavigationController {
-    /**
-     - parameters:
-       - viewModel: The `TabBarViewModel` element.
-    */
-    func inSplitViewControllerIfSupported(for viewModel: TabBarViewModel) -> UIViewController {
-        guard viewModel.inSplitViewController else {
-            self.tabBarItem.image = viewModel.icon
-            return self }
-        let splitViewController = SplitViewController(viewControllers: [self, EmptyDetailViewcontroller()])
-        splitViewController.tabBarItem.image = viewModel.icon
-        return splitViewController
-    }
-}
+

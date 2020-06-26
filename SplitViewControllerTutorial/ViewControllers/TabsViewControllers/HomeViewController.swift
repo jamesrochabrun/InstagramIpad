@@ -41,8 +41,8 @@ extension HomeViewController: GridCollectionViewDelegate {
         /// Pushing a split view controller.
         let userProfileViewController = UserProfileViewController.instantiate(from: "Main")
         
-        let spli = SplitViewController()
-        spli.preferredDisplayMode = .allVisible
+        let spli = SplitViewController(style: .doubleColumn)
+        spli.preferredDisplayMode = .oneBesideSecondary
         spli.viewControllers = [userProfileViewController, EmptyDetailViewcontroller()]
 
         let container = UIViewController()
